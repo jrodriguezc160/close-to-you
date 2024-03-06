@@ -3,8 +3,8 @@ import "../index.css"
 
 function ProfilePic () {
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <div className='profile-pic' style={{ margin: "32px 64px 32px 0px" }}>
+    <div style={{ display: "flex", alignItems: "center", marginTop: "32px" }}>
+      <div className='profile-pic' style={{ marginRight: "64px" }}>
         <div className='ic-container' style={{ height: "32px", width: "32px" }}>
           <FiFilePlus />
         </div>

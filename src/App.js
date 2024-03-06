@@ -10,13 +10,13 @@ function App () {
       <Banner />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ width: "50%", paddingLeft: "64px", gap: "0", display: "flex", flexDirection: "column" }}>
+        <div style={{ width: "50%", padding: "0 64px", gap: "32px", display: "flex", flexDirection: "column" }}>
           <ProfilePic />
           <Description />
           <PostsPlaceholder />
         </div>
 
-        <div style={{ width: "50%" }}>
+        <div style={{ width: "50%", padding: "0 64px" }}>
         </div>
       </div>
     </div>
