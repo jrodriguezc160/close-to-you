@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./index.css"
+import Banner from "./components/Banner"
+import ProfilePic from './components/ProfilePic';
+import Description from './components/Description';
+import PostsPlaceholder from './components/PostsPlaceholder';
 
-function App() {
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Banner />
+
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div style={{ width: "50%", paddingLeft: "64px", gap: "0", display: "flex", flexDirection: "column" }}>
+          <ProfilePic />
+          <Description />
+          <PostsPlaceholder />
+        </div>
+
+        <div style={{ width: "50%" }}>
+        </div>
+      </div>
     </div>
   );
 }
