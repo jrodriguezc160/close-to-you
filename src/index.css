@@ -78,8 +78,9 @@ body {
 .profile-pic {
   width: 8rem;
   height: 8rem;
+  border: 1px dashed lightgray;
   border-radius: 8rem;
-  background-color: rgba(230, 230, 230, 0.5);
+  /* background-color: rgba(230, 230, 230, 0.5); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,12 +107,13 @@ body {
 }
 
 .post {
+  border: 1px solid lightgray;
   border-radius: 8px;
-  background-color: rgba(230, 230, 230, 0.5);
+  background-color: rgba(211, 211, 211, 0.2);
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .post-text {
@@ -126,8 +128,7 @@ body {
 }
 
 .post-icons {
-  padding-left: 48px;
-  padding-right: 48px;
+  padding: 8px 48px 0 48px;
   display: flex;
   flex-direction: row;
   gap: 32px;
@@ -145,8 +146,9 @@ body {
 .post-profile-pic {
   width: 32px;
   height: 32px;
+  border: 1px dashed lightgray;
   border-radius: 32px;
-  background-color: rgba(230, 230, 230, 0.5);
+  /* background-color: rgba(230, 230, 230, 0.5); */
   display: flex;
   align-items: center;
   justify-content: center;

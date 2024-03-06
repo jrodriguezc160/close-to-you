@@ -16,7 +16,7 @@ function Post () {
       </div>
 
       <div className='post-text'>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis purus et est varius commodo nec eu arcu. Sed scelerisque dapibus diam. Sed blandit vulputate velit, non mattis velit faucibus quis. Nunc id egestas est. Nunc tempus eros mi, sed dignissim orci sodales a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis purus et est varius commodo nec eu arcu. Sed scelerisque dapibus diam. Sed blandit vulputate velit, non mattis velit faucibus quis. Nunc id egestas est. Nunc tempus eros mi, sed dignissim orci sodales a.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis purus et est varius commodo nec eu arcu. Sed scelerisque dapibus diam. Sed blandit vulputate velit, non mattis velit faucibus quis. Nunc id egestas est. Nunc tempus eros mi, sed dignissim orci sodales a.</p>
       </div>
 
       <div className='post-icons'>
