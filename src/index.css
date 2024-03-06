@@ -19,6 +19,7 @@ body {
   justify-content: center;
   color: gray;
   cursor: pointer;
+  gap: 8px;
 
   * {
     height: 100%;
@@ -96,9 +97,63 @@ body {
 
 .profile-desc {
   margin: 0;
+  hyphens: auto;
 
   * {
     margin: 0;
     padding: 0;
   }
+}
+
+.post {
+  border-radius: 8px;
+  background-color: rgba(230, 230, 230, 0.5);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-text {
+  display: flex;
+  flex-direction: column;
+  hyphens: auto;
+  padding-left: 48px;
+
+  * {
+    margin: 0;
+  }
+}
+
+.post-icons {
+  padding-left: 48px;
+  padding-right: 48px;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  height: 16px;
+}
+
+.post-profile {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.post-profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+  background-color: rgba(230, 230, 230, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.posts-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
