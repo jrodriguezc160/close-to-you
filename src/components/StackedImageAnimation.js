@@ -3,9 +3,7 @@ import { Box, Flex } from "@chakra-ui/react";
 
 const images = [
   "https://images.unsplash.com/photo-1576398289164-c48dc021b4e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80",
-  "https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
-  "https://images.unsplash.com/photo-1524593166156-312f362cada0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
-  "https://images.unsplash.com/photo-1506917728037-b6af01a7d403?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80"
+  "https://images.unsplash.com/photo-1576398289164-c48dc021b4e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80",
 ];
 
 const StackedImageAnimation = () => {
@@ -82,8 +80,8 @@ const StackedImageAnimation = () => {
               transform={`scale(${1 - 0.09 * factor})`}
               zIndex={map.get(i)}
               boxShadow="15px 0 10px -3px rgba(0,0,0,0.2)"
-              transition={"z-index 0.6s ease, transform 0.6s ease".concat(
-                isPreviousActiveIndex ? ", right 0.3s ease" : ""
+              transition={"z-index .5s ease, transform .5s ease".concat(
+                isPreviousActiveIndex ? ", right 0.5s ease" : ""
               )}
             />
           );

@@ -3,6 +3,7 @@ import Banner from "./components/Banner"
 import ProfilePic from './components/ProfilePic';
 import Description from './components/Description';
 import PostsPlaceholder from './components/PostsPlaceholder';
+import MoviesShowcase from './components/MoviesShowcase';
 import Bookshelf from './components/Bookshelf';
 
 function App () {
@@ -18,9 +19,10 @@ function App () {
         </div>
 
         <div style={{ width: "50%", padding: "0 64px", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", justifyContent: "center", gap: "128px", marginTop: "32px" }}>
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "32px", marginTop: "32px" }}>
             <Bookshelf />
-            <Bookshelf />
+
+            <MoviesShowcase />
           </div>
           <div></div>
         </div>
