@@ -19,7 +19,7 @@ function App () {
         </div>
 
         <div style={{ width: "50%", padding: "0 64px", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "32px", marginTop: "32px" }}>
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "32px", marginTop: "42px" }}>
             <Bookshelf />
 
             <MoviesShowcase />

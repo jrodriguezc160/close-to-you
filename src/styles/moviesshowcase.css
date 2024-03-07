@@ -42,6 +42,7 @@
 }
 
 .poster.slide-right {
+  transition: all 0.3s ease-in-out;
   -moz-transform: translateX(72px);
   -ms-transform: translateX(72px);
   -webkit-transform: translateX(72px);
@@ -50,13 +51,15 @@
 }
 
 .poster.slide-left {
-  -moz-transform: translateX(-72px);
-  -ms-transform: translateX(-72px);
-  -webkit-transform: translateX(-72px);
-  transform: translateX(-72px) scale(0.9);
+  transition: all 0.3s ease-in-out;
+  -moz-transform: translateX(-120px);
+  -ms-transform: translateX(-120px);
+  -webkit-transform: translateX(-120px);
+  transform: translateX(-120px) scale(0.9);
 }
 
 .poster.back {
+  transition: all 0.3s ease-in-out;
   z-index: 1;
   opacity: 0;
   scale: 0.7;

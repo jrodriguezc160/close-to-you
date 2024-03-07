@@ -1,8 +1,10 @@
 import "../styles/bookshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
+import VerticalIconbar from './VerticalIconBar';
 
 const ImageSlider = () => {
   const [queue, setQueue] = useState(false);
+  const [chipVisible, setChipVisible] = useState(false);
   const touch = document.documentElement.ontouchstart !== undefined;
   const imagesRef = useRef(null);
   const imageWidthRef = useRef(0);
@@ -61,11 +63,25 @@ const ImageSlider = () => {
     }, timeout[1]);
   };
 
+  const handleMouseEnter = () => {
+    setChipVisible(true)
+  }
+
+  const handleMouseLeave = () => {
+    setChipVisible(false)
+  }
+
   return (
-    <div ref={imagesRef} className="images" onClick={handleImageClick} style={{ width: "50%", height: "200px", display: "flex", justifyContent: "left", alignItems: "center" }}>
-      <img class="image" src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
-      <img class="image" src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
-      <img class="image" src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
+    <div style={{ width: "50%", height: "200px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div ref={imagesRef} className="images" onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "136px" }}>
+        <img class="image" src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
+        <img class="image" src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
+        <img class="image" src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
+      </div>
+
+      <div className={`${chipVisible ? '' : 'hidden'}`}>
+        <VerticalIconbar />
+      </div>
     </div>
   );
 };

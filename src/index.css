@@ -196,3 +196,22 @@ body {
   border-color: black;
   cursor: pointer;
 }
+
+.v-chip {
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  height: 16px;
+  min-height: fit-content;
+}
+
+v-chip.open {
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
