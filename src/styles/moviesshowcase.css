@@ -16,13 +16,13 @@
 
 .poster:first-child {
   transition: all 0.3s ease-in-out;
-  margin-left: 128px;
+  margin-left: 64px;
   scale: 0.6;
 }
 
 .poster:nth-child(2) {
   transition: all 0.3s ease-in-out;
-  margin-left: 64px;
+  margin-left: 32px;
   scale: 0.8;
 }
 
@@ -31,29 +31,29 @@
 
 .posters:hover .poster:nth-child(2) {
   transition: all 0.3s ease-in-out;
-  margin-left: 128px;
+  margin-left: 64px;
   scale: 0.9;
 }
 
 .posters:hover .poster:first-child {
   transition: all 0.3s ease-in-out;
-  margin-left: 256px;
+  margin-left: 128px;
   scale: 0.7;
 }
 
 .poster.slide-right {
-  -moz-transform: translateX(100px);
-  -ms-transform: translateX(100px);
-  -webkit-transform: translateX(100px);
+  -moz-transform: translateX(72px);
+  -ms-transform: translateX(72px);
+  -webkit-transform: translateX(72px);
   opacity: 0;
-  transform: translateX(100px) scale(0.7);
+  transform: translateX(72px) scale(0.7);
 }
 
 .poster.slide-left {
-  -moz-transform: translateX(-100px);
-  -ms-transform: translateX(-100px);
-  -webkit-transform: translateX(-100px);
-  transform: translateX(-100px) scale(0.9);
+  -moz-transform: translateX(-72px);
+  -ms-transform: translateX(-72px);
+  -webkit-transform: translateX(-72px);
+  transform: translateX(-72px) scale(0.9);
 }
 
 .poster.back {

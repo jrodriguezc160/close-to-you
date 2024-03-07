@@ -1,7 +1,7 @@
 .image {
   position: absolute;
-  height: 174px;
-  width: 118px;
+  height: 200px;
+  width: 136px;
   border-radius: 2px 8px 8px 2px;
   border-bottom-width: 15px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
@@ -57,22 +57,23 @@
 
 .image.slide-right {
   transition: all 0.3s ease-in-out;
-  -moz-transform: rotate(290deg) translateX(250px);
-  -ms-transform: rotate(290deg) translateX(250px);
-  -webkit-transform: rotate(290deg) translateX(250px);
-  transform: rotate(290deg) translateX(250px);
+  -moz-transform: translateX(128px);
+  -ms-transform: translateX(128px);
+  -webkit-transform: translateX(128px);
+  transform: translateX(128px);
 }
 
 .image.slide-left {
   transition: all 0.3s ease-in-out;
-  -moz-transform: rotate(-290deg) translateX(-250px);
-  -ms-transform: rotate(-290deg) translateX(-250px);
-  -webkit-transform: rotate(-290deg) translateX(-250px);
-  transform: rotate(-290deg) translateX(-250px);
+  -moz-transform: translateX(-128px);
+  -ms-transform: translateX(-128px);
+  -webkit-transform: translateX(-128px);
+  transform: translateX(-128px);
 }
 
 .image.back {
   transition: all 0.3s ease-in-out;
+  transform: rotate(-8deg);
   opacity: 0;
   z-index: 1;
 }

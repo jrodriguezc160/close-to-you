@@ -44,7 +44,7 @@ const ImageSlider = () => {
     const direction =
       (touch ? event.changedTouches[0].pageX : event.pageX) - imageOffsetRef.current > imageWidthRef.current / 2
         ? 'slide-right'
-        : 'slide-left';
+        : 'slide-right';
 
     const lastClassList = imagesRef.current.lastElementChild.classList;
     lastClassList.add(direction);
@@ -62,7 +62,7 @@ const ImageSlider = () => {
   };
 
   return (
-    <div ref={imagesRef} className="images" onClick={handleImageClick} style={{ width: "50%", height: "200px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <div ref={imagesRef} className="images" onClick={handleImageClick} style={{ width: "50%", height: "200px", display: "flex", justifyContent: "left", alignItems: "center" }}>
       <img class="image" src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
       <img class="image" src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
       <img class="image" src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
