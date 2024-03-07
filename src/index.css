@@ -11,7 +11,7 @@ body {
 }
 
 .ic-container {
-  transition: all .4s;
+  transition: all .5s;
   margin: 0;
   padding: 0;
   display: flex;
@@ -107,13 +107,21 @@ body {
 }
 
 .post {
-  border: 1px solid lightgray;
+  transition: all .5s;
+  border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 8px;
-  background-color: rgba(211, 211, 211, 0.2);
+  /* background-color: rgba(211, 211, 211, 0.2); */
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  background-color: rgba(211, 211, 211, 0.0);
+}
+
+.post:hover {
+  transition: all .5s;
+  background-color: #F7F7F7;
+  /* border: 1px solid rgb(220, 220, 220); */
 }
 
 .post-text {
@@ -158,4 +166,33 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.text-chip-button {
+  transition: all .5s;
+  border: 1px dashed lightgray;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 16px;
+  margin: 0px;
+  height: 16px;
+  min-height: fit-content;
+  color: gray;
+
+  * {
+    padding: 0;
+    margin: 0;
+
+  }
+}
+
+.text-chip-button:hover {
+  transition: all .5s;
+  color: black;
+  border-color: black;
+  cursor: pointer;
 }

@@ -1,14 +1,17 @@
-import { FiTrash } from "@react-icons/all-files/fi/FiTrash";
-import { FiRepeat } from "@react-icons/all-files/fi/FiRepeat";
-import { FiX } from "@react-icons/all-files/fi/FiX";
-import { useEffect, useState } from 'react';
+import { FiEdit3 } from "@react-icons/all-files/fi/FiEdit3";
 import Post from './Post';
 
 function PostsPlaceholder () {
 
   return (
     <div className='posts-placeholder'>
-      <h3>POSTS</h3>
+      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <h3>POSTS</h3>
+        <div className="text-chip-button">
+          <FiEdit3 />
+          Nuevo post
+        </div>
+      </div>
 
       <Post />
       <Post />
