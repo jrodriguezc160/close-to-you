@@ -1,8 +1,8 @@
 .poster {
   position: absolute;
-  height: 174px;
-  width: 118px;
-  border-radius: 2px 8px 8px 2px;
+  height: 200px;
+  width: 136px;
+  border-radius: 4px;
   border-bottom-width: 15px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
   -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
@@ -42,19 +42,22 @@
 }
 
 .poster.slide-right {
-  -moz-transform: rotate(290deg) translateX(250px);
-  -ms-transform: rotate(290deg) translateX(250px);
-  -webkit-transform: rotate(290deg) translateX(250px);
-  transform: rotate(290deg) translateX(250px);
+  -moz-transform: translateX(100px);
+  -ms-transform: translateX(100px);
+  -webkit-transform: translateX(100px);
+  opacity: 0;
+  transform: translateX(100px) scale(0.7);
 }
 
 .poster.slide-left {
-  -moz-transform: rotate(-290deg) translateX(-250px);
-  -ms-transform: rotate(-290deg) translateX(-250px);
-  -webkit-transform: rotate(-290deg) translateX(-250px);
-  transform: rotate(-290deg) translateX(-250px);
+  -moz-transform: translateX(-100px);
+  -ms-transform: translateX(-100px);
+  -webkit-transform: translateX(-100px);
+  transform: translateX(-100px) scale(0.9);
 }
 
 .poster.back {
   z-index: 1;
+  opacity: 0;
+  scale: 0.7;
 }

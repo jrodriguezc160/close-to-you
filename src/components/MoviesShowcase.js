@@ -63,9 +63,9 @@ const ImageSlider = () => {
 
   return (
     <div ref={imagesRef} className="posters" onClick={handleImageClick} style={{ width: "50%", height: "200px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <img class="poster" src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
-      <img class="poster" src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
-      <img class="poster" src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
+      <img class="poster" src="https://preview.redd.it/dune-part-two-poster-me-photoshop-v0-mw10p307xcx91.png?width=640&crop=smart&auto=webp&s=9dbec8211c6608e5c0f1bba257dc98bca285c7ac" />
+      <img class="poster" src="https://lh3.googleusercontent.com/proxy/iCzikyQcEyXhBWLePOAq223XOu3l16qH0Sa3N_mILtekPsw_gMePFl1ArBvhspDbec-s_KS9bLnrIQP9MThLMkm0MGkVyXvd4Tcj_BLsAPgsDRgFIg" />
+      <img class="poster" src="https://m.media-amazon.com/images/M/MV5BOTkzYmMxNTItZDAxNC00NGM0LWIyODMtMWYzMzRkMjIyMTE1XkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_FMjpg_UX1000_.jpg" />
     </div>
   );
 };
