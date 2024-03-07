@@ -54,11 +54,11 @@ const StackedImageAnimation = () => {
   }, [size]);
 
   return (
-    <Flex justifyContent="center" alignItems="center" my="auto">
+    <Flex justifyContent="center" alignItems="center" my="auto" style={{ width: "50%" }}>
       <Box
         position="relative"
-        width={{ base: 140, md: 140, xl: 140 }}
-        height={{ base: 196, md: 196, xl: 196 }}
+        width={{ base: 118, md: 118, xl: 118 }}
+        height={{ base: 174, md: 174, xl: 174 }}
         ref={containerRef}
       >
         {images.map((image, i) => {

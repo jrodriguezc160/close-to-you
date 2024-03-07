@@ -2,6 +2,7 @@
   position: absolute;
   height: 174px;
   width: 118px;
+  border-radius: 2px 8px 8px 2px;
   border-bottom-width: 15px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
   -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
@@ -21,32 +22,32 @@
 }
 
 .image:nth-child(2) {
-  -moz-transform: rotate(2deg);
-  -ms-transform: rotate(2deg);
-  -webkit-transform: rotate(2deg);
-  transform: rotate(2deg);
+  -moz-transform: rotate(4deg);
+  -ms-transform: rotate(4deg);
+  -webkit-transform: rotate(4deg);
+  transform: rotate(4deg);
 }
 
 .image:last-child {
-  -moz-transform: rotate(-5deg);
-  -ms-transform: rotate(-5deg);
-  -webkit-transform: rotate(-5deg);
-  transform: rotate(-5deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 
 .images:hover .image:nth-child(2) {
-  -moz-transform: rotate(-2deg) translateX(-50px);
-  -ms-transform: rotate(-2deg) translateX(-50px);
-  -webkit-transform: rotate(-2deg) translateX(-50px);
-  transform: rotate(-2deg) translateX(-50px);
+  -moz-transform: rotate(-4deg) translateX(-32px) translateY(4px);
+  -ms-transform: rotate(-4deg) translateX(-32px) translateY(4px);
+  -webkit-transform: rotate(-4deg) translateX(-32px) translateY(4px);
+  transform: rotate(-4deg) translateX(-32px) translateY(4px);
 }
 
 .images:hover .image:first-child {
-  -moz-transform: rotate(-8deg) translateX(-75px) translateY(-10px);
-  -ms-transform: rotate(-8deg) translateX(-75px) translateY(-10px);
-  -webkit-transform: rotate(-8deg) translateX(-75px) translateY(-10px);
-  transform: rotate(-8deg) translateX(-75px) translateY(-10px);
+  -moz-transform: rotate(-8deg) translateX(-64px) translateY(8px);
+  -ms-transform: rotate(-8deg) translateX(-64px) translateY(8px);
+  -webkit-transform: rotate(-8deg) translateX(-64px) translateY(8px);
+  transform: rotate(-8deg) translateX(-64px) translateY(8px);
 }
 
 .image.slide-right {
