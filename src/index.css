@@ -211,7 +211,7 @@ body {
   min-height: fit-content;
 }
 
-v-chip.open {
+.v-chip.open {
   transition: all 0.3s ease-in-out;
   opacity: 1;
 }

@@ -79,8 +79,8 @@ const ImageSlider = () => {
         <img class="image" src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
       </div>
 
-      <div className={`${chipVisible ? '' : 'hidden'}`}>
-        <VerticalIconbar />
+      <div>
+        <VerticalIconbar chipVisible={chipVisible} />
       </div>
     </div>
   );
