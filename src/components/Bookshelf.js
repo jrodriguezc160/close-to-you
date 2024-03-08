@@ -5,6 +5,7 @@ import VerticalIconbar from './VerticalIconBar';
 const ImageSlider = () => {
   const [queue, setQueue] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
+  const [editing, setEditing] = useState(false);
   const touch = document.documentElement.ontouchstart !== undefined;
   const imagesRef = useRef(null);
   const imageWidthRef = useRef(0);
@@ -71,24 +72,28 @@ const ImageSlider = () => {
     setChipVisible(false)
   }
 
+  const handleEdit = () => {
+    setEditing(!editing)
+  }
+
   return (
-    <div style={{ width: "fit-content", height: "200px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ width: editing ? '50vw' : 'fit-content', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", background: editing ? 'blue' : '' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div ref={imagesRef} className="images" onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "136px" }}>
-        <div className="image">
+        <div className={`image ${editing ? 'modal' : ''}`}>
           <img src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
         </div>
 
-        <div className="image">
+        <div className={`image ${editing ? 'modal' : ''}`}>
           <img src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
         </div>
 
-        <div className="image">
+        <div className={`image ${editing ? 'modal' : ''}`}>
           <img src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
         </div>
       </div>
 
       <div>
-        <VerticalIconbar chipVisible={chipVisible} />
+        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} />
       </div>
     </div>
   );

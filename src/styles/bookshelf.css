@@ -44,7 +44,6 @@
   transform: rotate(0deg);
 }
 
-
 .images:hover .image:nth-child(2) {
   transition: all 0.3s ease-in-out;
   -moz-transform: rotate(-4deg) translateX(-32px) translateY(4px);
