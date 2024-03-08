@@ -67,6 +67,7 @@ body {
   margin: 0px;
   height: 16px;
   min-height: fit-content;
+  width: fit-content;
 
   * {
     padding: 0;

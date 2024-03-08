@@ -1,34 +1,65 @@
 import { FiTrash } from "@react-icons/all-files/fi/FiTrash";
 import { FiRepeat } from "@react-icons/all-files/fi/FiRepeat";
 import { FiX } from "@react-icons/all-files/fi/FiX";
-import { useState } from 'react';
+import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
+import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
+import { useState, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
 
 function Banner () {
   const [cambiarBanner, setCambiarBanner] = useState(false);
+  const [noBanner, setNoBanner] = useState(false);
+  const [nuevoBanner, setNuevoBanner] = useState('https://pbs.twimg.com/media/GH0WHHPW0AAXnA6?format=jpg&name=large');
+  const inputRef = useRef(null);
 
   const fade = useSpring({
     opacity: cambiarBanner ? 1 : 0,
     transform: cambiarBanner ? "translateY(0%)" : "translateY(50%)",
+    gap: "8px"
   });
 
+  const handleNewBanner = () => {
+    const newImage = inputRef.current.value;
+    setCambiarBanner(false);
+    if (newImage !== '') {
+      setNoBanner(false)
+      setNuevoBanner(newImage);
+    }
+  }
+
+  const handleClearInput = () => {
+    inputRef.current.value = '';
+  }
+
+  const handleRemoveBanner = () => {
+    setNuevoBanner('');
+    setNoBanner(true)
+  }
+
   return (
-    <div style={{ position: "relative", width: "100vw", height: "20vh", overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '20vh', overflow: "hidden" }}>
       <div className='bottom-right'>
-        <animated.div style={fade} className='text-chip'>
-          <p>Cambiando banner...</p>
+        <animated.div style={fade} className='text-chip' >
+          <input ref={inputRef} type="text" name="banner-link" id="banner-link" placeholder='Pega aquí el link del nuevo banner' style={{ border: "none", outline: "none", background: "none", width: "15rem" }} />
+
+          <div className='ic-container' onClick={handleClearInput}>
+            <FiDelete />
+          </div>
+          <div className='ic-container' onClick={handleNewBanner}>
+            <FiCheck />
+          </div>
         </animated.div>
 
         <div className='chip'>
           <div className='ic-container' onClick={() => setCambiarBanner(!cambiarBanner)}>
             {cambiarBanner ? <FiX /> : <FiRepeat />}
           </div>
-          <div className='ic-container'>
+          <div className='ic-container' onClick={handleRemoveBanner}>
             <FiTrash />
           </div>
         </div>
       </div>
-      <img src="https://pbs.twimg.com/media/GH0WHHPW0AAXnA6?format=jpg&name=large" alt="Banner" style={{ margin: "0", left: "0" }} />
+      <img src={nuevoBanner} style={{ margin: "0", left: "0" }} />
     </div>
   )
 }
