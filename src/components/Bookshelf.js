@@ -72,11 +72,19 @@ const ImageSlider = () => {
   }
 
   return (
-    <div style={{ width: "50%", height: "200px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ width: "fit-content", height: "200px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div ref={imagesRef} className="images" onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "136px" }}>
-        <img class="image" src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
-        <img class="image" src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
-        <img class="image" src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
+        <div className="image">
+          <img src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
+        </div>
+
+        <div className="image">
+          <img src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
+        </div>
+
+        <div className="image">
+          <img src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
+        </div>
       </div>
 
       <div>

@@ -12,6 +12,12 @@
   -o-transition: -o-transform 0.3s ease-in-out;
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  overflow: hidden;
+
+  img {
+    width: inherit;
+    height: inherit;
+  }
 }
 
 .poster:first-child {
@@ -41,21 +47,12 @@
   scale: 0.7;
 }
 
-.poster.slide-right {
-  transition: all 0.3s ease-in-out;
-  -moz-transform: translateX(72px);
-  -ms-transform: translateX(72px);
-  -webkit-transform: translateX(72px);
-  opacity: 0;
-  transform: translateX(72px) scale(0.7);
-}
-
 .poster.slide-left {
   transition: all 0.3s ease-in-out;
-  -moz-transform: translateX(-120px);
-  -ms-transform: translateX(-120px);
-  -webkit-transform: translateX(-120px);
-  transform: translateX(-120px) scale(0.9);
+  -moz-transform: translateX(-72px);
+  -ms-transform: translateX(-72px);
+  -webkit-transform: translateX(-72px);
+  transform: translateX(-72px) scale(0.9);
 }
 
 .poster.back {
