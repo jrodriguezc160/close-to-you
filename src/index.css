@@ -8,6 +8,7 @@ body {
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 .ic-container {
@@ -223,8 +224,8 @@ body {
   visibility: hidden;
   background-color: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(2px);
-  position: absolute;
-  z-index: 99;
+  position: fixed;
+  z-index: 0;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -233,9 +234,15 @@ body {
   flex-direction: column;
 }
 
+.modal-screen.visible {
+  z-index: 98;
+}
+
 .modal {
   position: absolute;
-  height: 75vh;
+  height: fit-content;
+  min-height: 50vh;
+  margin-top: 128px;
   width: 50vw;
   display: flex;
   flex-direction: column;
@@ -249,8 +256,9 @@ body {
   flex-direction: row;
   gap: 8px;
 
-  input {
+  .search-bar-input {
     border-radius: 16px;
+    background-color: white;
     border: 1px solid lightgray;
     padding: 8px 16px;
     height: 16px;
@@ -260,6 +268,14 @@ body {
     align-items: center;
     outline: none;
     width: 100%;
+    gap: 8px;
+
+    input {
+      border: none;
+      outline: none;
+      background: none;
+      width: 100%;
+    }
   }
 }
 
@@ -275,11 +291,12 @@ body {
   padding: 8px;
   gap: 8px;
   min-height: 0;
+  overflow-y: auto;
+  scroll-behavior: auto;
 }
 
 .books-list.visible {
-  min-height: 128px;
-  height: fit-content;
+  height: 432px;
 }
 
 .fav-books {
@@ -326,11 +343,13 @@ body {
   gap: 16px;
   border-radius: 8px;
   padding: 8px;
+  display: flex;
+  align-items: center;
 
   .book-cover {
-    min-width: 41px;
-    width: auto;
+    width: 42px;
     height: 64px;
+    border: none;
     border-radius: 2px 4px 4px 2px;
     -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
     -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
