@@ -5,7 +5,7 @@ import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 
-const BookModal = ({ showBookModal, setShowBookModal }) => {
+const BookModal = ({ showBookModal, setShowBookModal, myBooks, setMyBooks }) => {
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
   const inputRef = useRef(null);
@@ -29,6 +29,16 @@ const BookModal = ({ showBookModal, setShowBookModal }) => {
   const handleClearInput = () => {
     setSearch('');
   }
+
+  const handleAddFavourite = (book) => {
+    setMyBooks([...myBooks, book])
+  }
+
+  const handleRemoveFavourite = (bookToRemove) => {
+    const updatedBooks = myBooks.filter(book => book !== bookToRemove);
+    setMyBooks(updatedBooks);
+  }
+
 
   return (
     <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} >
@@ -61,14 +71,32 @@ const BookModal = ({ showBookModal, setShowBookModal }) => {
               <p style={{ maxWidth: '50%', marginRight: 'auto' }}>{book.volumeInfo.title}</p>
               <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
               <div className='ic-container' >
-                <FiStar />
+                <FiStar onClick={() => handleAddFavourite(book)} />
               </div>
             </div>
           ))}
         </div>
 
         <div className="fav-books">
-          {/* Aquí van los libros favoritos */}
+          {myBooks.map((book, index) => (
+            <div className="book">
+              <div key={index} className='cover'>
+                {book.volumeInfo.imageLinks?.thumbnail ? (
+                  <img src={book.volumeInfo.imageLinks.thumbnail} />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <FiImage />
+                  </div>
+                )}
+              </div>
+
+              <p>{book.volumeInfo.title}</p>
+              <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
+              <div className='ic-container' >
+                <FiStar onClick={() => handleRemoveFavourite(book)} fill='gray' stroke='gray' />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

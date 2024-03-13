@@ -226,12 +226,15 @@ body {
   backdrop-filter: blur(2px);
   position: fixed;
   z-index: 0;
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  scroll-behavior: auto;
+  overflow-y: auto;
 }
 
 .modal-screen.visible {
@@ -242,7 +245,7 @@ body {
   position: absolute;
   height: fit-content;
   min-height: 50vh;
-  margin-top: 128px;
+  height: fit-content;
   width: 50vw;
   display: flex;
   flex-direction: column;
@@ -308,25 +311,40 @@ body {
   justify-content: center;
   gap: 16px;
 
-  div {
-    transition: all 0.3s ease-in-out;
-    height: 128px;
-    width: 86px;
-    border-radius: 2px 8px 8px 2px;
-    border-bottom-width: 15px;
-    -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-    -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-    box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-    overflow: hidden;
+  .book {
+    display: flex;
+    flex-direction: column;
+    width: 128px;
+    text-align: center;
+    align-items: center;
+    gap: 8px;
 
-    img {
-      height: inherit;
-      width: inherit;
+    p {
+      padding: 0;
+      margin: 0;
     }
-  }
 
-  div:hover {
-    transform: rotate(-8deg) scale(1.1);
+    .cover {
+      transition: all 0.3s ease-in-out;
+      height: 128px;
+      width: 86px;
+      border-radius: 2px 8px 8px 2px;
+      border-bottom-width: 15px;
+      -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      overflow: hidden;
+      margin-bottom: 8px;
+
+      img {
+        height: inherit;
+        width: inherit;
+      }
+    }
+
+    .cover:hover {
+      transform: rotate(-8deg) scale(1.1);
+    }
   }
 }
 

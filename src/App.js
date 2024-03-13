@@ -19,7 +19,7 @@ function App () {
 
   return (
     <div>
-      <BookModal showBookModal={showBookModal} setShowBookModal={setShowBookModal} />
+      <BookModal showBookModal={showBookModal} setShowBookModal={setShowBookModal} myBooks={myBooks} setMyBooks={setMyBooks} />
 
       <Banner />
 
