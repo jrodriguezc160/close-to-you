@@ -59,6 +59,7 @@ const BookModal = ({ showBookModal, setShowBookModal }) => {
                 )}
               </div>
               <p>{book.volumeInfo.title}</p>
+              <p>{book.volumeInfo.author}</p>
               <div className='ic-container'>
                 <FiStar />
               </div>
