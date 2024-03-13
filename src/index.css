@@ -264,18 +264,22 @@ body {
 }
 
 .books-list {
+  display: flex;
+  flex-direction: column;
   transition: all 0.3s ease-in-out;
   opacity: 0;
   visibility: hidden;
   border: 1px solid lightgray;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 8px;
+  gap: 8px;
   min-height: 0;
 }
 
 .books-list.visible {
   min-height: 128px;
+  height: fit-content;
 }
 
 .fav-books {
@@ -305,7 +309,7 @@ body {
   }
 
   div:hover {
-    transform: rotate(-8deg);
+    transform: rotate(-8deg) scale(1.1);
   }
 }
 
@@ -313,4 +317,34 @@ body {
   transition: all 0.3s ease-in-out;
   visibility: visible;
   opacity: 1;
+}
+
+.book-result {
+  transition: all .3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  border-radius: 8px;
+  padding: 8px;
+
+  .book-cover {
+    min-width: 41px;
+    width: auto;
+    height: 64px;
+    border-radius: 2px 4px 4px 2px;
+    -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    overflow: hidden;
+    background-color: white;
+
+    img {
+      width: inherit;
+      height: inherit;
+    }
+  }
+}
+
+.book-result:hover {
+  background-color: #F7F7F7;
 }
