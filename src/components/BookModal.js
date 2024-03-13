@@ -51,16 +51,16 @@ const BookModal = ({ showBookModal, setShowBookModal }) => {
             <div key={index} className='book-result'>
               <div className='book-cover'>
                 {book.volumeInfo.imageLinks?.thumbnail ? (
-                  <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
+                  <img src={book.volumeInfo.imageLinks.thumbnail} />
                 ) : (
-                  <div style={{ width: '50%', height: '50%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <FiImage />
                   </div>
                 )}
               </div>
-              <p>{book.volumeInfo.title}</p>
-              <p>{book.volumeInfo.author}</p>
-              <div className='ic-container'>
+              <p style={{ maxWidth: '50%', marginRight: 'auto' }}>{book.volumeInfo.title}</p>
+              <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
+              <div className='ic-container' >
                 <FiStar />
               </div>
             </div>

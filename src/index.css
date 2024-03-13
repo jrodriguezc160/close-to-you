@@ -345,9 +345,11 @@ body {
   padding: 8px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   .book-cover {
     width: 42px;
+    min-width: 42px;
     height: 64px;
     border: none;
     border-radius: 2px 4px 4px 2px;
