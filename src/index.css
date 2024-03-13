@@ -218,6 +218,9 @@ body {
 }
 
 .modal-screen {
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
   background-color: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(2px);
   position: absolute;
@@ -241,33 +244,37 @@ body {
 }
 
 .search-bar {
-  border-radius: 8px;
-  border: 1px dashed lightgray;
   width: 100%;
-  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 
   input {
-    gap: 8px;
-    padding: 4px 8px;
+    border-radius: 16px;
+    border: 1px solid lightgray;
+    padding: 8px 16px;
     height: 16px;
     min-height: fit-content;
     color: gray;
     display: flex;
     align-items: center;
-    color: gray;
-    border-radius: 8px;
-    border: none;
     outline: none;
-    padding: 8px;
     width: 100%;
   }
 }
 
 .books-list {
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
   border: 1px solid lightgray;
   background-color: white;
   border-radius: 8px;
   padding: 8px;
+  min-height: 0;
+}
+
+.books-list.visible {
   min-height: 128px;
 }
 
@@ -300,4 +307,10 @@ body {
   div:hover {
     transform: rotate(-8deg);
   }
+}
+
+.visible {
+  transition: all 0.3s ease-in-out;
+  visibility: visible;
+  opacity: 1;
 }

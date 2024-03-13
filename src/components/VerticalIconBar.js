@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 
 const VerticalIconBar = ({ chipVisible, handleEdit }) => {
 
-  useEffect(() => {
-    console.log(chipVisible)
-  }, [chipVisible])
+  // useEffect(() => {
+  //   console.log(chipVisible)
+  // }, [chipVisible])
 
   return (
     <div className={`v-chip ${chipVisible ? 'open' : ''}`} style={{ flexDirection: "column", width: "16px", height: "fit-content" }} >

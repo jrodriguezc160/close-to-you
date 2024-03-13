@@ -74,3 +74,47 @@
   opacity: 0;
   z-index: 1;
 }
+
+.image.edit {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  -moz-transform: rotate(0deg) translateX(0px) translateY(0px);
+  -ms-transform: rotate(0deg) translateX(0px) translateY(0px);
+  -webkit-transform: rotate(0deg) translateX(0px) translateY(0px);
+  transform: rotate(0deg) translateX(0px) translateY(0px);
+}
+
+.images.edit {
+  z-index: 100;
+  transition: all 0.3s ease-in-out;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  min-width: fit-content;
+  gap: 16px;
+}
+
+.images.edit,
+.images.edit:hover {
+  z-index: 100;
+  transition: all 0.3s ease-in-out;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  min-width: fit-content;
+  gap: 16px;
+
+  .image.edit {
+    transition: all 0.3s ease-in-out;
+    -moz-transform: rotate(0deg) translateX(0px) translateY(0px);
+    -ms-transform: rotate(0deg) translateX(0px) translateY(0px);
+    -webkit-transform: rotate(0deg) translateX(0px) translateY(0px);
+    transform: rotate(0deg) translateX(0px) translateY(0px);
+  }
+}

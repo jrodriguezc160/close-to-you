@@ -85,7 +85,7 @@ const ImageSlider = () => {
         </div>
 
         <div className="poster">
-          <img src="https://lh3.googleusercontent.com/proxy/R2QPLrUcpYtKJMJN2D3dYiyNP-nhXdWDGNjguBvoA4tCi2el07y0OABc6jf-Sdn4flY1NnMObQ6TvPgGMJ4CWIDYjHLojD59uLq-fqyxYqarxVt869HJpW3-" alt="poster" />
+          <img src="https://lh3.googleusercontent.com/proxy/qMXP8pUodbqdnVOLmboE6sYYnS8h2l9eIDVP_AGvrfh5-Y-BjWptqmQbtH2Q8ezHxkzsQaixHzLEMSMf_DGo4OM6462zAVkEiXrbTQWp9YckcwMVgg" alt="poster" />
         </div>
 
         <div className="poster">

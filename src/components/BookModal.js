@@ -1,15 +1,23 @@
-const BookModal = () => {
+import { FiX } from "@react-icons/all-files/fi/FiX";
 
+const BookModal = ({ showBookModal, setShowBookModal }) => {
+  const results = []
 
+  const handleCloseModal = () => {
+    setShowBookModal(!showBookModal);
+  };
 
   return (
-    <div className="modal-screen">
+    <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} >
       <div className="modal">
         <div className="search-bar">
           <input type="text" name="book-search" id="book-search" placeholder='Search for your favourite books...' />
+          <div className="ic-container" onClick={handleCloseModal} >
+            <FiX />
+          </div>
         </div>
 
-        <div className="books-list"></div>
+        <div className={`books-list ${results > 0 ? 'visible' : ''}`}></div>
 
         <div className="fav-books">
           <div>

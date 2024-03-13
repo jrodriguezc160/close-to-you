@@ -6,15 +6,20 @@ import PostsPlaceholder from './components/PostsPlaceholder';
 import MoviesShowcase from './components/MoviesShowcase';
 import Bookshelf from './components/Bookshelf';
 import BookModal from './components/BookModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App () {
   const [myBooks, setMyBooks] = useState([])
   const [myMovies, setMyMovies] = useState([])
+  const [showBookModal, setShowBookModal] = useState(false)
+
+  useEffect(() => {
+    console.log(showBookModal)
+  }, [showBookModal])
 
   return (
     <div>
-      <BookModal />
+      <BookModal showBookModal={showBookModal} setShowBookModal={setShowBookModal} />
 
       <Banner />
 
@@ -27,7 +32,11 @@ function App () {
 
         <div style={{ width: "50%", padding: "0 64px", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "64px", marginTop: "42px" }}>
-            <Bookshelf myBooks={myBooks} setMyBooks={setMyBooks} />
+            <Bookshelf
+              showBookModal={showBookModal}
+              setShowBookModal={setShowBookModal}
+              myBooks={myBooks}
+              setMyBooks={setMyBooks} />
 
             <MoviesShowcase myMovies={myMovies} setMyMovies={setMyMovies} />
           </div>
