@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { FiX } from "@react-icons/all-files/fi/FiX";
 import { FiImage } from "@react-icons/all-files/fi/FiImage";
@@ -9,6 +9,15 @@ const BookModal = ({ showBookModal, setShowBookModal, myBooks, setMyBooks }) => 
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Agregar clase al body cuando el modal está abierto
+    if (showBookModal) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+  }, [showBookModal]);
 
   const handleCloseModal = () => {
     setShowBookModal(!showBookModal);
@@ -98,6 +107,8 @@ const BookModal = ({ showBookModal, setShowBookModal, myBooks, setMyBooks }) => 
             </div>
           ))}
         </div>
+
+        <div style={{ minHeight: '5vh' }}></div>
       </div>
     </div>
   )
