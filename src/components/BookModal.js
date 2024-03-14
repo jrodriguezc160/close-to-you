@@ -11,6 +11,20 @@ const BookModal = ({ showBookModal, setShowBookModal, myBooks, setMyBooks }) => 
   const inputRef = useRef(null);
 
   useEffect(() => {
+    const savedBooks = sessionStorage.getItem('myBooks');
+    if (savedBooks) {
+      setMyBooks(JSON.parse(savedBooks));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (myBooks.length > 0) {
+      sessionStorage.setItem('myBooks', JSON.stringify(myBooks));
+    }
+  }, [myBooks]);
+
+
+  useEffect(() => {
     // Agregar clase al body cuando el modal está abierto
     if (showBookModal) {
       document.body.classList.add('modal-open');
