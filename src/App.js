@@ -21,7 +21,14 @@ function App () {
 
   return (
     <div>
-      <BookModal showBookModal={showBookModal} setShowBookModal={setShowBookModal} myFavBooks={myFavBooks} setMyFavBooks={setMyFavBooks} />
+      <BookModal
+        showBookModal={showBookModal}
+        setShowBookModal={setShowBookModal}
+        myFavBooks={myFavBooks}
+        setMyFavBooks={setMyFavBooks}
+        myBooks={myBooks}
+        setMyBooks={setMyBooks}
+      />
 
       <Banner />
 

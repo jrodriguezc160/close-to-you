@@ -5,8 +5,9 @@ import { FiAlertTriangle } from "@react-icons/all-files/fi/FiAlertTriangle";
 import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
+import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 
-const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks }) => {
+const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks }) => {
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
   const [showLimit, setShowLimit] = useState(false);
@@ -72,6 +73,23 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks 
     setMyFavBooks(updatedBooks);
   }
 
+  const handleAddBook = (book) => {
+    if (myBooks.length >= 3) {
+      console.log('Límite excedido')
+      setShowLimit(true)
+      setTimeout(() => {
+        setShowLimit(false)
+      }, 2000);
+    } else {
+      setMyBooks([...myBooks, book])
+    }
+  }
+
+  const handleRemoveBook = (bookToRemove) => {
+    const updatedBooks = myBooks.filter(book => book !== bookToRemove);
+    setMyBooks(updatedBooks);
+  }
+
   return (
     <div>
       <div className={`modal-screen ${showLimit ? 'visible' : ''}`} style={{ height: '100vh', zIndex: '200', }} >
@@ -116,7 +134,15 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks 
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => handleAddFavourite(book)}
-                    fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'} // Verifica si el libro actual está en myFavBooks
+                    fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
+                  />
+                </div>
+                <div className='ic-container' >
+                  <FiPlusCircle
+                    onClick={() => handleAddBook(book)}
+                    fill={myBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
+                    stroke={myBooks.some(favBook => favBook.id === book.id) ? 'white' : 'gray'}
+                    style={{ transform: `scale(${myBooks.some(favBook => favBook.id === book.id) ? '1.2' : '1'})` }}
                   />
                 </div>
               </div>
