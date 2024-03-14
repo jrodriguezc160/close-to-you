@@ -6,6 +6,7 @@ import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
+import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 
 const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks }) => {
   const [search, setSearch] = useState("");
@@ -74,15 +75,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }
 
   const handleAddBook = (book) => {
-    if (myBooks.length >= 3) {
-      console.log('Límite excedido')
-      setShowLimit(true)
-      setTimeout(() => {
-        setShowLimit(false)
-      }, 2000);
-    } else {
-      setMyBooks([...myBooks, book])
-    }
+    setMyBooks([...myBooks, book])
   }
 
   const handleRemoveBook = (bookToRemove) => {
@@ -133,22 +126,39 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                 <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
                 <div className='ic-container' >
                   <FiStar
-                    onClick={() => handleAddFavourite(book)}
+                    onClick={() => {
+                      if (myFavBooks.some(favBook => favBook.id === book.id)) {
+                        handleRemoveFavourite(book);
+                      } else {
+                        handleAddFavourite(book);
+                      }
+                    }}
                     fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
                   />
+
                 </div>
                 <div className='ic-container' >
-                  <FiPlusCircle
-                    onClick={() => handleAddBook(book)}
-                    fill={myBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
-                    stroke={myBooks.some(favBook => favBook.id === book.id) ? 'white' : 'gray'}
-                    style={{ transform: `scale(${myBooks.some(favBook => favBook.id === book.id) ? '1.2' : '1'})` }}
-                  />
+                  {!myBooks.some(favBook => favBook.id === book.id) ? (
+                    <FiPlusCircle
+                      onClick={() => handleAddBook(book)}
+                      stroke='gray'
+                    />
+                  ) : (
+                    <FiCheckCircle
+                      onClick={() => handleAddBook(book)}
+                      stroke='gray'
+                    />
+                  )
+                  }
                 </div>
               </div>
             ))}
           </div>
 
+          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '32px', paddingBottom: '0px' }}>
+            <h3 style={{ margin: '2px' }}>My favourite books</h3>
+            <p style={{ margin: '2px' }}>You can only set 3 fav so choose wisely;)</p>
+          </div>
           <div className="fav-books">
             {myFavBooks.map((book, index) => (
               <div className="book">
@@ -164,8 +174,86 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
                 <p>{book.volumeInfo.title}</p>
                 <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
-                <div className='ic-container' >
-                  <FiStar onClick={() => handleRemoveFavourite(book)} fill='gray' stroke='gray' />
+
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                  <div className='ic-container' >
+                    <FiStar
+                      onClick={() => {
+                        if (myFavBooks.some(favBook => favBook.id === book.id)) {
+                          handleRemoveFavourite(book);
+                        } else {
+                          handleAddFavourite(book);
+                        }
+                      }}
+                      fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
+                    />
+                  </div>
+                  <div className='ic-container' >
+                    {!myBooks.some(favBook => favBook.id === book.id) ? (
+                      <FiPlusCircle
+                        onClick={() => handleAddBook(book)}
+                        stroke='gray'
+                      />
+                    ) : (
+                      <FiCheckCircle
+                        onClick={() => handleRemoveBook(book)}
+                        stroke='gray'
+                      />
+                    )
+                    }
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '32px', paddingBottom: '0px' }}>
+            <h3 style={{ margin: '2px' }}>My books</h3>
+            <p style={{ margin: '2px' }}>(all of them)</p>
+          </div>
+          <div className="fav-books">
+            {myBooks.map((book, index) => (
+              <div className="book">
+                <div key={index} className='cover'>
+                  {book.volumeInfo.imageLinks?.thumbnail ? (
+                    <img src={book.volumeInfo.imageLinks.thumbnail} />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <FiImage />
+                    </div>
+                  )}
+                </div>
+
+                <p>{book.volumeInfo.title}</p>
+                <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
+
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                  <div className='ic-container' >
+                    <FiStar
+                      onClick={() => {
+                        if (myFavBooks.some(favBook => favBook.id === book.id)) {
+                          handleRemoveFavourite(book);
+                        } else {
+                          handleAddFavourite(book);
+                        }
+                      }}
+                      fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
+                    />
+                  </div>
+                  <div className='ic-container' >
+                    {!myBooks.some(favBook => favBook.id === book.id) ? (
+                      <FiPlusCircle
+                        onClick={() => handleAddBook(book)}
+                        stroke='gray'
+                      />
+                    ) : (
+                      <FiCheckCircle
+                        onClick={() => handleRemoveBook(book)}
+                        stroke='gray'
+                      />
+                    )
+                    }
+                  </div>
                 </div>
               </div>
             ))}
