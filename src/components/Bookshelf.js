@@ -79,17 +79,11 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) =
   return (
     <div style={{ width: 'auto', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "136px" }}>
-        <div className={`image ${editing ? 'edit' : ''}`}>
-          <img src="https://chronicle.durhamcollege.ca/wp-content/uploads/2022/10/dune-novel-cover.jpeg" />
-        </div>
-
-        <div className={`image ${editing ? 'edit' : ''}`}>
-          <img src="https://media.s-bol.com/R03O4K4200Zw/Rp6k3z/779x1200.jpg" />
-        </div>
-
-        <div className={`image ${editing ? 'edit' : ''}`}>
-          <img src="https://i.etsystatic.com/9837436/r/il/56f900/1197017746/il_570xN.1197017746_jbuw.jpg" />
-        </div>
+        {myBooks.map((book, index) => (
+          <div key={index} className={`image ${editing ? 'edit' : ''}`}>
+            <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
+          </div>
+        ))}
       </div>
 
       <div>
