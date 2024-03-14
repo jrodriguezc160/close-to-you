@@ -2,7 +2,7 @@ import "../styles/bookshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from './VerticalIconBar';
 
-const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) => {
+const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myFavBooks, setMyFavBooks }) => {
   const [queue, setQueue] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -12,9 +12,9 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) =
   const imageOffsetRef = useRef(0);
 
   const handleRemoveFavourite = () => {
-    const updatedBooks = [...myBooks];
+    const updatedBooks = [...myFavBooks];
     updatedBooks.shift(); // Remove the first book
-    setMyBooks(updatedBooks);
+    setMyFavBooks(updatedBooks);
   }
 
   const cssTransition = () => {
@@ -85,7 +85,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) =
   return (
     <div style={{ width: 'auto', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "136px" }}>
-        {myBooks.map((book, index) => (
+        {myFavBooks.map((book, index) => (
           <div key={index} className={`image ${editing ? 'edit' : ''}`}>
             <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
           </div>
@@ -93,7 +93,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) =
       </div>
 
       <div>
-        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} book={myBooks[0]} />
+        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} book={myFavBooks[0]} />
       </div>
     </div>
   );

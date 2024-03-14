@@ -1,27 +1,29 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { FiX } from "@react-icons/all-files/fi/FiX";
+import { FiAlertTriangle } from "@react-icons/all-files/fi/FiAlertTriangle";
 import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 
-const BookModal = ({ showBookModal, setShowBookModal, myBooks, setMyBooks }) => {
+const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks }) => {
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
+  const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const savedBooks = sessionStorage.getItem('myBooks');
+    const savedBooks = sessionStorage.getItem('myFavBooks');
     if (savedBooks) {
-      setMyBooks(JSON.parse(savedBooks));
+      setMyFavBooks(JSON.parse(savedBooks));
     }
   }, []);
 
   useEffect(() => {
-    if (myBooks.length > 0) {
-      sessionStorage.setItem('myBooks', JSON.stringify(myBooks));
+    if (myFavBooks.length > 0) {
+      sessionStorage.setItem('myFavBooks', JSON.stringify(myFavBooks));
     }
-  }, [myBooks]);
+  }, [myFavBooks]);
 
 
   useEffect(() => {
@@ -54,82 +56,97 @@ const BookModal = ({ showBookModal, setShowBookModal, myBooks, setMyBooks }) => 
   }
 
   const handleAddFavourite = (book) => {
-    if (myBooks.length >= 3) {
-      return (
-        <div className="modal-message">
-          Límite de favoritos: 3. Elimine un favorito para continuar
-        </div>
-      )
+    if (myFavBooks.length >= 3) {
+      console.log('Límite excedido')
+      setShowLimit(true)
+      setTimeout(() => {
+        setShowLimit(false)
+      }, 2000);
     } else {
-      setMyBooks([...myBooks, book])
+      setMyFavBooks([...myFavBooks, book])
     }
   }
 
   const handleRemoveFavourite = (bookToRemove) => {
-    const updatedBooks = myBooks.filter(book => book !== bookToRemove);
-    setMyBooks(updatedBooks);
+    const updatedBooks = myFavBooks.filter(book => book !== bookToRemove);
+    setMyFavBooks(updatedBooks);
   }
 
   return (
-    <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} >
-      <div className="modal">
-        <div className="search-bar">
-          <div className='search-bar-input'>
-            <input ref={inputRef} type="text" name="book-search" id="book-search" placeholder='Search for your favourite books...' value={search} onChange={handleInputChange} />
-            <div className='ic-container' onClick={handleClearInput}>
-              <FiDelete />
+    <div>
+      <div className={`modal-screen ${showLimit ? 'visible' : ''}`} style={{ height: '100vh', zIndex: '200', }} >
+        <div className={`modal-message ${showLimit ? 'visible' : ''}`} style={{ zIndex: '201', visibility: showLimit ? 'visible' : 'hidden', opacity: showLimit ? 1 : 0 }}>
+          <div className="ic-container" style={{ width: '64px', height: '64px' }} >
+            <FiAlertTriangle fill='white' stroke='rgb(222, 0, 0)' />
+          </div>
+          <p>Límite de favoritos: 3.</p>
+          <p>Elimine un favorito para continuar</p>
+        </div>
+      </div>
+      <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} >
+
+        <div className="modal">
+          <div className="search-bar">
+            <div className='search-bar-input'>
+              <input ref={inputRef} type="text" name="book-search" id="book-search" placeholder='Search for your favourite books...' value={search} onChange={handleInputChange} />
+              <div className='ic-container' onClick={handleClearInput}>
+                <FiDelete />
+              </div>
+            </div>
+
+            <div className="ic-container" onClick={handleCloseModal} >
+              <FiX />
             </div>
           </div>
 
-          <div className="ic-container" onClick={handleCloseModal} >
-            <FiX />
+          <div className={`books-list ${bookData.length > 0 ? 'visible' : ''}`}>
+            {bookData.map((book, index) => (
+              <div key={index} className='book-result'>
+                <div className='book-cover'>
+                  {book.volumeInfo.imageLinks?.thumbnail ? (
+                    <img src={book.volumeInfo.imageLinks.thumbnail} />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <FiImage />
+                    </div>
+                  )}
+                </div>
+                <p style={{ maxWidth: '50%', marginRight: 'auto' }}>{book.volumeInfo.title}</p>
+                <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
+                <div className='ic-container' >
+                  <FiStar
+                    onClick={() => handleAddFavourite(book)}
+                    fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'} // Verifica si el libro actual está en myFavBooks
+                  />
+                </div>
+              </div>
+            ))}
           </div>
+
+          <div className="fav-books">
+            {myFavBooks.map((book, index) => (
+              <div className="book">
+                <div key={index} className='cover'>
+                  {book.volumeInfo.imageLinks?.thumbnail ? (
+                    <img src={book.volumeInfo.imageLinks.thumbnail} />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <FiImage />
+                    </div>
+                  )}
+                </div>
+
+                <p>{book.volumeInfo.title}</p>
+                <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
+                <div className='ic-container' >
+                  <FiStar onClick={() => handleRemoveFavourite(book)} fill='gray' stroke='gray' />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ minHeight: '5vh' }}></div>
         </div>
-
-        <div className={`books-list ${bookData.length > 0 ? 'visible' : ''}`}>
-          {bookData.map((book, index) => (
-            <div key={index} className='book-result'>
-              <div className='book-cover'>
-                {book.volumeInfo.imageLinks?.thumbnail ? (
-                  <img src={book.volumeInfo.imageLinks.thumbnail} />
-                ) : (
-                  <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <FiImage />
-                  </div>
-                )}
-              </div>
-              <p style={{ maxWidth: '50%', marginRight: 'auto' }}>{book.volumeInfo.title}</p>
-              <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
-              <div className='ic-container' >
-                <FiStar onClick={() => handleAddFavourite(book)} />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="fav-books">
-          {myBooks.map((book, index) => (
-            <div className="book">
-              <div key={index} className='cover'>
-                {book.volumeInfo.imageLinks?.thumbnail ? (
-                  <img src={book.volumeInfo.imageLinks.thumbnail} />
-                ) : (
-                  <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <FiImage />
-                  </div>
-                )}
-              </div>
-
-              <p>{book.volumeInfo.title}</p>
-              <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
-              <div className='ic-container' >
-                <FiStar onClick={() => handleRemoveFavourite(book)} fill='gray' stroke='gray' />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ minHeight: '5vh' }}></div>
       </div>
     </div>
   )

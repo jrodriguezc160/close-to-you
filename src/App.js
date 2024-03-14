@@ -10,7 +10,9 @@ import { useEffect, useState } from 'react';
 
 function App () {
   const [myBooks, setMyBooks] = useState([])
+  const [myFavBooks, setMyFavBooks] = useState([])
   const [myMovies, setMyMovies] = useState([])
+  const [myFavMovies, setMyFavMovies] = useState([])
   const [showBookModal, setShowBookModal] = useState(false)
 
   useEffect(() => {
@@ -19,7 +21,7 @@ function App () {
 
   return (
     <div>
-      <BookModal showBookModal={showBookModal} setShowBookModal={setShowBookModal} myBooks={myBooks} setMyBooks={setMyBooks} />
+      <BookModal showBookModal={showBookModal} setShowBookModal={setShowBookModal} myFavBooks={myFavBooks} setMyFavBooks={setMyFavBooks} />
 
       <Banner />
 
@@ -36,7 +38,9 @@ function App () {
               showBookModal={showBookModal}
               setShowBookModal={setShowBookModal}
               myBooks={myBooks}
-              setMyBooks={setMyBooks} />
+              setMyBooks={setMyBooks}
+              myFavBooks={myFavBooks}
+              setMyFavBooks={setMyFavBooks} />
 
             <MoviesShowcase myMovies={myMovies} setMyMovies={setMyMovies} />
           </div>
