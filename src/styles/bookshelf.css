@@ -1,4 +1,5 @@
 .image {
+  background-color: red;
   position: absolute;
   height: 200px;
   width: 136px;
@@ -117,4 +118,12 @@
     -webkit-transform: rotate(0deg) translateX(0px) translateY(0px);
     transform: rotate(0deg) translateX(0px) translateY(0px);
   }
+}
+
+.modal-message {
+  z-index: 200;
+  background-color: rgba(255, 0, 0, 0.5);
+  border: 1px solid red;
+  width: 20vw;
+  height: 20vh;
 }

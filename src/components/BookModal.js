@@ -54,14 +54,21 @@ const BookModal = ({ showBookModal, setShowBookModal, myBooks, setMyBooks }) => 
   }
 
   const handleAddFavourite = (book) => {
-    setMyBooks([...myBooks, book])
+    if (myBooks.length >= 3) {
+      return (
+        <div className="modal-message">
+          Límite de favoritos: 3. Elimine un favorito para continuar
+        </div>
+      )
+    } else {
+      setMyBooks([...myBooks, book])
+    }
   }
 
   const handleRemoveFavourite = (bookToRemove) => {
     const updatedBooks = myBooks.filter(book => book !== bookToRemove);
     setMyBooks(updatedBooks);
   }
-
 
   return (
     <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} >

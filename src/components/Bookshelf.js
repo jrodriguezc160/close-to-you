@@ -11,6 +11,12 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) =
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
 
+  const handleRemoveFavourite = () => {
+    const updatedBooks = [...myBooks];
+    updatedBooks.shift(); // Remove the first book
+    setMyBooks(updatedBooks);
+  }
+
   const cssTransition = () => {
     const body = document.body || document.documentElement;
     const style = body.style;
@@ -33,8 +39,8 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) =
   const timeout = cssTransition() ? [300, 400] : [0, 0];
 
   useEffect(() => {
-    imageWidthRef.current = imagesRef.current.firstElementChild.offsetWidth;
-    imageOffsetRef.current = imagesRef.current.firstElementChild.offsetLeft;
+    imageWidthRef.current = imagesRef?.current?.firstElementChild?.offsetWidth;
+    imageOffsetRef.current = imagesRef?.current?.firstElementChild?.offsetLeft;
   }, []);
 
   const handleImageClick = (event) => {
@@ -87,7 +93,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks }) =
       </div>
 
       <div>
-        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} />
+        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} book={myBooks[0]} />
       </div>
     </div>
   );
