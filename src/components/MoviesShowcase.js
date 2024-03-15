@@ -1,14 +1,20 @@
 import "../styles/moviesshowcase.css";
 import React, { useEffect, useRef, useState } from 'react';
-import VerticalIconBar from './VerticalIconBar';
+import VerticalIconbar from './VerticalIconBar';
 
-const ImageSlider = () => {
+const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavMovies }) => {
   const [queue, setQueue] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
   const touch = document.documentElement.ontouchstart !== undefined;
   const imagesRef = useRef(null);
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
+
+  const handleRemoveFavourite = () => {
+    const updatedMovies = [...myFavMovies];
+    updatedMovies.shift(); // Remove the first Movie
+    setMyFavMovies(updatedMovies);
+  };
 
   const cssTransition = () => {
     const body = document.body || document.documentElement;
@@ -32,12 +38,14 @@ const ImageSlider = () => {
   const timeout = cssTransition() ? [300, 400] : [0, 0];
 
   useEffect(() => {
-    imageWidthRef.current = imagesRef.current.firstElementChild.offsetWidth;
-    imageOffsetRef.current = imagesRef.current.firstElementChild.offsetLeft;
-  }, []);
+    if (imagesRef.current && imagesRef.current.firstElementChild) {
+      imageWidthRef.current = imagesRef.current.firstElementChild.offsetWidth;
+      imageOffsetRef.current = imagesRef.current.firstElementChild.offsetLeft;
+    }
+  }, [myFavMovies]);
 
   const handleImageClick = (event) => {
-    if (queue) {
+    if (!myFavMovies || myFavMovies.length === 0 || queue) {
       return;
     }
 
@@ -73,24 +81,21 @@ const ImageSlider = () => {
     setChipVisible(false);
   };
 
+  const handleEdit = () => {
+    setShowMovieModal(!showMovieModal)
+  }
+
   return (
-    <div style={{ width: "fit-content", height: "200px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ width: "fit-content", height: "150px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div >
-        <VerticalIconBar chipVisible={chipVisible} />
-      </div>
+        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} movie={myFavMovies && myFavMovies.length > 0 ? myFavMovies[0] : null} />      </div>
 
-      <div ref={imagesRef} className="posters" onClick={handleImageClick} style={{ width: "200px", height: "200px", display: "flex", justifyContent: "left", alignItems: "center" }}>
-        <div className="poster">
-          <img src="https://preview.redd.it/dune-part-two-poster-me-photoshop-v0-mw10p307xcx91.png?width=640&crop=smart&auto=webp&s=9dbec8211c6608e5c0f1bba257dc98bca285c7ac" alt="poster" />
-        </div>
-
-        <div className="poster">
-          <img src="https://lh3.googleusercontent.com/proxy/qMXP8pUodbqdnVOLmboE6sYYnS8h2l9eIDVP_AGvrfh5-Y-BjWptqmQbtH2Q8ezHxkzsQaixHzLEMSMf_DGo4OM6462zAVkEiXrbTQWp9YckcwMVgg" alt="poster" />
-        </div>
-
-        <div className="poster">
-          <img src="https://m.media-amazon.com/images/M/MV5BOTkzYmMxNTItZDAxNC00NGM0LWIyODMtMWYzMzRkMjIyMTE1XkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_FMjpg_UX1000_.jpg" alt="poster" />
-        </div>
+      <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "200px", height: "150px", display: "flex", justifyContent: "left", alignItems: "center" }}>
+        {myFavMovies && myFavMovies.length > 0 && myFavMovies.map((movie, index) => (
+          <div key={index} className={`poster`}>
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+          </div>
+        ))}
       </div>
     </div>
   );

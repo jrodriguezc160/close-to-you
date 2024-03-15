@@ -48,6 +48,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
       return;
     }
 
+    setChipVisible(false)
     setQueue(true);
 
     const direction =
@@ -66,6 +67,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
         imagesRef.current.insertBefore(imagesRef.current.lastElementChild, imagesRef.current.firstElementChild);
         lastClassList.remove('back');
         setQueue(false);
+        setChipVisible(true)
       }, timeout[0]);
     }, timeout[1]);
   };
@@ -83,8 +85,8 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
   }
 
   return (
-    <div style={{ width: 'auto', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "136px" }}>
+    <div style={{ width: 'auto', height: editing ? 'auto' : '150px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "100px" }}>
         {myFavBooks.map((book, index) => (
           <div key={index} className={`image ${editing ? 'edit' : ''}`}>
             <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />

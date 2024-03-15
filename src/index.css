@@ -280,7 +280,8 @@ body {
   }
 }
 
-.books-list {
+.books-list,
+.movies-list {
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
@@ -296,11 +297,13 @@ body {
   scroll-behavior: auto;
 }
 
-.books-list.visible {
+.books-list.visible,
+.movies-list.visible {
   height: 432px;
 }
 
-.fav-books {
+.fav-books,
+.fav-movies {
   border-radius: 8px;
   padding: 8px;
   min-height: 128px;
@@ -345,6 +348,42 @@ body {
       transform: rotate(-8deg) scale(1.1);
     }
   }
+
+  .movie {
+    display: flex;
+    flex-direction: column;
+    width: 128px;
+    text-align: center;
+    align-items: center;
+    gap: 8px;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    .cover {
+      transition: all 0.3s ease-in-out;
+      height: 128px;
+      width: 86px;
+      border-radius: 4px;
+      border-bottom-width: 15px;
+      -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      overflow: hidden;
+      margin-bottom: 8px;
+
+      img {
+        height: inherit;
+        width: inherit;
+      }
+    }
+
+    .cover:hover {
+      transform: rotate(-8deg) scale(1.1);
+    }
+  }
 }
 
 .visible {
@@ -353,7 +392,8 @@ body {
   opacity: 1;
 }
 
-.book-result {
+.book-result,
+.movie-result {
   transition: all .3s ease-in-out;
   display: flex;
   flex-direction: row;
@@ -381,9 +421,28 @@ body {
       height: inherit;
     }
   }
+
+  .movie-cover {
+    width: 42px;
+    min-width: 42px;
+    height: 64px;
+    border: none;
+    border-radius: 4px;
+    -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    overflow: hidden;
+    background-color: white;
+
+    img {
+      width: inherit;
+      height: inherit;
+    }
+  }
 }
 
-.book-result:hover {
+.book-result:hover,
+.movie-result:hover {
   background-color: #F7F7F7;
 }
 

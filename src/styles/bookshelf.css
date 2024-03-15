@@ -1,8 +1,8 @@
 .image {
   background-color: red;
   position: absolute;
-  height: 200px;
-  width: 136px;
+  height: 150px;
+  width: auto;
   border-radius: 2px 8px 8px 2px;
   border-bottom-width: 15px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);

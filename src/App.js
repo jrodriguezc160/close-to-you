@@ -6,6 +6,7 @@ import PostsPlaceholder from './components/PostsPlaceholder';
 import MoviesShowcase from './components/MoviesShowcase';
 import Bookshelf from './components/Bookshelf';
 import BookModal from './components/BookModal';
+import MovieModal from './components/MovieModal';
 import { useEffect, useState } from 'react';
 
 function App () {
@@ -14,10 +15,7 @@ function App () {
   const [myMovies, setMyMovies] = useState([])
   const [myFavMovies, setMyFavMovies] = useState([])
   const [showBookModal, setShowBookModal] = useState(false)
-
-  useEffect(() => {
-    console.log(showBookModal)
-  }, [showBookModal])
+  const [showMovieModal, setShowMovieModal] = useState(false)
 
   return (
     <div>
@@ -28,6 +26,14 @@ function App () {
         setMyFavBooks={setMyFavBooks}
         myBooks={myBooks}
         setMyBooks={setMyBooks}
+      />
+      <MovieModal
+        showMovieModal={showMovieModal}
+        setShowMovieModal={setShowMovieModal}
+        myFavMovies={myFavMovies}
+        setMyFavMovies={setMyFavMovies}
+        myMovies={myMovies}
+        setMyMovies={setMyMovies}
       />
 
       <Banner />
@@ -42,14 +48,22 @@ function App () {
         <div style={{ width: "50%", padding: "0 64px", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "64px", marginTop: "42px" }}>
             <Bookshelf
-              showBookModal={showBookModal}
-              setShowBookModal={setShowBookModal}
               myBooks={myBooks}
               setMyBooks={setMyBooks}
               myFavBooks={myFavBooks}
-              setMyFavBooks={setMyFavBooks} />
+              setMyFavBooks={setMyFavBooks}
+              showBookModal={showBookModal}
+              setShowBookModal={setShowBookModal}
+            />
 
-            <MoviesShowcase myMovies={myMovies} setMyMovies={setMyMovies} />
+            <MoviesShowcase
+              myMovies={myMovies}
+              setMyMovies={setMyMovies}
+              myFavMovies={myFavMovies}
+              setMyFavMovies={setMyFavMovies}
+              showMovieModal={showMovieModal}
+              setShowMovieModal={setShowMovieModal}
+            />
           </div>
           <div></div>
         </div>
