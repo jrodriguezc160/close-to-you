@@ -86,11 +86,12 @@ const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavM
   }
 
   return (
-    <div style={{ width: "fit-content", height: "150px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ width: "fit-content", height: "200px", display: "flex", gap: "16px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div >
-        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} movie={myFavMovies && myFavMovies.length > 0 ? myFavMovies[0] : null} />      </div>
+        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} movie={myFavMovies && myFavMovies.length > 0 ? myFavMovies[0] : null} />
+      </div>
 
-      <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "200px", height: "150px", display: "flex", justifyContent: "left", alignItems: "center" }}>
+      <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "200px", height: "200px", display: "flex", justifyContent: "left", alignItems: "center" }}>
         {myFavMovies && myFavMovies.length > 0 && myFavMovies.map((movie, index) => (
           <div key={index} className={`poster`}>
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
