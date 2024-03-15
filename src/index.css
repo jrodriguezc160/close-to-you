@@ -349,7 +349,12 @@ body {
     }
   }
 
+  .book:hover {
+    background-color: lightgray;
+  }
+
   .movie {
+    padding: 8px 0;
     display: flex;
     flex-direction: column;
     width: 128px;
@@ -383,6 +388,10 @@ body {
     .cover:hover {
       transform: rotate(-8deg) scale(1.1);
     }
+  }
+
+  .movie:hover {
+    background-color: lightgray;
   }
 }
 

@@ -47,26 +47,29 @@ function App () {
         </div>
 
         <div style={{ width: "50%", padding: "0 64px", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "64px", marginTop: "42px" }}>
-            <Bookshelf
-              myBooks={myBooks}
-              setMyBooks={setMyBooks}
-              myFavBooks={myFavBooks}
-              setMyFavBooks={setMyFavBooks}
-              showBookModal={showBookModal}
-              setShowBookModal={setShowBookModal}
-            />
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "64px", marginTop: "42px" }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "64px" }}>
+              <Bookshelf
+                myBooks={myBooks}
+                setMyBooks={setMyBooks}
+                myFavBooks={myFavBooks}
+                setMyFavBooks={setMyFavBooks}
+                showBookModal={showBookModal}
+                setShowBookModal={setShowBookModal}
+              />
 
-            <MoviesShowcase
-              myMovies={myMovies}
-              setMyMovies={setMyMovies}
-              myFavMovies={myFavMovies}
-              setMyFavMovies={setMyFavMovies}
-              showMovieModal={showMovieModal}
-              setShowMovieModal={setShowMovieModal}
-            />
+              <MoviesShowcase
+                myMovies={myMovies}
+                setMyMovies={setMyMovies}
+                myFavMovies={myFavMovies}
+                setMyFavMovies={setMyFavMovies}
+                showMovieModal={showMovieModal}
+                setShowMovieModal={setShowMovieModal}
+              />
+            </div>
           </div>
-          <div></div>
+          <div>
+          </div>
         </div>
       </div>
     </div>

@@ -180,106 +180,109 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '32px', paddingBottom: '0px' }}>
-            <h3 style={{ margin: '2px' }}>My favourite movies</h3>
-            <p style={{ margin: '2px' }}>You can only set 3 fav so choose wisely;)</p>
-          </div>
-          <div className="fav-movies">
-            {myFavMovies.map((movie, index) => (
-              <div className="movie">
-                <div key={index} className='cover'>
-                  {movie.poster_path ? (
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <FiImage />
-                    </div>
-                  )}
-                </div>
-
-                <p>{movie.title}</p>
-
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                  <div className='ic-container' >
-                    <FiStar
-                      onClick={() => {
-                        if (myFavMovies.some(favMovie => favMovie.id === movie.id)) {
-                          handleRemoveFavourite(movie);
-                        } else {
-                          handleAddFavourite(movie);
-                        }
-                      }}
-                      fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
-                    />
-                  </div>
-                  <div className='ic-container' >
-                    {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
-                      <FiPlusCircle
-                        onClick={() => handleAddMovie(movie)}
-                        stroke='gray'
-                      />
+          <div style={{ background: 'white', border: '1px solid lightgray', borderRadius: '16px', padding: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', margin: '16px' }}>
+              <h3 style={{ margin: '2px' }}>My favourite movies</h3>
+              <p style={{ margin: '2px' }}>You can only set 3 fav so choose wisely;)</p>
+            </div>
+            <div className="fav-movies">
+              {myFavMovies.map((movie, index) => (
+                <div className="movie">
+                  <div key={index} className='cover'>
+                    {movie.poster_path ? (
+                      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
                     ) : (
-                      <FiCheckCircle
-                        onClick={() => handleRemoveMovie(movie)}
-                        stroke='gray'
-                      />
-                    )
-                    }
+                      <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <FiImage />
+                      </div>
+                    )}
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '32px', paddingBottom: '0px' }}>
-            <h3 style={{ margin: '2px' }}>My movies</h3>
-            <p style={{ margin: '2px' }}>(all of them)</p>
-          </div>
-          <div className="fav-movies">
-            {myMovies.map((movie, index) => (
-              <div className="movie">
-                <div key={index} className='cover'>
-                  {movie.poster_path ? (
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <FiImage />
+                  <p>{movie.title}</p>
+
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                    <div className='ic-container' >
+                      <FiStar
+                        onClick={() => {
+                          if (myFavMovies.some(favMovie => favMovie.id === movie.id)) {
+                            handleRemoveFavourite(movie);
+                          } else {
+                            handleAddFavourite(movie);
+                          }
+                        }}
+                        fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
+                      />
                     </div>
-                  )}
-                </div>
-
-                <p>{movie.title}</p>
-
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                  <div className='ic-container' >
-                    <FiStar
-                      onClick={() => {
-                        if (myFavMovies.some(favMovie => favMovie.id === movie.id)) {
-                          handleRemoveFavourite(movie);
-                        } else {
-                          handleAddFavourite(movie);
-                        }
-                      }}
-                      fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
-                    />
+                    <div className='ic-container' >
+                      {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
+                        <FiPlusCircle
+                          onClick={() => handleAddMovie(movie)}
+                          stroke='gray'
+                        />
+                      ) : (
+                        <FiCheckCircle
+                          onClick={() => handleRemoveMovie(movie)}
+                          stroke='gray'
+                        />
+                      )
+                      }
+                    </div>
                   </div>
-                  <div className='ic-container' >
-                    {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
-                      <FiPlusCircle
-                        onClick={() => handleAddMovie(movie)}
-                        stroke='gray'
-                      />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ background: 'white', border: '1px solid lightgray', borderRadius: '16px', padding: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', margin: '16px' }}>            <h3 style={{ margin: '2px' }}>My movies</h3>
+              <p style={{ margin: '2px' }}>(all of them)</p>
+            </div>
+            <div className="fav-movies">
+              {myMovies.map((movie, index) => (
+                <div className="movie">
+                  <div key={index} className='cover'>
+                    {movie.poster_path ? (
+                      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
                     ) : (
-                      <FiCheckCircle
-                        onClick={() => handleRemoveMovie(movie)}
-                        stroke='gray'
+                      <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <FiImage />
+                      </div>
+                    )}
+                  </div>
+
+                  <p>{movie.title}</p>
+
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                    <div className='ic-container' >
+                      <FiStar
+                        onClick={() => {
+                          if (myFavMovies.some(favMovie => favMovie.id === movie.id)) {
+                            handleRemoveFavourite(movie);
+                          } else {
+                            handleAddFavourite(movie);
+                          }
+                        }}
+                        fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
                       />
-                    )
-                    }
+                    </div>
+                    <div className='ic-container' >
+                      {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
+                        <FiPlusCircle
+                          onClick={() => handleAddMovie(movie)}
+                          stroke='gray'
+                        />
+                      ) : (
+                        <FiCheckCircle
+                          onClick={() => handleRemoveMovie(movie)}
+                          stroke='gray'
+                        />
+                      )
+                      }
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           <div style={{ minHeight: '5vh' }}></div>

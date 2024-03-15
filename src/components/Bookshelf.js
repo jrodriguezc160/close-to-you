@@ -95,7 +95,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
       </div>
 
       <div>
-        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} book={myFavBooks[0]} />
+        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} book={{/* aquí debería ir el libro actual (que se muestra por encima del resto)*/ }} />
       </div>
     </div>
   );
