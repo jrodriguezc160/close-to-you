@@ -27,6 +27,7 @@ function App () {
         myBooks={myBooks}
         setMyBooks={setMyBooks}
       />
+
       <MovieModal
         showMovieModal={showMovieModal}
         setShowMovieModal={setShowMovieModal}

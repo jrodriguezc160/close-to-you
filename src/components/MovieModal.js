@@ -15,9 +15,14 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const savedMovies = sessionStorage.getItem('myFavMovies');
+    const savedFavMovies = sessionStorage.getItem('myFavMovies');
+    if (savedFavMovies) {
+      setMyFavMovies(JSON.parse(savedFavMovies));
+    }
+
+    const savedMovies = sessionStorage.getItem('myMovies');
     if (savedMovies) {
-      setMyFavMovies(JSON.parse(savedMovies));
+      setMyMovies(JSON.parse(savedMovies));
     }
   }, []);
 
@@ -26,6 +31,12 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
       sessionStorage.setItem('myFavMovies', JSON.stringify(myFavMovies));
     }
   }, [myFavMovies]);
+
+  useEffect(() => {
+    if (myMovies.length > 0) {
+      sessionStorage.setItem('myMovies', JSON.stringify(myMovies));
+    }
+  }, [myMovies]);
 
   useEffect(() => {
     if (showMovieModal) {

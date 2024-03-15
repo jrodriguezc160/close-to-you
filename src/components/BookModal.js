@@ -15,9 +15,14 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const savedBooks = sessionStorage.getItem('myFavBooks');
+    const savedFavBooks = sessionStorage.getItem('myFavBooks');
+    if (savedFavBooks) {
+      setMyFavBooks(JSON.parse(savedFavBooks));
+    }
+
+    const savedBooks = sessionStorage.getItem('myBooks');
     if (savedBooks) {
-      setMyFavBooks(JSON.parse(savedBooks));
+      setMyBooks(JSON.parse(savedBooks));
     }
   }, []);
 
@@ -27,6 +32,11 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     }
   }, [myFavBooks]);
 
+  useEffect(() => {
+    if (myBooks.length > 0) {
+      sessionStorage.setItem('myBooks', JSON.stringify(myBooks));
+    }
+  }, [myBooks]);
 
   useEffect(() => {
     // Agregar clase al body cuando el modal está abierto
