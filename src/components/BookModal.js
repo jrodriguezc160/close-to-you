@@ -11,6 +11,7 @@ import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks }) => {
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
+  const [selectedCollection, setSelectedCollection] = useState(myFavBooks);
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
 
@@ -77,6 +78,10 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     } else {
       setMyFavBooks([...myFavBooks, book])
     }
+  }
+
+  const handleSelectView = (collection) => {
+    setSelectedCollection(collection)
   }
 
   const handleRemoveFavourite = (bookToRemove) => {
@@ -165,12 +170,20 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '32px', paddingBottom: '0px' }}>
-            <h3 style={{ margin: '2px' }}>My favourite books</h3>
-            <p style={{ margin: '2px' }}>You can only set 3 fav so choose wisely;)</p>
+          <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', padding: '0', paddingBottom: '0px' }}>
+            <div className='heading-toggle selected' onClick={() => handleSelectView(myFavBooks)}>
+              <h3>My favourites</h3>
+            </div>
+            <div className='heading-toggle'>
+              <h3>/</h3>
+            </div>
+            <div className='heading-toggle' onClick={() => handleSelectView(myBooks)}>
+              <h3 >My collection</h3>
+            </div>
           </div>
+
           <div className="fav-books">
-            {myFavBooks.map((book, index) => (
+            {selectedCollection.map((book, index) => (
               <div className="book">
                 <div key={index} className='cover'>
                   {book.volumeInfo.imageLinks?.thumbnail ? (
@@ -182,8 +195,12 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                   )}
                 </div>
 
-                <p>{book.volumeInfo.title}</p>
-                <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
+                <div className="text">
+                  {book.volumeInfo.title}
+                </div>
+                <div className="text" style={{ color: 'gray' }}>
+                  {book.volumeInfo.authors}
+                </div>
 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
                   <div className='ic-container' >
@@ -199,59 +216,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                     />
                   </div>
                   <div className='ic-container' >
-                    {!myBooks.some(favBook => favBook.id === book.id) ? (
-                      <FiPlusCircle
-                        onClick={() => handleAddBook(book)}
-                        stroke='gray'
-                      />
-                    ) : (
-                      <FiCheckCircle
-                        onClick={() => handleRemoveBook(book)}
-                        stroke='gray'
-                      />
-                    )
-                    }
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '32px', paddingBottom: '0px' }}>
-            <h3 style={{ margin: '2px' }}>My books</h3>
-            <p style={{ margin: '2px' }}>(all of them)</p>
-          </div>
-          <div className="fav-books">
-            {myBooks.map((book, index) => (
-              <div className="book">
-                <div key={index} className='cover'>
-                  {book.volumeInfo.imageLinks?.thumbnail ? (
-                    <img src={book.volumeInfo.imageLinks.thumbnail} />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <FiImage />
-                    </div>
-                  )}
-                </div>
-
-                <p>{book.volumeInfo.title}</p>
-                <p style={{ color: 'gray' }}>{book.volumeInfo.authors}</p>
-
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                  <div className='ic-container' >
-                    <FiStar
-                      onClick={() => {
-                        if (myFavBooks.some(favBook => favBook.id === book.id)) {
-                          handleRemoveFavourite(book);
-                        } else {
-                          handleAddFavourite(book);
-                        }
-                      }}
-                      fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
-                    />
-                  </div>
-                  <div className='ic-container' >
-                    {!myBooks.some(favBook => favBook.id === book.id) ? (
+                    {!selectedCollection.some(favBook => favBook.id === book.id) ? (
                       <FiPlusCircle
                         onClick={() => handleAddBook(book)}
                         stroke='gray'
@@ -271,6 +236,8 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
           <div style={{ minHeight: '5vh' }}></div>
         </div>
+
+
       </div>
     </div>
   )

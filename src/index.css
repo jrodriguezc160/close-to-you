@@ -306,24 +306,36 @@ body {
 .fav-movies {
   border-radius: 8px;
   padding: 8px;
-  min-height: 128px;
+  min-height: 256px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 16px;
-  flex-wrap: wrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 
   .book {
+    transition: all 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    width: 128px;
+    width: 86px;
+    height: fit-content;
     text-align: center;
     align-items: center;
     gap: 8px;
+    border-radius: 8px;
+    padding: 16px;
 
-    p {
+    .text {
+      flex-grow: 1;
+      /* Allow the text div to grow to fill available vertical space */
       padding: 0;
       margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      /* Change to normal to allow text wrapping */
     }
 
     .cover {
@@ -350,7 +362,8 @@ body {
   }
 
   .book:hover {
-    background-color: lightgray;
+    background-color: rgba(211, 211, 211, 0.15);
+    backdrop-filter: blur(10);
   }
 
   .movie {
@@ -482,4 +495,28 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.heading-toggle {
+  margin: 2px;
+  cursor: pointer;
+
+  h3 {
+    transition: all 0.3s ease-in-out;
+    font-weight: normal;
+    color: gray;
+  }
+}
+
+.heading-toggle:hover {
+  h3 {
+    color: black;
+  }
+}
+
+.heading-toggle.selected {
+  h3 {
+    font-weight: bold;
+    color: black;
+  }
 }
