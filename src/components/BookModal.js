@@ -81,8 +81,23 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }
 
   const handleSelectView = (collection) => {
-    setSelectedCollection(collection)
+    const booksDivs = document.querySelectorAll('.book:not(.favourite)');
+    booksDivs.forEach(bookDiv => {
+      bookDiv.classList.remove('visible');
+    });
+    setTimeout(() => {
+      setSelectedCollection(collection);
+    }, 300);
+
+
+    setTimeout(() => {
+      const booksDivsToShow = document.querySelectorAll('.book');
+      booksDivsToShow.forEach(bookDiv => {
+        bookDiv.classList.add('visible');
+      });
+    }, 500);
   }
+
 
   const handleRemoveFavourite = (bookToRemove) => {
     const updatedBooks = myFavBooks.filter(book => book !== bookToRemove);
@@ -170,21 +185,21 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', padding: '0', paddingBottom: '0px' }}>
-            <div className='heading-toggle selected' onClick={() => handleSelectView(myFavBooks)}>
+          <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', padding: '0', paddingBottom: '0px', height: 'fit-content' }}>
+            <div className={`heading-toggle ${selectedCollection === myFavBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myFavBooks)}>
               <h3>My favourites</h3>
             </div>
             <div className='heading-toggle'>
               <h3>/</h3>
             </div>
-            <div className='heading-toggle' onClick={() => handleSelectView(myBooks)}>
+            <div className={`heading-toggle ${selectedCollection === myBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myBooks)}>
               <h3 >My collection</h3>
             </div>
           </div>
 
           <div className="fav-books">
             {selectedCollection.map((book, index) => (
-              <div className="book">
+              <div className={`book ${myFavBooks.some(favBook => favBook.id === book.id) ? 'favourite' : ''}`}>
                 <div key={index} className='cover'>
                   {book.volumeInfo.imageLinks?.thumbnail ? (
                     <img src={book.volumeInfo.imageLinks.thumbnail} />

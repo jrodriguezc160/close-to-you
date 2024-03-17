@@ -243,12 +243,11 @@ body {
 .modal {
   position: absolute;
   height: fit-content;
-  top: 20%;
+  top: 10%;
   width: 50vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
 }
 
 .search-bar {
@@ -291,6 +290,7 @@ body {
   background-color: white;
   border-radius: 16px;
   padding: 8px;
+  margin: 16px 0;
   gap: 8px;
   min-height: 0;
   overflow-y: auto;
@@ -305,7 +305,6 @@ body {
 .fav-books,
 .fav-movies {
   border-radius: 8px;
-  padding: 8px;
   min-height: 256px;
   display: flex;
   flex-direction: row;
@@ -326,6 +325,8 @@ body {
     gap: 8px;
     border-radius: 8px;
     padding: 16px;
+    opacity: 0;
+    visibility: hidden;
 
     .text {
       flex-grow: 1;
@@ -366,10 +367,15 @@ body {
     backdrop-filter: blur(10);
   }
 
+  .book.visible {
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+    visibility: visible;
+  }
+
   .movie {
     transition: all 0.3s ease-in-out;
     border-radius: 8px;
-    padding: 8px;
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -498,25 +504,25 @@ body {
 }
 
 .heading-toggle {
-  margin: 2px;
+  margin-right: 4px;
   cursor: pointer;
+  height: fit-content;
 
   h3 {
     transition: all 0.3s ease-in-out;
     font-weight: normal;
-    color: gray;
+    color: lightgray;
   }
 }
 
 .heading-toggle:hover {
   h3 {
-    color: black;
+    color: gray;
   }
 }
 
 .heading-toggle.selected {
   h3 {
-    font-weight: bold;
     color: black;
   }
 }
