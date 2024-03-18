@@ -271,6 +271,7 @@ body {
     gap: 8px;
 
     input {
+      padding: 0;
       border: none;
       outline: none;
       background: none;
@@ -366,7 +367,7 @@ body {
   }
 
   .book.visible {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.8s ease-in-out;
     opacity: 1;
     visibility: visible;
   }

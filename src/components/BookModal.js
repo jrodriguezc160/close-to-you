@@ -104,7 +104,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
     setTimeout(() => {
       setSelectedCollection(collection);
-      console.log('Colección: ', collection)
 
       setTimeout(() => {
         let delay = 100;
@@ -116,7 +115,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
           delay += 100;
         });
-      }, 100);
+      }, 50);
     }, 300);
   }
 
@@ -192,7 +191,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', padding: '0', paddingBottom: '0px', height: 'fit-content' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', padding: '0', paddingLeft: '16px', paddingBottom: '0px', height: 'fit-content' }}>
             <div className={`heading-toggle ${selectedCollection === myFavBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myFavBooks)}>
               <h3>My favourites</h3>
             </div>
