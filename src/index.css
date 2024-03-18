@@ -30,8 +30,8 @@ body {
 
 .ic-container:hover {
   transition: all .5s;
-  scale: 1.1;
-  color: black;
+  scale: 1.15;
+  stroke: gray;
 }
 
 .bottom-right {
@@ -330,13 +330,11 @@ body {
 
     .text {
       flex-grow: 1;
-      /* Allow the text div to grow to fill available vertical space */
       padding: 0;
       margin: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: normal;
-      /* Change to normal to allow text wrapping */
     }
 
     .cover {
@@ -375,17 +373,25 @@ body {
 
   .movie {
     transition: all 0.3s ease-in-out;
-    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: 86px;
+    height: fit-content;
     text-align: center;
     align-items: center;
     gap: 8px;
+    border-radius: 8px;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
 
-    p {
+    .text {
+      flex-grow: 1;
       padding: 0;
       margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
     }
 
     .cover {
@@ -412,7 +418,14 @@ body {
   }
 
   .movie:hover {
-    background-color: #F7F7F7;
+    background-color: rgba(211, 211, 211, 0.15);
+    backdrop-filter: blur(10);
+  }
+
+  .movie.visible {
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+    visibility: visible;
   }
 }
 

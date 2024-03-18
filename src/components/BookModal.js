@@ -12,6 +12,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(myFavBooks);
+  const [visible, setVisible] = useState(false);
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
 
@@ -40,7 +41,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }, [myBooks]);
 
   useEffect(() => {
-    // Agregar clase al body cuando el modal está abierto
     if (showBookModal) {
       document.body.classList.add('modal-open');
     } else {
@@ -66,6 +66,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const handleClearInput = () => {
     setSearch('');
+    setBookData([])
   }
 
   const handleAddFavourite = (book) => {
@@ -80,27 +81,8 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     }
   }
 
-  const handleSelectView = (collection) => {
-    const booksDivs = document.querySelectorAll('.book:not(.favourite)');
-    booksDivs.forEach(bookDiv => {
-      bookDiv.classList.remove('visible');
-    });
-    setTimeout(() => {
-      setSelectedCollection(collection);
-    }, 300);
-
-
-    setTimeout(() => {
-      const booksDivsToShow = document.querySelectorAll('.book');
-      booksDivsToShow.forEach(bookDiv => {
-        bookDiv.classList.add('visible');
-      });
-    }, 500);
-  }
-
-
   const handleRemoveFavourite = (bookToRemove) => {
-    const updatedBooks = myFavBooks.filter(book => book !== bookToRemove);
+    const updatedBooks = myFavBooks.filter(book => book.id !== bookToRemove.id);
     setMyFavBooks(updatedBooks);
   }
 
@@ -111,6 +93,31 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const handleRemoveBook = (bookToRemove) => {
     const updatedBooks = myBooks.filter(book => book !== bookToRemove);
     setMyBooks(updatedBooks);
+  }
+
+  const handleSelectView = (collection) => {
+    const booksDivs = document.querySelectorAll('.book');
+    booksDivs.forEach(bookDiv => {
+      bookDiv.classList.remove('visible');
+      console.log('Se ha eliminado la clase .visible')
+    });
+
+    setTimeout(() => {
+      setSelectedCollection(collection);
+      console.log('Colección: ', collection)
+
+      setTimeout(() => {
+        let delay = 100;
+        const booksDivs = document.querySelectorAll('.book');
+        booksDivs.forEach(bookDiv => {
+          setTimeout(() => {
+            bookDiv.classList.add('visible');
+          }, delay);
+
+          delay += 100;
+        });
+      }, 100);
+    }, 300);
   }
 
   return (
@@ -193,14 +200,14 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
               <h3>/</h3>
             </div>
             <div className={`heading-toggle ${selectedCollection === myBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myBooks)}>
-              <h3 >My collection</h3>
+              <h3>My collection</h3>
             </div>
           </div>
 
           <div className="fav-books">
             {selectedCollection.map((book, index) => (
-              <div className={`book ${myFavBooks.some(favBook => favBook.id === book.id) ? 'favourite' : ''}`}>
-                <div key={index} className='cover'>
+              <div className={`book`} key={index}>
+                <div className='cover'>
                   {book.volumeInfo.imageLinks?.thumbnail ? (
                     <img src={book.volumeInfo.imageLinks.thumbnail} />
                   ) : (
@@ -221,17 +228,17 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                   <div className='ic-container' >
                     <FiStar
                       onClick={() => {
-                        if (myFavBooks.some(favBook => favBook.id === book.id)) {
-                          handleRemoveFavourite(book);
-                        } else {
+                        if (!myFavBooks.some(favBook => favBook.id === book.id)) {
                           handleAddFavourite(book);
+                        } else {
+                          handleRemoveFavourite(book);
                         }
                       }}
                       fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
                     />
                   </div>
                   <div className='ic-container' >
-                    {!selectedCollection.some(favBook => favBook.id === book.id) ? (
+                    {!myBooks.some(favBook => favBook.id === book.id) ? (
                       <FiPlusCircle
                         onClick={() => handleAddBook(book)}
                         stroke='gray'
@@ -251,8 +258,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
           <div style={{ minHeight: '5vh' }}></div>
         </div>
-
-
       </div>
     </div>
   )
