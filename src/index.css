@@ -310,7 +310,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 16px;
+  gap: 8px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -424,10 +424,52 @@ body {
   }
 
   .movie.visible {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.8s ease-in-out;
     opacity: 1;
     visibility: visible;
   }
+}
+
+.masked-overflow {
+  /* scroll bar width, for use in mask calculations */
+  --scrollbar-width: 0px;
+
+  /* mask fade distance, for use in mask calculations */
+  --mask-width: 64px;
+
+  /* Keep some space between content and scrollbar */
+  padding: 0 32px;
+
+  /* The CSS mask */
+
+  /* The content mask is a linear gradient from left to right */
+  --mask-image-content: linear-gradient(to right,
+      transparent,
+      rgb(255, 255, 255) var(--mask-width),
+      rgb(255, 255, 255) calc(100% - var(--mask-width)),
+      transparent);
+
+  /* Here we scale the content gradient to the width of the container 
+  minus the scrollbar width. The height is the full container height */
+  --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
+
+  /* The scrollbar mask is a black pixel */
+  --mask-image-scrollbar: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+
+  /* The width of our black pixel is the width of the scrollbar.
+  The height is the full container height */
+  --mask-size-scrollbar: var(--scrollbar-width) 100%;
+
+  /* Apply the mask image and mask size variables */
+  mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
+  mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
+
+  /* Position the content gradient in the top left, and the 
+  scroll gradient in the top right */
+  mask-position: 0 0, 100% 0;
+
+  /* We don't repeat our mask images */
+  mask-repeat: no-repeat, no-repeat;
 }
 
 .visible {

@@ -12,7 +12,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(myFavBooks);
-  const [visible, setVisible] = useState(false);
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
 
@@ -66,7 +65,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const handleClearInput = () => {
     setSearch('');
-    setBookData([])
+    setBookData([]);
   }
 
   const handleAddFavourite = (book) => {
@@ -203,7 +202,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             </div>
           </div>
 
-          <div className="fav-books">
+          <div className="fav-books masked-overflow">
             {selectedCollection.map((book, index) => (
               <div className={`book`} key={index}>
                 <div className='cover'>
