@@ -23,18 +23,6 @@ function App () {
   const [showMovieModal, setShowMovieModal] = useState(false)
   const [showAlbumModal, setShowAlbumModal] = useState(false)
 
-  useEffect(() => {
-    // Inicializando la colección myAlbums con 5 objetos sencillos
-    const initialAlbum = [
-      { id: 1, title: 'Canción 1', artist: 'Artista 1' },
-      { id: 2, title: 'Canción 2', artist: 'Artista 2' },
-      { id: 3, title: 'Canción 3', artist: 'Artista 3' },
-      { id: 4, title: 'Canción 4', artist: 'Artista 4' },
-      { id: 5, title: 'Canción 5', artist: 'Artista 5' }
-    ];
-    setMyFavAlbums(initialAlbum);
-  }, []);
-
   return (
     <div>
       <BookModal

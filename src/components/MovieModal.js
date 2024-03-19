@@ -173,8 +173,14 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
                     </div>
                   )}
                 </div>
-                <p style={{ maxWidth: '50%', marginRight: 'auto' }}>{movie.title}</p>
-                <p style={{ color: 'gray' }}>{movie.release_date}</p>
+
+                <div className="text">
+                  {movie.title}
+                </div>
+                <div className="text" style={{ color: 'gray' }}>
+                  {movie.release_date}
+                </div>
+
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => {
@@ -230,8 +236,9 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
                     </div>
                   )}
                 </div>
-
-                <p>{movie.title}</p>
+                <div className="text">
+                  <p>{movie.title}</p>
+                </div>
 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
                   <div className='ic-container' >

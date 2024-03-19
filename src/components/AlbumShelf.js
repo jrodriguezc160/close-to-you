@@ -89,7 +89,7 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbum, setMyAlbum, my
       <div ref={imagesRef} className={`favAlbums ${editing ? 'edit' : ''}`} onClick={handleImageClick} >
         {myFavAlbums.map((album, index) => (
           <div key={index} className={`favAlbum ${editing ? 'edit' : ''}`}>
-            <img src={album?.volumeInfo?.imageLinks.thumbnail} alt={album?.volumeInfo?.title} />
+            <img src={album.image[3]['#text']} />
           </div>
         ))}
       </div>

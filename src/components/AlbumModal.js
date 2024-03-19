@@ -63,7 +63,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
       .then(response => {
         if (response.data && response.data.results && response.data.results.albummatches && response.data.results.albummatches.album) {
           const albums = response.data.results.albummatches.album;
-          console.log(albums)
+          // console.log(albums)
           setAlbumData(albums)
         }
       })
@@ -84,7 +84,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   }
 
   const handleAddFavourite = (album) => {
-    if (myFavAlbums.length >= 3) {
+    if (myFavAlbums.length >= 5) {
       console.log('Límite excedido')
       setShowLimit(true)
       setTimeout(() => {
@@ -140,7 +140,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
           <div className="ic-container" style={{ width: '64px', height: '64px' }} >
             <FiAlertTriangle fill='white' stroke='rgb(222, 0, 0)' />
           </div>
-          <p>Límite de favoritos: 3.</p>
+          <p>Límite de favoritos: 5.</p>
           <p>Elimine un favorito para continuar</p>
         </div>
       </div>
@@ -177,17 +177,19 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => {
-                      if (myFavAlbums.some(favAlbum => favAlbum.id === album.id)) {
+                      if (myFavAlbums.some(favAlbum => favAlbum === album)) {
                         handleRemoveFavourite(album);
+                        console.log(album.id)
                       } else {
                         handleAddFavourite(album);
+                        console.log(album.id)
                       }
                     }}
-                    fill={myFavAlbums.some(favAlbum => favAlbum.id === album.id) ? 'gray' : 'none'}
+                    fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
                   />
                 </div>
                 <div className='ic-container' >
-                  {!myAlbums.some(favAlbum => favAlbum.id === album.id) ? (
+                  {!myAlbums.some(favAlbum => favAlbum === album) ? (
                     <FiPlusCircle
                       onClick={() => handleAddAlbum(album)}
                       stroke='gray'
@@ -217,7 +219,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
           </div>
 
           <div className="fav-albums masked-overflow">
-            {myAlbums.map((album, index) => (
+            {selectedCollection.map((album, index) => (
               <div key={index} className='album'>
                 <div className='cover'>
                   <img src={album.image[2]['#text']} />
@@ -232,17 +234,17 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                   <div className='ic-container' >
                     <FiStar
                       onClick={() => {
-                        if (!myFavAlbums.some(favAlbum => favAlbum.id === album.id)) {
+                        if (!myFavAlbums.some(favAlbum => favAlbum === album)) {
                           handleAddFavourite(album);
                         } else {
                           handleRemoveFavourite(album);
                         }
                       }}
-                      fill={myFavAlbums.some(favAlbum => favAlbum.id === album.id) ? 'gray' : 'none'}
+                      fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
                     />
                   </div>
                   <div className='ic-container' >
-                    {!myAlbums.some(favAlbum => favAlbum.id === album.id) ? (
+                    {!myAlbums.some(favAlbum => favAlbum === album) ? (
                       <FiPlusCircle
                         onClick={() => handleAddAlbum(album)}
                         stroke='gray'
