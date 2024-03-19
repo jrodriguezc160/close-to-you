@@ -1,0 +1,87 @@
+.favAlbum {
+  background-color: #F7F7F7;
+  border: 1px solid lightgray;
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  border-radius: 4px;
+  border-bottom-width: 15px;
+  -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  z-index: 2;
+  -moz-transition: -moz-transform 0.3s ease-in-out;
+  -o-transition: -o-transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+
+  img {
+    width: inherit;
+    height: inherit;
+  }
+}
+
+.favAlbum:first-child {
+  transition: all 0.3s ease-in-out;
+  margin-right: 400px;
+}
+
+.favAlbum:nth-child(2) {
+  transition: all 0.3s ease-in-out;
+  margin-right: 300px;
+}
+
+.favAlbum:nth-child(3) {
+  transition: all 0.3s ease-in-out;
+  margin-right: 200px;
+}
+
+.favAlbum:nth-child(4) {
+  transition: all 0.3s ease-in-out;
+  margin-right: 100px;
+}
+
+.favAlbum:last-child {}
+
+
+.favAlbum:nth-child(2):hover {
+  transition: all 0.3s ease-in-out;
+  margin-right: 350px;
+}
+
+.favAlbum:nth-child(3):hover {
+  transition: all 0.3s ease-in-out;
+  margin-right: 250px;
+}
+
+.favAlbum:nth-child(4):hover {
+  transition: all 0.3s ease-in-out;
+  margin-right: 150px;
+}
+
+.favAlbum:first-child:hover {
+  transition: all 0.3s ease-in-out;
+  margin-right: 450px;
+}
+
+.favAlbum.slide-left {
+  transition: all 0.3s ease-in-out;
+  -moz-transform: translateX(-72px);
+  -ms-transform: translateX(-72px);
+  -webkit-transform: translateX(-72px);
+  transform: translateX(-72px) scale(0.9);
+}
+
+.favAlbum.back {
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+  opacity: 0;
+  scale: 0.7;
+}
+
+.favAlbums {
+  min-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -16,12 +16,12 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const savedFavBooks = sessionStorage.getItem('myFavBooks');
+    const savedFavBooks = localStorage.getItem('myFavBooks');
     if (savedFavBooks) {
       setMyFavBooks(JSON.parse(savedFavBooks));
     }
 
-    const savedBooks = sessionStorage.getItem('myBooks');
+    const savedBooks = localStorage.getItem('myBooks');
     if (savedBooks) {
       setMyBooks(JSON.parse(savedBooks));
     }
@@ -29,13 +29,13 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   useEffect(() => {
     if (myFavBooks.length > 0) {
-      sessionStorage.setItem('myFavBooks', JSON.stringify(myFavBooks));
+      localStorage.setItem('myFavBooks', JSON.stringify(myFavBooks));
     }
   }, [myFavBooks]);
 
   useEffect(() => {
     if (myBooks.length > 0) {
-      sessionStorage.setItem('myBooks', JSON.stringify(myBooks));
+      localStorage.setItem('myBooks', JSON.stringify(myBooks));
     }
   }, [myBooks]);
 

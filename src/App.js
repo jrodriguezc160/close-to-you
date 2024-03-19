@@ -1,21 +1,39 @@
 import "./index.css"
+import { useEffect, useState } from 'react';
 import Banner from "./components/Banner"
 import ProfilePic from './components/ProfilePic';
 import Description from './components/Description';
 import PostsPlaceholder from './components/PostsPlaceholder';
-import MoviesShowcase from './components/MoviesShowcase';
 import Bookshelf from './components/Bookshelf';
 import BookModal from './components/BookModal';
+import MoviesShowcase from './components/MoviesShowcase';
 import MovieModal from './components/MovieModal';
-import { useEffect, useState } from 'react';
+import AlbumShelf from './components/AlbumShelf';
+import AlbumModal from './components/AlbumModal';
 
 function App () {
   const [myBooks, setMyBooks] = useState([])
   const [myFavBooks, setMyFavBooks] = useState([])
   const [myMovies, setMyMovies] = useState([])
   const [myFavMovies, setMyFavMovies] = useState([])
+  const [myAlbums, setMyAlbums] = useState([])
+  const [myFavAlbums, setMyFavAlbums] = useState([])
+
   const [showBookModal, setShowBookModal] = useState(false)
   const [showMovieModal, setShowMovieModal] = useState(false)
+  const [showAlbumModal, setShowAlbumModal] = useState(false)
+
+  useEffect(() => {
+    // Inicializando la colección myAlbums con 5 objetos sencillos
+    const initialAlbum = [
+      { id: 1, title: 'Canción 1', artist: 'Artista 1' },
+      { id: 2, title: 'Canción 2', artist: 'Artista 2' },
+      { id: 3, title: 'Canción 3', artist: 'Artista 3' },
+      { id: 4, title: 'Canción 4', artist: 'Artista 4' },
+      { id: 5, title: 'Canción 5', artist: 'Artista 5' }
+    ];
+    setMyFavAlbums(initialAlbum);
+  }, []);
 
   return (
     <div>
@@ -35,6 +53,15 @@ function App () {
         setMyFavMovies={setMyFavMovies}
         myMovies={myMovies}
         setMyMovies={setMyMovies}
+      />
+
+      <AlbumModal
+        showAlbumModal={showAlbumModal}
+        setShowAlbumModal={setShowAlbumModal}
+        myFavAlbums={myFavAlbums}
+        setMyFavAlbums={setMyFavAlbums}
+        myAlbums={myAlbums}
+        setMyAlbums={setMyAlbums}
       />
 
       <Banner />
@@ -65,6 +92,17 @@ function App () {
                 setMyFavMovies={setMyFavMovies}
                 showMovieModal={showMovieModal}
                 setShowMovieModal={setShowMovieModal}
+              />
+            </div>
+
+            <div>
+              <AlbumShelf
+                myAlbums={myAlbums}
+                setMyAlbums={setMyAlbums}
+                myFavAlbums={myFavAlbums}
+                setMyFavAlbums={setMyFavAlbums}
+                showAlbumModal={showAlbumModal}
+                setShowAlbumModal={setShowAlbumModal}
               />
             </div>
           </div>

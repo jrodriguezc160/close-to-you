@@ -281,7 +281,8 @@ body {
 }
 
 .books-list,
-.movies-list {
+.movies-list,
+.albums-list {
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
@@ -299,14 +300,17 @@ body {
 }
 
 .books-list.visible,
-.movies-list.visible {
+.movies-list.visible,
+.albums-list.visible {
   height: 432px;
 }
 
 .fav-books,
-.fav-movies {
+.fav-movies,
+.fav-albums {
   border-radius: 8px;
   min-height: 256px;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -428,6 +432,63 @@ body {
     opacity: 1;
     visibility: visible;
   }
+
+  .album {
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+
+    .text {
+      flex-grow: 1;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+    }
+
+    .cover {
+      transition: all 0.3s ease-in-out;
+      height: 128px;
+      width: 128px;
+      border-radius: 4px;
+      -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      overflow: hidden;
+      margin-bottom: 8px;
+
+      img {
+        height: inherit;
+        width: inherit;
+      }
+    }
+
+    .cover:hover {
+      transform: rotate(-8deg) scale(1.1);
+    }
+  }
+
+  .album:hover {
+    background-color: rgba(211, 211, 211, 0.15);
+    backdrop-filter: blur(10);
+  }
+
+  .album.visible {
+    transition: all 0.8s ease-in-out;
+    opacity: 1;
+    visibility: visible;
+  }
+
 }
 
 .masked-overflow {
@@ -479,7 +540,8 @@ body {
 }
 
 .book-result,
-.movie-result {
+.movie-result,
+.album-result {
   transition: all .3s ease-in-out;
   display: flex;
   flex-direction: row;
@@ -511,6 +573,23 @@ body {
   .movie-cover {
     width: 42px;
     min-width: 42px;
+    height: 64px;
+    border: none;
+    border-radius: 4px;
+    -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+    overflow: hidden;
+    background-color: white;
+
+    img {
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+  .album-cover {
+    width: 64px;
     height: 64px;
     border: none;
     border-radius: 4px;
