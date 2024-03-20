@@ -2,8 +2,8 @@
   background-color: #F7F7F7;
   border: 0 solid lightgray;
   position: absolute;
-  height: 200px;
-  width: 200px;
+  height: 10vw;
+  width: 10vw;
   border-radius: 4px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
   -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
@@ -23,22 +23,22 @@
 
 .favAlbum:first-child {
   transition: all 0.3s ease-in-out;
-  margin-right: 400px;
+  margin-right: 24rem;
 }
 
 .favAlbum:nth-child(2) {
   transition: all 0.3s ease-in-out;
-  margin-right: 300px;
+  margin-right: 18rem;
 }
 
 .favAlbum:nth-child(3) {
   transition: all 0.3s ease-in-out;
-  margin-right: 200px;
+  margin-right: 12rem;
 }
 
 .favAlbum:nth-child(4) {
   transition: all 0.3s ease-in-out;
-  margin-right: 100px;
+  margin-right: 6rem;
 }
 
 .favAlbum:last-child {
@@ -53,22 +53,22 @@
 
 .favAlbum:nth-child(2):hover {
   transition: all 0.3s ease-in-out;
-  margin-right: 350px;
+  margin-right: 20rem;
 }
 
 .favAlbum:nth-child(3):hover {
   transition: all 0.3s ease-in-out;
-  margin-right: 250px;
+  margin-right: 14rem;
 }
 
 .favAlbum:nth-child(4):hover {
   transition: all 0.3s ease-in-out;
-  margin-right: 150px;
+  margin-right: 8rem;
 }
 
 .favAlbum:first-child:hover {
   transition: all 0.3s ease-in-out;
-  margin-right: 450px;
+  margin-right: 26rem;
 }
 
 .favAlbum.slide-right {
@@ -87,7 +87,7 @@
 }
 
 .favAlbums {
-  min-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
 }

@@ -85,8 +85,8 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
   }
 
   return (
-    <div style={{ width: 'auto', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "left", alignItems: "center", width: "128px" }}>
+    <div style={{ width: '11vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "12vw" }}>
         {myFavBooks.map((book, index) => (
           <div key={index} className={`image ${editing ? 'edit' : ''}`}>
             <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
@@ -94,8 +94,8 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
         ))}
       </div>
 
-      <div>
-        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} book={{/* aquí debería ir el libro actual (que se muestra por encima del resto)*/ }} />
+      <div style={{ marginTop: '.2rem' }}>
+        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
       </div>
     </div>
   );

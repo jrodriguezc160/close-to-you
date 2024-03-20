@@ -1,8 +1,8 @@
 .image {
   background-color: red;
   position: absolute;
-  height: 200px;
-  width: 128px;
+  height: 11vw;
+  width: 7vw;
   border-radius: 2px 8px 8px 2px;
   border-bottom-width: 15px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
@@ -63,10 +63,10 @@
 
 .image.slide-right {
   transition: all 0.3s ease-in-out;
-  -moz-transform: translateX(140px);
-  -ms-transform: translateX(140px);
-  -webkit-transform: translateX(140px);
-  transform: translateX(140px);
+  -moz-transform: translateX(6rem);
+  -ms-transform: translateX(6rem);
+  -webkit-transform: translateX(6rem);
+  transform: translateX(6rem);
 }
 
 .image.back {
@@ -118,4 +118,8 @@
     -webkit-transform: rotate(0deg) translateX(0px) translateY(0px);
     transform: rotate(0deg) translateX(0px) translateY(0px);
   }
+}
+
+.images {
+  height: auto;
 }

@@ -63,7 +63,7 @@ function App () {
 
         <div style={{ width: "50%", padding: "0 64px", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "64px", marginTop: "42px" }}>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "64px" }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "1rem" }}>
               <Bookshelf
                 myBooks={myBooks}
                 setMyBooks={setMyBooks}

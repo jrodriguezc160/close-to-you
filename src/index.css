@@ -209,8 +209,8 @@ body {
   justify-content: center;
   gap: 8px;
   padding: 8px;
-  height: 16px;
-  min-height: fit-content;
+  min-height: 16px;
+  height: fit-content;
 }
 
 .v-chip.open {

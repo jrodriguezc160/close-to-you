@@ -96,7 +96,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   }
 
   const handleRemoveFavourite = (albumToRemove) => {
-    const updatedAlbum = myFavAlbums.filter(album => album.id !== albumToRemove.id);
+    const updatedAlbum = myFavAlbums.filter(album => album !== albumToRemove);
     setMyFavAlbums(updatedAlbum);
   }
 
@@ -179,10 +179,8 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                     onClick={() => {
                       if (myFavAlbums.some(favAlbum => favAlbum === album)) {
                         handleRemoveFavourite(album);
-                        console.log(album.id)
                       } else {
                         handleAddFavourite(album);
-                        console.log(album.id)
                       }
                     }}
                     fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
@@ -234,10 +232,10 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                   <div className='ic-container' >
                     <FiStar
                       onClick={() => {
-                        if (!myFavAlbums.some(favAlbum => favAlbum === album)) {
-                          handleAddFavourite(album);
-                        } else {
+                        if (myFavAlbums.some(favAlbum => favAlbum === album)) {
                           handleRemoveFavourite(album);
+                        } else {
+                          handleAddFavourite(album);
                         }
                       }}
                       fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
