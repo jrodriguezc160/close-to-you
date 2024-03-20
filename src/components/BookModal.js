@@ -170,8 +170,8 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                     }}
                     fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
                   />
-
                 </div>
+
                 <div className='ic-container' >
                   {!myBooks.some(favBook => favBook.id === book.id) ? (
                     <FiPlusCircle

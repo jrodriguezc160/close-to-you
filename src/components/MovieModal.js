@@ -174,12 +174,8 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
                   )}
                 </div>
 
-                <div className="text">
-                  {movie.title}
-                </div>
-                <div className="text" style={{ color: 'gray' }}>
-                  {movie.release_date}
-                </div>
+                <p style={{ maxWidth: '50%', marginRight: 'auto' }}>{movie.title}</p>
+                <p style={{ color: 'gray' }}>{movie.release_date}</p>
 
                 <div className='ic-container' >
                   <FiStar
