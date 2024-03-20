@@ -55,15 +55,15 @@ function App () {
       <Banner />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ width: "50%", padding: "0 64px", gap: "32px", display: "flex", flexDirection: "column" }}>
+        <div style={{ width: "50%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
           <ProfilePic />
           <Description />
           <PostsPlaceholder />
         </div>
 
-        <div style={{ width: "50%", padding: "0 64px", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "64px", marginTop: "42px" }}>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "1rem" }}>
+        <div style={{ width: "50%", padding: "0 6rem", display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "4rem", marginTop: "2rem" }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "3rem" }}>
               <Bookshelf
                 myBooks={myBooks}
                 setMyBooks={setMyBooks}
@@ -83,7 +83,7 @@ function App () {
               />
             </div>
 
-            <div>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
               <AlbumShelf
                 myAlbums={myAlbums}
                 setMyAlbums={setMyAlbums}

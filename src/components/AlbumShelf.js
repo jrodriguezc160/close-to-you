@@ -85,7 +85,7 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbum, setMyAlbum, my
   }
 
   return (
-    <div style={{ width: 'auto', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ width: '100%', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div ref={imagesRef} className={`favAlbums ${editing ? 'edit' : ''}`} onClick={handleImageClick} >
         {myFavAlbums.map((album, index) => (
           <div key={index} className={`favAlbum ${editing ? 'edit' : ''}`}>
