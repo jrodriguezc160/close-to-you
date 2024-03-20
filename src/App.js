@@ -10,8 +10,12 @@ import MoviesShowcase from './components/MoviesShowcase';
 import MovieModal from './components/MovieModal';
 import AlbumShelf from './components/AlbumShelf';
 import AlbumModal from './components/AlbumModal';
+import ChangeProfilePic from './components/ChangeProfilePic';
 
 function App () {
+  const [profilePic, setProfilePic] = useState('')
+  const [showProfilePicModal, setShowProfilePicModal] = useState(false)
+
   const [myBooks, setMyBooks] = useState([])
   const [myFavBooks, setMyFavBooks] = useState([])
   const [myMovies, setMyMovies] = useState([])
@@ -52,13 +56,15 @@ function App () {
         setMyAlbums={setMyAlbums}
       />
 
+      <ChangeProfilePic profilePic={profilePic} setProfilePic={setProfilePic} showProfilePicModal={showProfilePicModal} setShowProfilePicModal={setShowProfilePicModal} />
+
       <Banner />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ width: "50%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
-          <ProfilePic />
+          <ProfilePic setShowProfilePicModal={setShowProfilePicModal} profilePic={profilePic} />
           <Description />
-          <PostsPlaceholder />
+          <PostsPlaceholder profilePic={profilePic} />
         </div>
 
         <div style={{ width: "50%", padding: "0 6rem", display: "flex", flexDirection: "column" }}>

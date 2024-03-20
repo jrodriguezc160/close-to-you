@@ -9,6 +9,7 @@ import { useSpring, animated } from 'react-spring';
 function Banner () {
   const [cambiarBanner, setCambiarBanner] = useState(false);
   const [noBanner, setNoBanner] = useState(false);
+  const [chipVisible, setChipVisible] = useState(false);
   const [nuevoBanner, setNuevoBanner] = useState('https://pbs.twimg.com/media/GH0WHHPW0AAXnA6?format=jpg&name=large');
   const inputRef = useRef(null);
 
@@ -36,9 +37,17 @@ function Banner () {
     setNoBanner(true)
   }
 
+  const handleMouseEnter = () => {
+    setChipVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setChipVisible(false);
+  };
+
   return (
-    <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '20vh', overflow: "hidden" }}>
-      <div className='bottom-right'>
+    <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '20vh', overflow: "hidden" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className={`bottom-right ${chipVisible ? 'visible' : ''}`}>
         <animated.div style={fade} className='text-chip' >
           <input ref={inputRef} type="text" name="banner-link" id="banner-link" placeholder='Pega aquí el link del nuevo banner' style={{ border: "none", outline: "none", background: "none", width: "15rem" }} />
 

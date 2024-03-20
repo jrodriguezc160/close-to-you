@@ -1,7 +1,7 @@
 import { FiEdit3 } from "@react-icons/all-files/fi/FiEdit3";
 import Post from './Post';
 
-function PostsPlaceholder () {
+function PostsPlaceholder ({ profilePic }) {
 
   return (
     <div className='posts-placeholder'>
@@ -13,9 +13,9 @@ function PostsPlaceholder () {
         </div>
       </div>
 
-      <Post />
-      <Post />
-      <Post />
+      <Post profilePic={profilePic} />
+      <Post profilePic={profilePic} />
+      <Post profilePic={profilePic} />
     </div>
   )
 }

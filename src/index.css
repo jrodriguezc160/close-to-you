@@ -35,7 +35,10 @@ body {
 }
 
 .bottom-right {
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
   z-index: 2;
+  opacity: 0;
   position: absolute;
   bottom: 1rem;
   right: 1rem;
@@ -80,12 +83,13 @@ body {
 .profile-pic {
   width: 8rem;
   height: 8rem;
-  border: 1px dashed lightgray;
+  border: 0 dashed lightgray;
   border-radius: 8rem;
   /* background-color: rgba(230, 230, 230, 0.5); */
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .profile-text {
@@ -156,12 +160,18 @@ body {
 .post-profile-pic {
   width: 32px;
   height: 32px;
-  border: 1px dashed lightgray;
+  border: 0 dashed lightgray;
   border-radius: 32px;
   /* background-color: rgba(230, 230, 230, 0.5); */
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: inherit;
+    height: inherit;
+  }
 }
 
 .posts-placeholder {
@@ -179,7 +189,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 4px 16px;
+  padding: 4px 12px;
   margin: 0px;
   height: 16px;
   min-height: fit-content;
@@ -277,6 +287,78 @@ body {
       background: none;
       width: 100%;
     }
+  }
+}
+
+.text-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+
+  .text-bar-input {
+    border-radius: 8px;
+    background-color: #80808015;
+    border: .5px solid lightgray;
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    height: 16px;
+    min-height: fit-content;
+    color: gray;
+    display: flex;
+    align-items: center;
+    outline: none;
+    width: 100%;
+    gap: 8px;
+
+    input {
+      padding: 0;
+      border: none;
+      outline: none;
+      background: none;
+      width: 100%;
+      color: rgb(87, 87, 87);
+    }
+
+    ::placeholder {
+      color: gray;
+    }
+  }
+}
+
+.modal-glass {
+  padding: 16px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #80808015;
+  border: .5px solid lightgray;
+  backdrop-filter: blur(10px);
+  color: rgb(87, 87, 87);
+  width: fit-content;
+}
+
+.glass {
+  padding: 16px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  width: auto;
+  height: fit-content;
+  background-color: #80808015;
+  border: .5px solid lightgray;
+  backdrop-filter: blur(10px);
+  color: rgb(87, 87, 87);
+
+  * {
+    margin: 0;
+    padding: 0;
   }
 }
 

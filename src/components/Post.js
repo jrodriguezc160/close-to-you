@@ -3,12 +3,13 @@ import { FiRepeat } from "@react-icons/all-files/fi/FiRepeat";
 import { FiSend } from "@react-icons/all-files/fi/FiSend";
 import "../index.css"
 
-function Post () {
+function Post ({ profilePic }) {
   return (
     <div className='post'>
 
       <div className='post-profile'>
         <div className='post-profile-pic'>
+          {profilePic ? (<img src={profilePic} />) : ('')}
         </div>
         <div style={{ padding: "8px 0" }}>
           <b>RODLEYY</b>&nbsp; @rodleyy
