@@ -28,6 +28,12 @@ body {
   }
 }
 
+.ic-container.hidden-icon {
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
 .ic-container:hover {
   transition: all .5s;
   scale: 1.15;
