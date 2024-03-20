@@ -14,9 +14,9 @@ const VerticalIconBar = ({ chipVisible, handleEdit, book, handleRemoveFavourite 
         <FiEdit2 />
       </div>
 
-      <div className="ic-container" onClick={() => handleRemoveFavourite(book)}>
+      {/*       <div className="ic-container" onClick={() => handleRemoveFavourite(book)}>
         <FiTrash />
-      </div>
+      </div> */}
     </div>
   )
 }

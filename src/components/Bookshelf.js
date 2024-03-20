@@ -94,7 +94,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
         ))}
       </div>
 
-      <div style={{ marginTop: '.2rem' }}>
+      <div style={{ marginTop: '.5rem' }}>
         <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
       </div>
     </div>

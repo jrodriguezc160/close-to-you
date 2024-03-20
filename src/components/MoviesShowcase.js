@@ -38,11 +38,9 @@ const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavM
   const timeout = cssTransition() ? [300, 400] : [0, 0];
 
   useEffect(() => {
-    if (imagesRef.current && imagesRef.current.firstElementChild) {
-      imageWidthRef.current = imagesRef.current.firstElementChild.offsetWidth;
-      imageOffsetRef.current = imagesRef.current.firstElementChild.offsetLeft;
-    }
-  }, [myFavMovies]);
+    imageWidthRef.current = imagesRef?.current?.firstElementChild?.offsetWidth;
+    imageOffsetRef.current = imagesRef?.current?.firstElementChild?.offsetLeft;
+  }, []);
 
   const handleImageClick = (event) => {
     if (!myFavMovies || myFavMovies.length === 0 || queue) {
@@ -87,11 +85,11 @@ const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavM
 
   return (
     <div style={{ width: "11vw", height: "12vw", display: "flex", gap: "2rem" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div style={{ marginTop: '.2rem' }}>
+      <div style={{ marginTop: '.5rem', marginRight: '1rem' }}>
         <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} movie={myFavMovies && myFavMovies.length > 0 ? myFavMovies[0] : null} />
       </div>
 
-      <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '3vw' }}>
+      <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>
         {myFavMovies && myFavMovies.length > 0 && myFavMovies.map((movie, index) => (
           <div key={index} className={`poster`}>
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
