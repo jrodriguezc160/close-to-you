@@ -43,6 +43,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
     localStorage.setItem('profilePic', profilePic)
 
     setTimeout(() => {
+      // if (!savedProfilePics.includes(profilePic)) { // Verificar si el profilePic no está duplicado
       if (savedProfilePics.length >= 3) {
         const newSavedProfilePics = [...savedProfilePics.slice(1), profilePic];
         setSavedProfilePics(newSavedProfilePics);
@@ -51,6 +52,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
         setSavedProfilePics([...savedProfilePics, profilePic]);
         localStorage.setItem('savedProfilePics', JSON.stringify([...savedProfilePics, profilePic]));
       }
+      // }
     }, 3000);
   }, [profilePic])
 
