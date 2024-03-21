@@ -19,6 +19,12 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
     setProfilePic(newImage)
   }
 
+  const handleChangeProfilePic = (pic, index) => {
+    console.log('Cambiando PFP...', pic);
+    setProfilePic(savedProfilePics[index]);
+  };
+
+
   const handleClearInput = () => {
     inputRef.current.value = '';
   }
@@ -97,12 +103,18 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
               {savedProfilePics.length > 1 ? savedProfilePics.map((pic, index) => (
                 <div style={{ width: '8vw', height: '8vw', position: 'relative' }}>
-                  <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }}>
-                    {pic === profilePic
-                      ? (<FiCheck />)
-                      : (<FiPlus />)}
+                  {pic === profilePic
+                    ? (
+                      <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }}>
+                        <FiCheck />
+                      </div>
+                    )
+                    : (
+                      <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }} onClick={() => handleChangeProfilePic(pic, index)} >
+                        <FiPlus />
+                      </div>
+                    )}
 
-                  </div>
 
                   <div className="glass images" >
                     <img src={pic} />
