@@ -47,34 +47,24 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
   useEffect(() => {
     const savedProfilePicsLocal = localStorage.getItem('savedProfilePics');
     if (savedProfilePicsLocal) {
-      setSavedProfilePics(JSON.parse(savedProfilePicsLocal));
+      localStorage.setItem('savedProfilePics', savedProfilePicsLocal);
+      setProfilePic(savedProfilePics[0]);
     }
-
-    setTimeout(() => {
-      const profilePicLocal = localStorage.getItem('profilePic');
-      if (profilePicLocal) {
-        setProfilePic(profilePicLocal);
-      }
-    }, 2000);
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('profilePic', profilePic)
-
-    setTimeout(() => {
-      if (savedProfilePics.includes(profilePic) && profilePic !== "" && profilePic !== null !== undefined) { // Verificar si el profilePic no está duplicado
-        setSavedProfilePics(savedProfilePics)
+    if (savedProfilePics.includes(profilePic) && profilePic !== "" && profilePic !== null !== undefined) { // Verificar si el profilePic no está duplicado
+      setSavedProfilePics(savedProfilePics)
+    } else {
+      if (savedProfilePics.length >= 3) {
+        const newSavedProfilePics = [profilePic, ...savedProfilePics.filter(pic => pic).slice(0, 2)];
+        setSavedProfilePics(newSavedProfilePics);
+        localStorage.setItem('savedProfilePics', JSON.stringify(newSavedProfilePics));
       } else {
-        if (savedProfilePics.length >= 3) {
-          const newSavedProfilePics = [profilePic, ...savedProfilePics.filter(pic => pic).slice(0, 2)];
-          setSavedProfilePics(newSavedProfilePics);
-          localStorage.setItem('savedProfilePics', JSON.stringify(newSavedProfilePics));
-        } else {
-          setSavedProfilePics([profilePic, ...savedProfilePics]);
-          localStorage.setItem('savedProfilePics', JSON.stringify([...savedProfilePics, profilePic]));
-        }
+        setSavedProfilePics([profilePic, ...savedProfilePics]);
+        localStorage.setItem('savedProfilePics', JSON.stringify([...savedProfilePics, profilePic]));
       }
-    }, 3000);
+    }
   }, [profilePic])
 
   return (
@@ -104,7 +94,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
             <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', width: '100%', justifyContent: 'center', marginTop: '8px' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
-              {savedProfilePics.length > 1 ? savedProfilePics.map((pic, index) => (
+              {savedProfilePics.length > 2 ? savedProfilePics.map((pic, index) => (
                 pic !== "" && pic !== null
                   ? (
                     <div style={{ width: '8vw', height: '8vw', position: 'relative' }}>
