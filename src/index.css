@@ -34,6 +34,22 @@ body {
   visibility: hidden;
 }
 
+.ic-container.hidden-icon.profile-pic {
+  width: 8px;
+  height: 8px;
+  padding: 4px;
+  position: absolute;
+  z-index: 999;
+  background-color: #d3d3d3;
+  color: gray;
+}
+
+.ic-container.hidden-icon.profile-pic.visible {
+  transition: all 0.3s ease-in-out;
+  visibility: visible;
+  opacity: 1;
+}
+
 .ic-container:hover {
   transition: all .5s;
   scale: 1.15;
@@ -369,13 +385,22 @@ body {
 }
 
 .glass.images {
-  width: 8vw;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   padding: 0;
 
   img {
+    transition: all 0.3s ease-in-out;
     width: 100%;
     height: 100%;
+  }
+}
+
+.glass.images:hover {
+  img {
+    transition: all 0.3s ease-in-out;
+    scale: 1.2;
   }
 }
 

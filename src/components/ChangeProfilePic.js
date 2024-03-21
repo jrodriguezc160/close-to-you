@@ -5,15 +5,16 @@ import { FiAlertTriangle } from "@react-icons/all-files/fi/FiAlertTriangle";
 import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
-import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
+import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import { FiFilePlus } from "@react-icons/all-files/fi/FiFilePlus";
 
 const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setShowProfilePicModal }) => {
   const [savedProfilePics, setSavedProfilePics] = useState([])
+  const [iconVisible, setIconVisible] = useState(false)
   const inputRef = useRef(null);
 
-  const handleNewBanner = () => {
+  const handleNewProfilePic = () => {
     const newImage = inputRef.current.value;
     setProfilePic(newImage)
   }
@@ -27,6 +28,15 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
       setShowProfilePicModal(false);
     }
   }
+
+  const handleMouseEnter = () => {
+    setIconVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIconVisible(false);
+  };
+
 
   useEffect(() => {
     const profilePicLocal = localStorage.getItem('profilePic');
@@ -47,7 +57,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
         setSavedProfilePics(savedProfilePics)
       } else {
         if (savedProfilePics.length >= 3) {
-          const newSavedProfilePics = [profilePic, ...savedProfilePics.slice(0, 2)];
+          const newSavedProfilePics = [profilePic, ...savedProfilePics.filter(pic => pic).slice(0, 2)];
           setSavedProfilePics(newSavedProfilePics);
           localStorage.setItem('savedProfilePics', JSON.stringify(newSavedProfilePics));
         } else {
@@ -77,16 +87,26 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
                 <div className='ic-container' onClick={handleClearInput}>
                   <FiDelete />
                 </div>
-                <div className='ic-container' onClick={handleNewBanner}>
+                <div className='ic-container' onClick={handleNewProfilePic}>
                   <FiCheck />
                 </div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', width: '100%', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', width: '100%', justifyContent: 'center', marginTop: '8px' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+
               {savedProfilePics.length > 1 ? savedProfilePics.map((pic, index) => (
-                <div className="glass images" >
-                  <img src={pic} />
+                <div style={{ width: '8vw', height: '8vw', position: 'relative' }}>
+                  <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }}>
+                    {pic === profilePic
+                      ? (<FiCheck />)
+                      : (<FiPlus />)}
+
+                  </div>
+
+                  <div className="glass images" >
+                    <img src={pic} />
+                  </div>
                 </div>
               )) : ('')}
             </div>
