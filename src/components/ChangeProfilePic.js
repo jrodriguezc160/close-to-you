@@ -10,6 +10,7 @@ import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import { FiFilePlus } from "@react-icons/all-files/fi/FiFilePlus";
 
 const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setShowProfilePicModal }) => {
+  const [savedProfilePics, setSavedProfilePics] = useState([])
   const inputRef = useRef(null);
 
   const handleNewBanner = () => {
@@ -29,13 +30,28 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
   useEffect(() => {
     const profilePicLocal = localStorage.getItem('profilePic');
+    const savedProfilePicsLocal = localStorage.getItem('savedProfilePics');
     if (profilePicLocal) {
       setProfilePic(profilePicLocal);
+    }
+    if (savedProfilePicsLocal) {
+      setSavedProfilePics(JSON.parse(savedProfilePicsLocal));
     }
   }, [])
 
   useEffect(() => {
     localStorage.setItem('profilePic', profilePic)
+
+    setTimeout(() => {
+      if (savedProfilePics.length >= 3) {
+        const newSavedProfilePics = [...savedProfilePics.slice(1), profilePic];
+        setSavedProfilePics(newSavedProfilePics);
+        localStorage.setItem('savedProfilePics', JSON.stringify(newSavedProfilePics));
+      } else {
+        setSavedProfilePics([...savedProfilePics, profilePic]);
+        localStorage.setItem('savedProfilePics', JSON.stringify([...savedProfilePics, profilePic]));
+      }
+    }, 3000);
   }, [profilePic])
 
   return (
@@ -45,15 +61,12 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
           <div className='modal-glass' style={{ backgroundColor: '#80808005' }}>
             <h3 style={{ fontWeight: 'normal' }}>¡Vamos a cambiar tu foto de perfil!</h3>
 
-            <div className='glass'>
-              <div className='ic-container' style={{ height: "5rem", width: "5rem" }}>
-                <FiFilePlus strokeWidth={'1.15'} stroke='lightgray' />
+            <div className='text-bar' style={{ width: '32vw', height: 'fit-content' }}>
+              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', width: '22px', padding: '8px', display: 'flex', justifyContent: 'center' }}>
+                <div className='ic-container'>
+                  <FiFilePlus />
+                </div>
               </div>
-              <p>Sube tu propia imagen</p>
-            </div>
-
-            <p>o pega su url</p>
-            <div className='text-bar' style={{ width: '28vw' }}>
               <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)' }}>
                 <input ref={inputRef} type="text" placeholder='Pega aquí la url de tu nueva foto de perfil' />
 
@@ -64,6 +77,14 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
                   <FiCheck />
                 </div>
               </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
+              {savedProfilePics.length > 1 ? savedProfilePics.map((pic, index) => (
+                <div className="glass images">
+                  <img src={pic} />
+                </div>
+              )) : ('')}
             </div>
           </div>
         </div>

@@ -368,6 +368,18 @@ body {
   }
 }
 
+.glass.images {
+  width: 4vw;
+  height: 4vw;
+  overflow: hidden;
+  padding: 0;
+
+  img {
+    width: inherit;
+    height: inherit;
+  }
+}
+
 .books-list,
 .movies-list,
 .albums-list {

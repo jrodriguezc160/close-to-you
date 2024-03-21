@@ -7,7 +7,8 @@ function ProfilePic ({ setShowProfilePicModal, profilePic }) {
   const [iconVisible, setIconVisible] = useState(false)
 
   const handleClick = () => {
-    setShowProfilePicModal(true)
+    setShowProfilePicModal(true);
+    console.log('setShowProfilePicModal: ', setShowProfilePicModal)
   }
 
   const handleMouseEnter = () => {
@@ -22,7 +23,7 @@ function ProfilePic ({ setShowProfilePicModal, profilePic }) {
   return (
     <div style={{ display: "flex", alignItems: "center", marginTop: "32px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '8rem', height: '8rem', marginRight: '4rem' }}>
-        <div className={`ic-container ${iconVisible === true && profilePic !== '' ? ('visible') : ('hidden-icon')}`} style={{ position: 'absolute', top: 0, right: 0, zIndex: '999' }}>
+        <div className={`ic-container ${iconVisible === true && profilePic !== '' ? ('visible') : ('hidden-icon')}`} style={{ position: 'absolute', top: 0, right: 0, zIndex: '999' }} onClick={handleClick}>
           <FiEdit2 />
         </div>
         <div className='profile-pic'>
