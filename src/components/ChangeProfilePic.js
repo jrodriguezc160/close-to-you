@@ -45,21 +45,24 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
 
   useEffect(() => {
-    const profilePicLocal = localStorage.getItem('profilePic');
     const savedProfilePicsLocal = localStorage.getItem('savedProfilePics');
-    if (profilePicLocal) {
-      setProfilePic(profilePicLocal);
-    }
     if (savedProfilePicsLocal) {
       setSavedProfilePics(JSON.parse(savedProfilePicsLocal));
     }
+
+    setTimeout(() => {
+      const profilePicLocal = localStorage.getItem('profilePic');
+      if (profilePicLocal) {
+        setProfilePic(profilePicLocal);
+      }
+    }, 2000);
   }, [])
 
   useEffect(() => {
     localStorage.setItem('profilePic', profilePic)
 
     setTimeout(() => {
-      if (savedProfilePics.includes(profilePic)) { // Verificar si el profilePic no está duplicado
+      if (savedProfilePics.includes(profilePic) && profilePic !== "" && profilePic !== null !== undefined) { // Verificar si el profilePic no está duplicado
         setSavedProfilePics(savedProfilePics)
       } else {
         if (savedProfilePics.length >= 3) {
@@ -102,24 +105,29 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
             <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', width: '100%', justifyContent: 'center', marginTop: '8px' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
               {savedProfilePics.length > 1 ? savedProfilePics.map((pic, index) => (
-                <div style={{ width: '8vw', height: '8vw', position: 'relative' }}>
-                  {pic === profilePic
-                    ? (
-                      <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }}>
-                        <FiCheck />
-                      </div>
-                    )
-                    : (
-                      <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }} onClick={() => handleChangeProfilePic(pic, index)} >
-                        <FiPlus />
-                      </div>
-                    )}
+                pic !== "" && pic !== null
+                  ? (
+                    <div style={{ width: '8vw', height: '8vw', position: 'relative' }}>
+                      {pic === profilePic
+                        ? (
+                          <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }}>
+                            <FiCheck />
+                          </div>
+                        )
+                        : (
+                          <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }} onClick={() => handleChangeProfilePic(pic, index)} >
+                            <FiPlus />
+                          </div>
+                        )}
 
 
-                  <div className="glass images" >
-                    <img src={pic} />
-                  </div>
-                </div>
+                      <div className="glass images" >
+                        <img src={pic} />
+                      </div>
+                    </div>
+                  )
+                  : ('')
+
               )) : ('')}
             </div>
           </div>
