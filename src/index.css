@@ -369,14 +369,13 @@ body {
 }
 
 .glass.images {
-  width: 4vw;
-  height: 4vw;
+  width: 8vw;
   overflow: hidden;
   padding: 0;
 
   img {
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
   }
 }
 

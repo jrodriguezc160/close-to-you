@@ -43,16 +43,18 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
     localStorage.setItem('profilePic', profilePic)
 
     setTimeout(() => {
-      // if (!savedProfilePics.includes(profilePic)) { // Verificar si el profilePic no está duplicado
-      if (savedProfilePics.length >= 3) {
-        const newSavedProfilePics = [...savedProfilePics.slice(1), profilePic];
-        setSavedProfilePics(newSavedProfilePics);
-        localStorage.setItem('savedProfilePics', JSON.stringify(newSavedProfilePics));
+      if (savedProfilePics.includes(profilePic)) { // Verificar si el profilePic no está duplicado
+        setSavedProfilePics(savedProfilePics)
       } else {
-        setSavedProfilePics([...savedProfilePics, profilePic]);
-        localStorage.setItem('savedProfilePics', JSON.stringify([...savedProfilePics, profilePic]));
+        if (savedProfilePics.length >= 3) {
+          const newSavedProfilePics = [profilePic, ...savedProfilePics.slice(0, 2)];
+          setSavedProfilePics(newSavedProfilePics);
+          localStorage.setItem('savedProfilePics', JSON.stringify(newSavedProfilePics));
+        } else {
+          setSavedProfilePics([profilePic, ...savedProfilePics]);
+          localStorage.setItem('savedProfilePics', JSON.stringify([...savedProfilePics, profilePic]));
+        }
       }
-      // }
     }, 3000);
   }, [profilePic])
 
@@ -63,7 +65,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
           <div className='modal-glass' style={{ backgroundColor: '#80808005' }}>
             <h3 style={{ fontWeight: 'normal' }}>¡Vamos a cambiar tu foto de perfil!</h3>
 
-            <div className='text-bar' style={{ width: '32vw', height: 'fit-content' }}>
+            <div className='text-bar' style={{ width: '100%', height: 'fit-content' }}>
               <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', width: '22px', padding: '8px', display: 'flex', justifyContent: 'center' }}>
                 <div className='ic-container'>
                   <FiFilePlus />
@@ -81,9 +83,9 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', width: '100%', justifyContent: 'center' }}>
               {savedProfilePics.length > 1 ? savedProfilePics.map((pic, index) => (
-                <div className="glass images">
+                <div className="glass images" >
                   <img src={pic} />
                 </div>
               )) : ('')}
