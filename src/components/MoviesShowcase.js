@@ -90,7 +90,7 @@ const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavM
       </div>
 
       <div style={{ width: '12vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ bottom: '-.75rem', right: '2.25rem', zIndex: '999', width: '3rem', height: '3rem', position: 'absolute' }} >
+        <div style={{ bottom: '-.75rem', right: '2.25rem', zIndex: '20', width: '3rem', height: '3rem', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/film-frames_1f39e-fe0f.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
         <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>

@@ -91,7 +91,7 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbum, setMyAlbum, my
           <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
         </div>
 
-        <div style={{ bottom: '-1.5rem', right: '-1.5rem', zIndex: '999', width: '3rem', height: '3rem', position: 'absolute' }} >
+        <div style={{ bottom: '-1.5rem', right: '-1.5rem', zIndex: '20', width: '3rem', height: '3rem', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/videocassette_1f4fc.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
 
