@@ -16,12 +16,17 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
   const handleNewProfilePic = () => {
     const newImage = inputRef.current.value;
-    setProfilePic(newImage)
+
+    if (newImage) {
+      setProfilePic(newImage);
+      localStorage.setItem('profilePic', JSON.stringify(profilePic));
+    }
   }
 
   const handleChangeProfilePic = (pic, index) => {
     console.log('Cambiando PFP...', pic);
     setProfilePic(savedProfilePics[index]);
+    localStorage.setItem('profilePic', JSON.stringify(pic));
   };
 
 
@@ -43,36 +48,32 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
     setIconVisible(false);
   };
 
+  useEffect(() => {
+    const savedProfilePicsLocal = JSON.parse(localStorage.getItem('savedProfilePics')) || [];
+    setSavedProfilePics(savedProfilePicsLocal);
+    setTimeout(() => {
+      const profilePicLocal = JSON.parse(localStorage.getItem('profilePic')) || '';
+      setProfilePic(profilePicLocal);
+    }, 200);
+  }, []);
 
   useEffect(() => {
-    const savedProfilePicsLocal = localStorage.getItem('savedProfilePics');
-    if (savedProfilePicsLocal) {
-      localStorage.setItem('savedProfilePics', savedProfilePicsLocal);
-      setProfilePic(savedProfilePics[0]);
-    }
-  }, [])
-
-  useEffect(() => {
-    if (savedProfilePics.includes(profilePic) && profilePic !== "" && profilePic !== null !== undefined) { // Verificar si el profilePic no está duplicado
-      setSavedProfilePics(savedProfilePics)
-    } else {
-      if (savedProfilePics.length >= 3) {
-        const newSavedProfilePics = [profilePic, ...savedProfilePics.filter(pic => pic).slice(0, 2)];
+    if (profilePic) {
+      // Verificar si el profilePic no está duplicado y no es vacío
+      if (!savedProfilePics.includes(profilePic)) {
+        const newSavedProfilePics = [profilePic, ...savedProfilePics.filter(pic => pic && pic !== profilePic).slice(0, 2)];
         setSavedProfilePics(newSavedProfilePics);
         localStorage.setItem('savedProfilePics', JSON.stringify(newSavedProfilePics));
-      } else {
-        setSavedProfilePics([profilePic, ...savedProfilePics]);
-        localStorage.setItem('savedProfilePics', JSON.stringify([...savedProfilePics, profilePic]));
       }
     }
-  }, [profilePic])
+  }, [profilePic, savedProfilePics]);
 
   return (
     <div>
       <div className={`modal-screen ${showProfilePicModal === true ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal" style={{ top: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '400' }}>
           <div className='modal-glass' style={{ backgroundColor: '#80808005' }}>
-            <h3 style={{ fontWeight: 'normal' }}>¡Vamos a cambiar tu foto de perfil!</h3>
+            <h3 style={{ fontWeight: 'normal', margin: '0', margin: '8px 0 14px 0' }}>¡Vamos a cambiar tu foto de perfil!</h3>
 
             <div className='text-bar' style={{ width: '100%', height: 'fit-content' }}>
               <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', width: '22px', padding: '8px', display: 'flex', justifyContent: 'center' }}>
@@ -92,7 +93,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', width: '100%', justifyContent: 'center', marginTop: '8px' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', width: '100%', justifyContent: 'center', margin: '8px 44px 0px 44px' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
               {savedProfilePics.length > 2 ? savedProfilePics.map((pic, index) => (
                 pic !== "" && pic !== null
