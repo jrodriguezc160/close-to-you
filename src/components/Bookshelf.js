@@ -1,6 +1,8 @@
 import "../styles/bookshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from './VerticalIconBar';
+import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
+
 
 const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myFavBooks, setMyFavBooks }) => {
   const [queue, setQueue] = useState(false);
@@ -86,18 +88,25 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
 
   return (
     <div style={{ width: '11vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "12vw" }}>
-        {myFavBooks.map((book, index) => (
-          <div key={index} className={`image ${editing ? 'edit' : ''}`}>
-            <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
-          </div>
-        ))}
+
+      <div style={{ width: '12vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ bottom: '-.75rem', right: '.75rem', zIndex: '999', width: '3rem', height: '3rem', position: 'absolute' }} >
+          <img src='https://em-content.zobj.net/source/apple/391/books_1f4da.png' style={{ width: 'inherit', height: 'inherit' }} />
+        </div>
+
+        <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "12vw" }}>
+          {myFavBooks.map((book, index) => (
+            <div key={index} className={`image ${editing ? 'edit' : ''}`}>
+              <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ marginTop: '.5rem' }}>
         <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
       </div>
-    </div>
+    </div >
   );
 };
 
