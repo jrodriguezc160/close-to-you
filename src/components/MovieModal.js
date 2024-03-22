@@ -148,8 +148,8 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
       <div className={`modal-screen ${showMovieModal ? 'visible' : ''}`} >
 
         <div className="modal">
-          <div className="search-bar">
-            <div className='search-bar-input'>
+          <div className="text-bar">
+            <div className='text-bar-input'>
               <input ref={inputRef} type="text" name="movie-search" id="movie-search" placeholder='Search for your favourite movies...' value={search} onChange={handleInputChange} />
               <div className='ic-container' onClick={handleClearInput}>
                 <FiDelete />
