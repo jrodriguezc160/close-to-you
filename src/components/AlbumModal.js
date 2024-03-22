@@ -147,8 +147,8 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
       <div className={`modal-screen ${showAlbumModal ? 'visible' : ''}`} >
 
         <div className="modal">
-          <div className="search-bar">
-            <div className='search-bar-input'>
+          <div className="text-bar">
+            <div className='text-bar-input'>
               <input ref={inputRef} type="text" name="album-search" id="album-search" placeholder='Search for your favourite album..' value={search} onChange={handleInputChange} />
               <div className='ic-container' onClick={handleClearInput}>
                 <FiDelete />

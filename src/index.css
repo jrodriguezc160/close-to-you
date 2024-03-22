@@ -6,111 +6,111 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
   scroll-behavior: smooth;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .ic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   transition: all .5s;
+  cursor: pointer;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: gray;
-  cursor: pointer;
-  gap: 8px;
 
   * {
-    height: 100%;
     width: 100%;
+    height: 100%;
   }
 }
 
 .ic-container.hidden-icon {
-  transition: all 0.3s ease-in-out;
-  opacity: 0;
   visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
 }
 
 .ic-container.hidden-icon.profile-pic {
-  width: 8px;
-  height: 8px;
-  padding: 4px;
   position: absolute;
   z-index: 999;
   background-color: #d3d3d3;
+  padding: 4px;
+  width: 8px;
+  height: 8px;
   color: gray;
 }
 
 .ic-container.hidden-icon.profile-pic.visible {
-  transition: all 0.3s ease-in-out;
   visibility: visible;
   opacity: 1;
+  transition: all 0.3s ease-in-out;
 }
 
 .ic-container:hover {
-  transition: all .5s;
-  scale: 1.15;
   stroke: gray;
+  scale: 1.15;
+  transition: all .5s;
 }
 
 .bottom-right {
-  transition: all 0.3s ease-in-out;
-  visibility: hidden;
-  z-index: 2;
-  opacity: 0;
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
   display: flex;
-  align-items: center;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
   justify-content: center;
+  align-items: center;
   gap: 8px;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 2;
+  transition: all 0.3s ease-in-out;
 }
 
 .chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   padding: 8px;
   height: 16px;
   min-height: fit-content;
 }
 
 .text-chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  margin: 0px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0px;
   padding: 8px;
-  margin: 0px;
+  width: fit-content;
   height: 16px;
   min-height: fit-content;
-  width: fit-content;
 
   * {
-    padding: 0;
     margin: 0;
+    padding: 0;
 
   }
 }
 
 .profile-pic {
-  width: 8rem;
-  height: 8rem;
-  border: 0 dashed lightgray;
-  border-radius: 8rem;
   /* background-color: rgba(230, 230, 230, 0.5); */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  border: 0 dashed lightgray;
+  border-radius: 8rem;
+  width: 8rem;
+  height: 8rem;
   overflow: hidden;
 }
 
@@ -135,15 +135,15 @@ body {
 }
 
 .post {
-  transition: all .5s;
-  border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: 8px;
-  /* background-color: rgba(211, 211, 211, 0.2); */
-  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: all .5s;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 8px;
   background-color: rgba(211, 211, 211, 0.0);
+  /* background-color: rgba(211, 211, 211, 0.2); */
+  padding: 16px;
 }
 
 .post:hover {
@@ -155,8 +155,8 @@ body {
 .post-text {
   display: flex;
   flex-direction: column;
-  hyphens: auto;
   padding-left: 48px;
+  hyphens: auto;
 
   * {
     margin: 0;
@@ -164,30 +164,30 @@ body {
 }
 
 .post-icons {
-  padding: 8px 48px 0 48px;
   display: flex;
   flex-direction: row;
   gap: 32px;
+  padding: 8px 48px 0 48px;
   height: 16px;
 }
 
 .post-profile {
-  width: fit-content;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 16px;
+  width: fit-content;
 }
 
 .post-profile-pic {
-  width: 32px;
-  height: 32px;
-  border: 0 dashed lightgray;
-  border-radius: 32px;
   /* background-color: rgba(230, 230, 230, 0.5); */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  border: 0 dashed lightgray;
+  border-radius: 32px;
+  width: 32px;
+  height: 32px;
   overflow: hidden;
 
   img {
@@ -203,67 +203,67 @@ body {
 }
 
 .text-chip-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   transition: all .5s;
+  margin: 0px;
   border: 1px dashed lightgray;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   padding: 4px 12px;
-  margin: 0px;
   height: 16px;
   min-height: fit-content;
   color: gray;
 
   * {
-    padding: 0;
     margin: 0;
+    padding: 0;
 
   }
 }
 
 .text-chip-button:hover {
   transition: all .5s;
-  color: black;
-  border-color: black;
   cursor: pointer;
+  border-color: black;
+  color: black;
 }
 
 .v-chip {
-  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   opacity: 0;
+  transition: all 0.3s ease-in-out;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   padding: 8px;
-  min-height: 16px;
   height: fit-content;
+  min-height: 16px;
 }
 
 .v-chip.open {
-  transition: all 0.3s ease-in-out;
   opacity: 1;
+  transition: all 0.3s ease-in-out;
 }
 
 .modal-screen {
-  transition: all 0.3s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-  background-color: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(2px);
-  position: fixed;
-  z-index: 0;
-  height: 100vh;
-  width: 100vw;
   display: flex;
+  position: fixed;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 0;
+  backdrop-filter: blur(2px);
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.75);
+  width: 100vw;
+  height: 100vh;
   overflow-y: scroll;
   scroll-behavior: auto;
 }
@@ -273,71 +273,71 @@ body {
 }
 
 .modal {
-  position: absolute;
-  height: fit-content;
-  top: 10%;
-  width: 50vw;
   display: flex;
+  position: absolute;
+  top: 10%;
   flex-direction: column;
   justify-content: center;
+  width: 50vw;
+  height: fit-content;
 }
 
 .search-bar {
-  width: 100%;
   display: flex;
   flex-direction: row;
   gap: 8px;
+  width: 100%;
 
   .search-bar-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    outline: none;
+    border: 1px solid lightgray;
     border-radius: 16px;
     background-color: white;
-    border: 1px solid lightgray;
     padding: 8px 16px;
+    width: 100%;
     height: 16px;
     min-height: fit-content;
     color: gray;
-    display: flex;
-    align-items: center;
-    outline: none;
-    width: 100%;
-    gap: 8px;
 
     input {
-      padding: 0;
-      border: none;
       outline: none;
+      border: none;
       background: none;
+      padding: 0;
       width: 100%;
     }
   }
 }
 
 .text-bar {
-  width: 100%;
   display: flex;
   flex-direction: row;
   gap: 8px;
+  width: 100%;
 
   .text-bar-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    outline: none;
+    border: .5px solid lightgray;
     border-radius: 8px;
     background-color: #80808015;
-    border: .5px solid lightgray;
-    backdrop-filter: blur(10px);
     padding: 8px 16px;
+    width: 100%;
     height: 16px;
     min-height: fit-content;
     color: gray;
-    display: flex;
-    align-items: center;
-    outline: none;
-    width: 100%;
-    gap: 8px;
 
     input {
-      padding: 0;
-      border: none;
       outline: none;
+      border: none;
       background: none;
+      padding: 0;
       width: 100%;
       color: rgb(87, 87, 87);
     }
@@ -349,33 +349,33 @@ body {
 }
 
 .modal-glass {
-  padding: 16px;
-  gap: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  border: .5px solid lightgray;
   border-radius: 8px;
   background-color: #80808015;
-  border: .5px solid lightgray;
-  backdrop-filter: blur(10px);
-  color: rgb(87, 87, 87);
+  padding: 16px;
   width: fit-content;
+  color: rgb(87, 87, 87);
 }
 
 .glass {
-  padding: 16px;
-  gap: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  border: .5px solid lightgray;
   border-radius: 8px;
+  background-color: #80808015;
+  padding: 16px;
   width: auto;
   height: fit-content;
-  background-color: #80808015;
-  border: .5px solid lightgray;
-  backdrop-filter: blur(10px);
   color: rgb(87, 87, 87);
 
   * {
@@ -385,10 +385,10 @@ body {
 }
 
 .glass.images {
+  padding: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  padding: 0;
 
   img {
     transition: all 0.3s ease-in-out;
@@ -399,8 +399,8 @@ body {
 
 .glass.images:hover {
   img {
-    transition: all 0.3s ease-in-out;
     scale: 1.2;
+    transition: all 0.3s ease-in-out;
   }
 }
 
@@ -409,15 +409,16 @@ body {
 .albums-list {
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-  border: 1px solid lightgray;
-  background-color: white;
-  border-radius: 16px;
-  padding: 8px;
-  margin: 16px 0;
   gap: 8px;
+  visibility: hidden;
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease-in-out;
+  margin: 16px 0;
+  border: .5px solid lightgray;
+  border-radius: 8px;
+  background-color: #dddddda9;
+  padding: 8px 16px;
   min-height: 0;
   overflow-y: auto;
   scroll-behavior: auto;
@@ -432,55 +433,55 @@ body {
 .fav-books,
 .fav-movies,
 .fav-albums {
-  border-radius: 8px;
-  min-height: 256px;
-  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   gap: 8px;
+  border-radius: 8px;
+  height: fit-content;
+  min-height: 256px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
 
   .book {
-    transition: all 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    padding: 16px;
     width: 86px;
     height: fit-content;
     text-align: center;
-    align-items: center;
-    gap: 8px;
-    border-radius: 8px;
-    padding: 16px;
-    opacity: 0;
-    visibility: hidden;
 
     .text {
       flex-grow: 1;
-      padding: 0;
       margin: 0;
+      padding: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: normal;
     }
 
     .cover {
-      transition: all 0.3s ease-in-out;
-      height: 128px;
-      width: 86px;
-      border-radius: 2px 8px 8px 2px;
-      border-bottom-width: 15px;
       -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
       -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-      overflow: hidden;
+      transition: all 0.3s ease-in-out;
       margin-bottom: 8px;
+      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      border-bottom-width: 15px;
+      border-radius: 2px 8px 8px 2px;
+      width: 86px;
+      height: 128px;
+      overflow: hidden;
 
       img {
-        height: inherit;
         width: inherit;
+        height: inherit;
       }
     }
 
@@ -490,54 +491,54 @@ body {
   }
 
   .book:hover {
-    background-color: rgba(211, 211, 211, 0.15);
     backdrop-filter: blur(10);
+    background-color: rgba(211, 211, 211, 0.15);
   }
 
   .book.visible {
-    transition: all 0.8s ease-in-out;
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
+    transition: all 0.8s ease-in-out;
   }
 
   .movie {
-    transition: all 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    padding: 16px;
     width: 86px;
     height: fit-content;
     text-align: center;
-    align-items: center;
-    gap: 8px;
-    border-radius: 8px;
-    padding: 16px;
-    opacity: 0;
-    visibility: hidden;
 
     .text {
       flex-grow: 1;
-      padding: 0;
       margin: 0;
+      padding: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: normal;
     }
 
     .cover {
-      transition: all 0.3s ease-in-out;
-      height: 128px;
-      width: 86px;
-      border-radius: 4px;
-      border-bottom-width: 15px;
       -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
       -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-      overflow: hidden;
+      transition: all 0.3s ease-in-out;
       margin-bottom: 8px;
+      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      border-bottom-width: 15px;
+      border-radius: 4px;
+      width: 86px;
+      height: 128px;
+      overflow: hidden;
 
       img {
-        height: inherit;
         width: inherit;
+        height: inherit;
       }
     }
 
@@ -547,53 +548,53 @@ body {
   }
 
   .movie:hover {
-    background-color: rgba(211, 211, 211, 0.15);
     backdrop-filter: blur(10);
+    background-color: rgba(211, 211, 211, 0.15);
   }
 
   .movie.visible {
-    transition: all 0.8s ease-in-out;
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
+    transition: all 0.8s ease-in-out;
   }
 
   .album {
-    transition: all 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    padding: 16px;
     width: fit-content;
     height: fit-content;
     text-align: center;
-    align-items: center;
-    gap: 8px;
-    border-radius: 8px;
-    padding: 16px;
-    opacity: 0;
-    visibility: hidden;
 
     .text {
       flex-grow: 1;
-      padding: 0;
       margin: 0;
+      padding: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: normal;
     }
 
     .cover {
-      transition: all 0.3s ease-in-out;
-      height: 128px;
-      width: 128px;
-      border-radius: 4px;
       -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
       -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-      overflow: hidden;
+      transition: all 0.3s ease-in-out;
       margin-bottom: 8px;
+      box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+      border-radius: 4px;
+      width: 128px;
+      height: 128px;
+      overflow: hidden;
 
       img {
-        height: inherit;
         width: inherit;
+        height: inherit;
       }
     }
 
@@ -603,14 +604,14 @@ body {
   }
 
   .album:hover {
-    background-color: rgba(211, 211, 211, 0.15);
     backdrop-filter: blur(10);
+    background-color: rgba(211, 211, 211, 0.15);
   }
 
   .album.visible {
-    transition: all 0.8s ease-in-out;
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
+    transition: all 0.8s ease-in-out;
   }
 
 }
@@ -621,9 +622,6 @@ body {
 
   /* mask fade distance, for use in mask calculations */
   --mask-width: 64px;
-
-  /* Keep some space between content and scrollbar */
-  padding: 0 32px;
 
   /* The CSS mask */
 
@@ -647,46 +645,49 @@ body {
 
   /* Apply the mask image and mask size variables */
   mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
-  mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
 
   /* Position the content gradient in the top left, and the 
   scroll gradient in the top right */
   mask-position: 0 0, 100% 0;
+  mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
 
   /* We don't repeat our mask images */
   mask-repeat: no-repeat, no-repeat;
+
+  /* Keep some space between content and scrollbar */
+  padding: 0 32px;
 }
 
 .visible {
-  transition: all 0.3s ease-in-out;
   visibility: visible;
   opacity: 1;
+  transition: all 0.3s ease-in-out;
 }
 
 .book-result,
 .movie-result,
 .album-result {
-  transition: all .3s ease-in-out;
+  display: flex;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 16px;
+  transition: all .3s ease-in-out;
   border-radius: 8px;
   padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
   .book-cover {
-    width: 42px;
-    min-width: 42px;
-    height: 64px;
-    border: none;
-    border-radius: 2px 4px 4px 2px;
     -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
     -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
     box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-    overflow: hidden;
+    border: none;
+    border-radius: 2px 4px 4px 2px;
     background-color: white;
+    width: 42px;
+    min-width: 42px;
+    height: 64px;
+    overflow: hidden;
 
     img {
       width: inherit;
@@ -695,16 +696,16 @@ body {
   }
 
   .movie-cover {
-    width: 42px;
-    min-width: 42px;
-    height: 64px;
-    border: none;
-    border-radius: 4px;
     -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
     -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
     box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-    overflow: hidden;
+    border: none;
+    border-radius: 4px;
     background-color: white;
+    width: 42px;
+    min-width: 42px;
+    height: 64px;
+    overflow: hidden;
 
     img {
       width: inherit;
@@ -713,15 +714,15 @@ body {
   }
 
   .album-cover {
-    width: 64px;
-    height: 64px;
-    border: none;
-    border-radius: 4px;
     -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
     -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
     box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-    overflow: hidden;
+    border: none;
+    border-radius: 4px;
     background-color: white;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
 
     img {
       width: inherit;
@@ -740,37 +741,37 @@ body {
 }
 
 .modal-message {
+  display: flex;
+  display: flex;
   position: absolute;
-  z-index: 200;
-  background-color: rgb(222, 0, 0);
-  border: 0px solid red;
-  color: white;
-  width: 40vh;
-  min-height: 10vh;
-  height: fit-content;
-  visibility: hidden;
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
-  display: flex;
   flex-direction: column;
   justify-content: center;
+  justify-content: center;
   align-items: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 200;
+  border: 0px solid red;
+  border-radius: 8px;
+  background-color: rgb(222, 0, 0);
+  padding: 16px;
+  width: 40vh;
+  height: fit-content;
+  min-height: 10vh;
+  color: white;
+  text-align: center;
 }
 
 .heading-toggle {
-  margin-right: 4px;
   cursor: pointer;
+  margin-right: 4px;
   height: fit-content;
 
   h3 {
     transition: all 0.3s ease-in-out;
-    font-weight: normal;
     color: lightgray;
+    font-weight: normal;
   }
 }
 
