@@ -76,7 +76,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
             <h3 style={{ fontWeight: 'normal', margin: '0', margin: '8px 0 14px 0' }}>¡Vamos a cambiar tu foto de perfil!</h3>
 
             <div className='text-bar' style={{ width: '100%', height: 'fit-content' }}>
-              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', width: '22px', padding: '8px', display: 'flex', justifyContent: 'center' }}>
+              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: 'fit-content', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '20px' }}>
                 <div className='ic-container'>
                   <FiFilePlus />
                 </div>
