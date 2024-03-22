@@ -84,17 +84,22 @@ const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavM
   }
 
   return (
-    <div style={{ width: "11vw", height: "12vw", display: "flex", gap: "2rem" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div style={{ marginTop: '.5rem', marginRight: '1rem' }}>
+    <div style={{ width: "11vw", height: "12vw", display: "flex", gap: ".5rem", justifyContent: 'center', marginRight: '0' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div style={{ marginTop: '.5rem', marginRight: '0' }}>
         <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} movie={myFavMovies && myFavMovies.length > 0 ? myFavMovies[0] : null} />
       </div>
 
-      <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>
-        {myFavMovies && myFavMovies.length > 0 && myFavMovies.map((movie, index) => (
-          <div key={index} className={`poster`}>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-          </div>
-        ))}
+      <div style={{ width: '12vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ bottom: '-.75rem', right: '2.25rem', zIndex: '999', width: '3rem', height: '3rem', position: 'absolute' }} >
+          <img src='https://em-content.zobj.net/source/apple/391/film-frames_1f39e-fe0f.png' style={{ width: 'inherit', height: 'inherit' }} />
+        </div>
+        <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>
+          {myFavMovies && myFavMovies.length > 0 && myFavMovies.map((movie, index) => (
+            <div key={index} className={`poster`}>
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -85,18 +85,25 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbum, setMyAlbum, my
   }
 
   return (
-    <div style={{ width: '100%', height: editing ? 'auto' : '200px', display: "flex", gap: "16px", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div ref={imagesRef} className={`favAlbums ${editing ? 'edit' : ''}`} onClick={handleImageClick} >
-        {myFavAlbums.map((album, index) => (
-          <div key={index} className={`favAlbum ${editing ? 'edit' : ''}`}>
-            <img src={album.image[3]['#text']} />
-          </div>
-        ))}
+    <div style={{ width: '100%', height: editing ? 'auto' : '200px', display: "flex", gap: "2rem", transition: 'all 1s ease-in-out', justifyContent: 'center', overflow: 'visible' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div style={{ width: '100%', height: '10vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center", marginLeft: '32px' }}>
+        <div style={{ top: '.25rem', right: '-4rem', width: '3rem', height: '3rem', position: 'absolute' }}>
+          <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
+        </div>
+
+        <div style={{ bottom: '-1.5rem', right: '-1.5rem', zIndex: '999', width: '3rem', height: '3rem', position: 'absolute' }} >
+          <img src='https://em-content.zobj.net/source/apple/391/videocassette_1f4fc.png' style={{ width: 'inherit', height: 'inherit' }} />
+        </div>
+
+        <div ref={imagesRef} className={`favAlbums ${editing ? 'edit' : ''}`} onClick={handleImageClick} >
+          {myFavAlbums.map((album, index) => (
+            <div key={index} className={`favAlbum ${editing ? 'edit' : ''}`}>
+              <img src={album.image[3]['#text']} />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div>
-        <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} album={{/* aquí debería ir el libro actual (que se muestra por encima del resto)*/ }} />
-      </div>
     </div>
   );
 };

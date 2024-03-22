@@ -87,10 +87,10 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
   }
 
   return (
-    <div style={{ width: '11vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ width: '11vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out', marginLeft: '1rem' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
-      <div style={{ width: '12vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ bottom: '-.75rem', right: '.75rem', zIndex: '999', width: '3rem', height: '3rem', position: 'absolute' }} >
+      <div style={{ width: '8vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ bottom: '-.75rem', right: '-1rem', zIndex: '999', width: '3rem', height: '3rem', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/books_1f4da.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
 

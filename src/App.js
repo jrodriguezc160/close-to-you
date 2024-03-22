@@ -68,8 +68,8 @@ function App () {
         </div>
 
         <div style={{ width: "50%", padding: "0 6rem", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "4rem", marginTop: "2rem" }}>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "3rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "4rem", marginTop: "2rem", width: '100%' }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "4rem", width: '100%' }}>
               <Bookshelf
                 myBooks={myBooks}
                 setMyBooks={setMyBooks}
