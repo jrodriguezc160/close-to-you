@@ -4,11 +4,24 @@ import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import '../styles/favourites.css'
-import { Tooltip } from '@mui/material';
+import { Tooltip, tooltipClasses } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handleRemoveFavourite, handleAddMovie, handleRemoveMovie }) => {
   const [addVisible, setAddVisible] = useState(false);
   const [onHover, setOnHover] = useState('');
+
+  const LightTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#efefef7d',
+      backdropFilter: 'blur(10px)',
+      color: 'rgba(0, 0, 0, 0.5)',
+      boxShadow: '0 2px 5px rgba (30, 30, 30, 0.25)',
+      fontSize: 11,
+    },
+  }));
 
   const handleOnHover = (e) => {
     setTimeout(() => {
@@ -29,7 +42,7 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
 
   return (
     <div className="movie" onMouseEnter={() => handleOnHover(movie.title)} onMouseLeave={() => handleHoverLeave()}>
-      <Tooltip title="You don't have permission to do this" followCursor>
+      <LightTooltip title={movie.title} followCursor >
         <div key={index} className='cover'>
           {movie.poster_path ? (
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ zIndex: '2' }} />
@@ -78,7 +91,7 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
           {movie.overview}
         </div>
         */}
-        <Tooltip />
+      </LightTooltip >
     </div>
   )
 }
