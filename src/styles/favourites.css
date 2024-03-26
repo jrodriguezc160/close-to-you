@@ -9,8 +9,8 @@
   border-radius: 8px;
   width: fit-content;
   height: fit-content;
-  overflow-x: auto;
-  overflow-y: visible;
+  /* overflow-x: auto; */
+  overflow: visible;
   white-space: nowrap;
 
   .book {
@@ -88,7 +88,7 @@
     /* border-radius: 16px; */
     padding: 16px;
     width: auto;
-    overflow-y: hidden;
+    overflow: visible;
     text-align: center;
 
     .text {
@@ -107,6 +107,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: all 0.3s ease-in-out;
+      margin-top: 8px;
       box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
       border-radius: 4px;
       width: 86px;
@@ -114,6 +116,7 @@
       overflow: visible;
 
       img {
+        transition: all 0.3s ease-in-out;
         border-radius: 4px;
         width: inherit;
         height: inherit;
@@ -143,13 +146,13 @@
     .cover {
       scale: 1.1;
 
-      .ambilight.visible {
+      .ambilight {
         scale: 1;
         visibility: visible;
         opacity: 100;
         filter: brightness(10);
         filter: contrast(10);
-        filter: blur(10px);
+        filter: blur(9px);
       }
     }
   }

@@ -23,38 +23,21 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
     },
   }));
 
-  const handleOnHover = (e) => {
-    setTimeout(() => {
-      setOnHover(e)
-
-      setTimeout(() => {
-        setAddVisible(true)
-      }, 100);
-    }, 100);
-  }
-
-  const handleHoverLeave = () => {
-    setAddVisible(false)
-    setTimeout(() => {
-      setOnHover('')
-    }, 100);
-  }
-
   return (
-    <div className="movie" onMouseEnter={() => handleOnHover(movie.title)} onMouseLeave={() => handleHoverLeave()}>
+    <div className="movie">
       <LightTooltip title={movie.title} followCursor >
         <div key={index} className='cover'>
           {movie.poster_path ? (
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ zIndex: '2' }} />
+            <>
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ zIndex: '2' }} />
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className='ambilight' />
+            </>
           ) : (
             <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <FiImage />
             </div>
           )}
 
-          {onHover === movie.title ? (
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className={`ambilight ${addVisible === true ? 'visible' : ''}`} />
-          ) : ('')}
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>

@@ -222,7 +222,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
               </div>
             </div>
 
-            <div className="fav-movies masked-overflow" style={{ paddingBottom: '12px' }} >
+            <div className="fav-movies masked-overflow" style={{ paddingBottom: '12px', overflow: 'visible' }} >
               {selectedCollection.map((movie, index) => (
                 <Movie movie={movie} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myMovies={myMovies} myFavMovies={myFavMovies} handleAddMovie={handleAddMovie} handleRemoveMovie={handleRemoveMovie} />
               ))}
