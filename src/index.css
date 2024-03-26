@@ -425,8 +425,7 @@ body {
   background-color: #efefef7d;
   padding: 8px;
   min-height: 0;
-  overflow-y: auto;
-  scroll-behavior: auto;
+  overflow: hidden;
 }
 
 .books-list.visible,
@@ -438,18 +437,20 @@ body {
 
 .masked-overflow {
   /* scroll bar width, for use in mask calculations */
-  --scrollbar-width: 0px;
+  --scrollbar-width: 16px;
+  /* Ajusta este valor según el ancho de la barra de desplazamiento de tu navegador */
 
   /* mask fade distance, for use in mask calculations */
-  --mask-width: 64px;
+  --mask-width: 32px;
+  /* Ajusta este valor según la anchura de la máscara que desees */
 
   /* The CSS mask */
 
   /* The content mask is a linear gradient from left to right */
   --mask-image-content: linear-gradient(to right,
       transparent,
-      rgb(255, 255, 255) var(--mask-width),
-      rgb(255, 255, 255) calc(100% - var(--mask-width)),
+      rgba(255, 255, 255, 0.8) var(--mask-width),
+      rgba(255, 255, 255, 0.8) calc(100% - var(--mask-width)),
       transparent);
 
   /* Here we scale the content gradient to the width of the container 
@@ -457,7 +458,7 @@ body {
   --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
 
   /* The scrollbar mask is a black pixel */
-  --mask-image-scrollbar: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+  --mask-image-scrollbar: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
 
   /* The width of our black pixel is the width of the scrollbar.
   The height is the full container height */
@@ -475,7 +476,7 @@ body {
   mask-repeat: no-repeat, no-repeat;
 
   /* Keep some space between content and scrollbar */
-  padding: 0 32px;
+  padding: 0;
 }
 
 .visible {
@@ -597,6 +598,9 @@ body {
 
   h3 {
     transition: all 0.3s ease-in-out;
+    margin: 0;
+    padding: 0;
+    height: fit-content;
     color: lightgray;
     font-weight: normal;
   }

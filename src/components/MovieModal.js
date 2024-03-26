@@ -210,7 +210,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
           </div>
 
           <div className="movies-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', paddingTop: '12px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', padding: '32px 0 0 30px' }}>
               <div className={`heading-toggle ${selectedCollection === myFavMovies ? 'selected' : ''}`} onClick={() => handleSelectView(myFavMovies)}>
                 <h3>My favourites</h3>
               </div>
@@ -222,7 +222,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
               </div>
             </div>
 
-            <div className="fav-movies masked-overflow" style={{ paddingBottom: '12px', overflow: 'visible' }} >
+            <div className="fav-movies masked-overflow" style={{ paddingBottom: '12px', paddingLeft: '16px' }} >
               {selectedCollection.map((movie, index) => (
                 <Movie movie={movie} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myMovies={myMovies} myFavMovies={myFavMovies} handleAddMovie={handleAddMovie} handleRemoveMovie={handleRemoveMovie} />
               ))}
