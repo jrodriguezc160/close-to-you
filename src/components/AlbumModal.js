@@ -222,11 +222,13 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                 <div className='cover'>
                   <img src={album.image[2]['#text']} />
                 </div>
-                <div className="text">
-                  {album.name}
-                </div>
-                <div className="text" style={{ color: 'gray', marginBottom: '4px' }}>
-                  {album.artist}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="text">
+                    {album.name}
+                  </div>
+                  <div className="text" style={{ color: 'gray', marginBottom: '4px' }}>
+                    {album.artist}
+                  </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
                   <div className='ic-container' >

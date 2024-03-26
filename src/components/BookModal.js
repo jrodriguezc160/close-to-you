@@ -202,7 +202,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             </div>
           </div>
 
-          <div className="fav-books masked-overflow">
+          <div className="fav-books masked-overflow" >
             {selectedCollection.map((book, index) => (
               <div className={`book`} key={index}>
                 <div className='cover'>

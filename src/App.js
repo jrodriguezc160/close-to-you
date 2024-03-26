@@ -69,7 +69,7 @@ function App () {
 
         <div style={{ width: "50%", padding: "0 6rem", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "4rem", marginTop: "2rem", width: '100%' }}>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "4rem", width: '100%' }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "7vw", width: '34vw' }}>
               <Bookshelf
                 myBooks={myBooks}
                 setMyBooks={setMyBooks}
@@ -89,16 +89,14 @@ function App () {
               />
             </div>
 
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-              <AlbumShelf
-                myAlbums={myAlbums}
-                setMyAlbums={setMyAlbums}
-                myFavAlbums={myFavAlbums}
-                setMyFavAlbums={setMyFavAlbums}
-                showAlbumModal={showAlbumModal}
-                setShowAlbumModal={setShowAlbumModal}
-              />
-            </div>
+            <AlbumShelf
+              myAlbums={myAlbums}
+              setMyAlbums={setMyAlbums}
+              myFavAlbums={myFavAlbums}
+              setMyFavAlbums={setMyFavAlbums}
+              showAlbumModal={showAlbumModal}
+              setShowAlbumModal={setShowAlbumModal}
+            />
           </div>
           <div>
           </div>

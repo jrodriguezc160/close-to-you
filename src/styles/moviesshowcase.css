@@ -1,17 +1,17 @@
 .poster {
-  position: absolute;
-  height: 11vw;
-  width: auto;
-  border-radius: 4px;
-  border-bottom-width: 15px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
   -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-  box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-  z-index: 2;
   -moz-transition: -moz-transform 0.3s ease-in-out;
   -o-transition: -o-transform 0.3s ease-in-out;
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  position: absolute;
+  z-index: 2;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  border-bottom-width: 15px;
+  border-radius: 4px;
+  width: auto;
+  height: 11vw;
   overflow: hidden;
 
   img {
@@ -21,43 +21,43 @@
 }
 
 .poster:first-child {
+  scale: 0.6;
   transition: all 0.3s ease-in-out;
   margin-left: 5.5rem;
-  scale: 0.6;
 }
 
 .poster:nth-child(2) {
+  scale: 0.8;
   transition: all 0.3s ease-in-out;
   margin-left: 3rem;
-  scale: 0.8;
 }
 
 .poster:last-child {}
 
 
 .posters:hover .poster:nth-child(2) {
-  transition: all 0.3s ease-in-out;
-  margin-left: 5rem;
   scale: 0.9;
+  transition: all 0.3s ease-in-out;
+  margin-left: 8vw;
 }
 
 .posters:hover .poster:first-child {
-  transition: all 0.3s ease-in-out;
-  margin-left: 9rem;
   scale: 0.7;
+  transition: all 0.3s ease-in-out;
+  margin-left: 14rem;
 }
 
 .poster.slide-left {
+  -moz-transform: translateX(-6vw);
+  -ms-transform: translateX(-6vw);
+  -webkit-transform: translateX(-6vw);
+  transform: translateX(-6vw) scale(0.9);
   transition: all 0.3s ease-in-out;
-  -moz-transform: translateX(-72px);
-  -ms-transform: translateX(-72px);
-  -webkit-transform: translateX(-72px);
-  transform: translateX(-72px) scale(0.9);
 }
 
 .poster.back {
-  transition: all 0.3s ease-in-out;
-  z-index: 1;
-  opacity: 0;
   scale: 0.7;
+  opacity: 0;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
 }

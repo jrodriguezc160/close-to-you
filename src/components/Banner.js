@@ -47,9 +47,9 @@ function Banner () {
 
   return (
     <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '20vh', overflow: "hidden" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div className={`bottom-right ${chipVisible ? 'visible' : ''}`}>
-        <animated.div style={fade} className='text-chip' >
-          <input ref={inputRef} type="text" name="banner-link" id="banner-link" placeholder='Pega aquí el link del nuevo banner' style={{ border: "none", outline: "none", background: "none", width: "15rem" }} />
+      <div className={`bottom-right text-bar ${chipVisible ? 'visible' : ''}`} style={{ width: 'fit-content' }}>
+        <animated.div style={fade} className='text-bar-input'  >
+          <input ref={inputRef} type="text" name="banner-link" id="banner-link" placeholder='Pega aquí el link del nuevo banner' style={{ width: "15rem" }} />
 
           <div className='ic-container' onClick={handleClearInput}>
             <FiDelete />
@@ -59,17 +59,22 @@ function Banner () {
           </div>
         </animated.div>
 
-        <div className='chip'>
-          <div className='ic-container' onClick={() => setCambiarBanner(!cambiarBanner)}>
-            {cambiarBanner ? <FiX /> : <FiRepeat />}
+        <div className='chip' style={{ background: 'none' }}>
+          <div className='text-bar-input' style={{ backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: 'fit-content', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '20px' }}>
+            <div className='ic-container' onClick={() => setCambiarBanner(!cambiarBanner)}>
+              {cambiarBanner ? <FiX /> : <FiRepeat />}
+            </div>
           </div>
-          <div className='ic-container' onClick={handleRemoveBanner}>
-            <FiTrash />
+
+          <div className='text-bar-input' style={{ backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: 'fit-content', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '20px' }}>
+            <div className='ic-container' onClick={handleRemoveBanner}>
+              <FiTrash />
+            </div>
           </div>
         </div>
       </div>
       <img src={nuevoBanner} style={{ margin: "0", left: "0" }} />
-    </div>
+    </div >
   )
 }
 

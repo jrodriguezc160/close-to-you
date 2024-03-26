@@ -1,18 +1,18 @@
 .image {
-  background-color: red;
-  position: absolute;
-  height: 11vw;
-  width: 7vw;
-  border-radius: 2px 8px 8px 2px;
-  border-bottom-width: 15px;
   -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
   -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-  box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-  z-index: 2;
   -moz-transition: -moz-transform 0.3s ease-in-out;
   -o-transition: -o-transform 0.3s ease-in-out;
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  position: absolute;
+  z-index: 2;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  border-bottom-width: 15px;
+  border-radius: 2px 8px 8px 2px;
+  background-color: red;
+  width: 7vw;
+  height: 11vw;
   overflow: hidden;
 
   img {
@@ -22,101 +22,101 @@
 }
 
 .image:first-child {
-  transition: all 0.3s ease-in-out;
   -moz-transform: rotate(8deg);
   -ms-transform: rotate(8deg);
   -webkit-transform: rotate(8deg);
   transform: rotate(8deg);
+  transition: all 0.3s ease-in-out;
 }
 
 .image:nth-child(2) {
-  transition: all 0.3s ease-in-out;
   -moz-transform: rotate(4deg);
   -ms-transform: rotate(4deg);
   -webkit-transform: rotate(4deg);
   transform: rotate(4deg);
+  transition: all 0.3s ease-in-out;
 }
 
 .image:last-child {
-  transition: all 0.3s ease-in-out;
   -moz-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
   -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
+  transition: all 0.3s ease-in-out;
 }
 
 .images:hover .image:nth-child(2) {
-  transition: all 0.3s ease-in-out;
   -moz-transform: rotate(-4deg) translateX(-32px) translateY(4px);
   -ms-transform: rotate(-4deg) translateX(-32px) translateY(4px);
   -webkit-transform: rotate(-4deg) translateX(-32px) translateY(4px);
   transform: rotate(-4deg) translateX(-32px) translateY(4px);
+  transition: all 0.3s ease-in-out;
 }
 
 .images:hover .image:first-child {
-  transition: all 0.3s ease-in-out;
   -moz-transform: rotate(-8deg) translateX(-64px) translateY(8px);
   -ms-transform: rotate(-8deg) translateX(-64px) translateY(8px);
   -webkit-transform: rotate(-8deg) translateX(-64px) translateY(8px);
   transform: rotate(-8deg) translateX(-64px) translateY(8px);
+  transition: all 0.3s ease-in-out;
 }
 
 .image.slide-right {
+  -moz-transform: translateX(7vw);
+  -ms-transform: translateX(7vw);
+  -webkit-transform: translateX(7vw);
+  transform: translateX(7vw);
   transition: all 0.3s ease-in-out;
-  -moz-transform: translateX(6rem);
-  -ms-transform: translateX(6rem);
-  -webkit-transform: translateX(6rem);
-  transform: translateX(6rem);
 }
 
 .image.back {
-  transition: all 0.3s ease-in-out;
   transform: rotate(-8deg);
   opacity: 0;
   z-index: 1;
+  transition: all 0.3s ease-in-out;
 }
 
 .image.edit {
-  position: relative;
-  transition: all 0.3s ease-in-out;
   -moz-transform: rotate(0deg) translateX(0px) translateY(0px);
   -ms-transform: rotate(0deg) translateX(0px) translateY(0px);
   -webkit-transform: rotate(0deg) translateX(0px) translateY(0px);
+  position: relative;
   transform: rotate(0deg) translateX(0px) translateY(0px);
+  transition: all 0.3s ease-in-out;
 }
 
 .images.edit {
-  z-index: 100;
-  transition: all 0.3s ease-in-out;
-  overflow: visible;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  min-width: fit-content;
   gap: 16px;
+  z-index: 100;
+  transition: all 0.3s ease-in-out;
+  min-width: fit-content;
+  overflow: visible;
 }
 
 .images.edit,
 .images.edit:hover {
-  z-index: 100;
-  transition: all 0.3s ease-in-out;
-  overflow: visible;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  min-width: fit-content;
   gap: 16px;
+  z-index: 100;
+  transition: all 0.3s ease-in-out;
+  min-width: fit-content;
+  overflow: visible;
 
   .image.edit {
-    transition: all 0.3s ease-in-out;
     -moz-transform: rotate(0deg) translateX(0px) translateY(0px);
     -ms-transform: rotate(0deg) translateX(0px) translateY(0px);
     -webkit-transform: rotate(0deg) translateX(0px) translateY(0px);
     transform: rotate(0deg) translateX(0px) translateY(0px);
+    transition: all 0.3s ease-in-out;
   }
 }
 
