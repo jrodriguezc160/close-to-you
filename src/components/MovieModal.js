@@ -7,13 +7,13 @@ import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
+import Movie from './Movie';
 
 const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies }) => {
   const [search, setSearch] = useState("");
   const [movieData, setMovieData] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(myFavMovies);
   const [showLimit, setShowLimit] = useState(false);
-  const [onHover, setOnHover] = useState('');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -47,10 +47,6 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
       document.body.classList.remove('modal-open');
     }
   }, [showMovieModal]);
-
-  const handleOnHover = (e) => {
-    setOnHover(e)
-  }
 
   const handleCloseModal = () => {
     setShowMovieModal(!showMovieModal);
@@ -213,8 +209,8 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
             ))}
           </div>
 
-          <div className="movies-list visible" style={{ padding: '8px 0px', margin: '0', gap: '0' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '24px' }}>
+          <div className="movies-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', paddingTop: '12px' }}>
               <div className={`heading-toggle ${selectedCollection === myFavMovies ? 'selected' : ''}`} onClick={() => handleSelectView(myFavMovies)}>
                 <h3>My favourites</h3>
               </div>
@@ -226,55 +222,9 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
               </div>
             </div>
 
-            <div className="fav-movies masked-overflow" style={{ marginBottom: '0' }} >
+            <div className="fav-movies masked-overflow" style={{ paddingBottom: '12px' }} >
               {selectedCollection.map((movie, index) => (
-                <div className="movie" onMouseEnter={() => handleOnHover(movie.title)}>
-                  <div key={index} className='cover'>
-                    {movie.poster_path ? (
-                      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ zIndex: '2' }} />
-                    ) : (
-                      <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <FiImage />
-                      </div>
-                    )}
-
-                    {onHover === movie.title ? (
-                      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ position: 'absolute' }} className='ambilight' />
-                    ) : ('')}
-                  </div>
-                  <div className="text">
-                    <p>{movie.title}</p>
-                  </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                    <div className='ic-container' >
-                      <FiStar
-                        onClick={() => {
-                          if (!myFavMovies.some(favMovie => favMovie.id === movie.id)) {
-                            handleAddFavourite(movie);
-                          } else {
-                            handleRemoveFavourite(movie);
-                          }
-                        }}
-                        fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
-                      />
-                    </div>
-                    <div className='ic-container' >
-                      {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
-                        <FiPlusCircle
-                          onClick={() => handleAddMovie(movie)}
-                          stroke='gray'
-                        />
-                      ) : (
-                        <FiCheckCircle
-                          onClick={() => handleRemoveMovie(movie)}
-                          stroke='gray'
-                        />
-                      )
-                      }
-                    </div>
-                  </div>
-                </div>
+                <Movie movie={movie} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myMovies={myMovies} myFavMovies={myFavMovies} handleAddMovie={handleAddMovie} handleRemoveMovie={handleRemoveMovie} />
               ))}
             </div>
           </div>
