@@ -40,7 +40,7 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
 
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>
           <div className='ic-container' >
             <FiStar
               onClick={() => {
