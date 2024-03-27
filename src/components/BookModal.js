@@ -7,6 +7,7 @@ import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
+import Book from './Book';
 
 const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks }) => {
   const [search, setSearch] = useState("");
@@ -19,6 +20,19 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     const savedFavBooks = localStorage.getItem('myFavBooks');
     if (savedFavBooks) {
       setMyFavBooks(JSON.parse(savedFavBooks));
+      setSelectedCollection(JSON.parse(savedFavBooks));
+
+      setTimeout(() => {
+        let delay = 100;
+        const booksDivs = document.querySelectorAll('.book');
+        booksDivs.forEach(bookDiv => {
+          setTimeout(() => {
+            bookDiv.classList.add('visible');
+          }, delay);
+
+          delay += 100;
+        });
+      }, 50);
     }
 
     const savedBooks = localStorage.getItem('myBooks');
@@ -118,9 +132,16 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     }, 300);
   }
 
+  const handleClickExterior = (event) => {
+    console.log('Click exteriors')
+    if (event.target.classList.contains('modal-screen')) {
+      setShowBookModal(false);
+    }
+  }
+
   return (
     <div>
-      <div className={`modal-screen ${showLimit ? 'visible' : ''}`} style={{ height: '100vh', zIndex: '200', }} >
+      <div className={`modal-screen ${showLimit ? 'visible' : ''}`} style={{ height: '100vh', zIndex: '200', }}>
         <div className={`modal-message ${showLimit ? 'visible' : ''}`} style={{ zIndex: '201', visibility: showLimit ? 'visible' : 'hidden', opacity: showLimit ? 1 : 0 }}>
           <div className="ic-container" style={{ width: '64px', height: '64px' }} >
             <FiAlertTriangle fill='white' stroke='rgb(222, 0, 0)' />
@@ -129,8 +150,8 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
           <p>Elimine un favorito para continuar</p>
         </div>
       </div>
-      <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} >
 
+      <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal">
           <div className="text-bar">
             <div className='text-bar-input'>
@@ -190,68 +211,24 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', padding: '0', paddingLeft: '16px', paddingBottom: '0px', height: 'fit-content' }}>
-            <div className={`heading-toggle ${selectedCollection === myFavBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myFavBooks)}>
-              <h3>My favourites</h3>
-            </div>
-            <div className='heading-toggle'>
-              <h3>/</h3>
-            </div>
-            <div className={`heading-toggle ${selectedCollection === myBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myBooks)}>
-              <h3>My collection</h3>
-            </div>
-          </div>
-
-          <div className="fav-books masked-overflow" >
-            {selectedCollection.map((book, index) => (
-              <div className={`book`} key={index}>
-                <div className='cover'>
-                  {book.volumeInfo.imageLinks?.thumbnail ? (
-                    <img src={book.volumeInfo.imageLinks.thumbnail} />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <FiImage />
-                    </div>
-                  )}
-                </div>
-
-                <div className="text">
-                  {book.volumeInfo.title}
-                </div>
-                <div className="text" style={{ color: 'gray' }}>
-                  {book.volumeInfo.authors}
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                  <div className='ic-container' >
-                    <FiStar
-                      onClick={() => {
-                        if (!myFavBooks.some(favBook => favBook.id === book.id)) {
-                          handleAddFavourite(book);
-                        } else {
-                          handleRemoveFavourite(book);
-                        }
-                      }}
-                      fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
-                    />
-                  </div>
-                  <div className='ic-container' >
-                    {!myBooks.some(favBook => favBook.id === book.id) ? (
-                      <FiPlusCircle
-                        onClick={() => handleAddBook(book)}
-                        stroke='gray'
-                      />
-                    ) : (
-                      <FiCheckCircle
-                        onClick={() => handleRemoveBook(book)}
-                        stroke='gray'
-                      />
-                    )
-                    }
-                  </div>
-                </div>
+          <div className="books-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', padding: '32px 0 0 30px' }}>
+              <div className={`heading-toggle ${selectedCollection === myFavBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myFavBooks)}>
+                <h3>My favourites</h3>
               </div>
-            ))}
+              <div className='heading-toggle'>
+                <h3>/</h3>
+              </div>
+              <div className={`heading-toggle ${selectedCollection === myBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myBooks)}>
+                <h3>My collection</h3>
+              </div>
+            </div>
+
+            <div className="fav-books masked-overflow" >
+              {selectedCollection.map((book, index) => (
+                <Book book={book} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myBooks={myBooks} myFavBooks={myFavBooks} handleAddBook={handleAddBook} handleRemoveBook={handleRemoveBook} />
+              ))}
+            </div>
           </div>
 
           <div style={{ minHeight: '5vh' }}></div>

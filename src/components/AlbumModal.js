@@ -7,6 +7,7 @@ import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
+import Album from './Album';
 
 const API_KEY = '73ca2ef62d6bab497ca88979ab55584e';
 
@@ -21,15 +22,25 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
     const savedFavAlbums = localStorage.getItem('myFavAlbums');
     if (savedFavAlbums) {
       setMyFavAlbums(JSON.parse(savedFavAlbums));
+      setSelectedCollection(JSON.parse(savedFavAlbums));
+
+      setTimeout(() => {
+        let delay = 100;
+        const albumsDivs = document.querySelectorAll('.album');
+        albumsDivs.forEach(albumDiv => {
+          setTimeout(() => {
+            albumDiv.classList.add('visible');
+          }, delay);
+
+          delay += 100;
+        });
+      }, 50);
     }
 
     const savedAlbum = localStorage.getItem('myAlbums');
     if (savedAlbum) {
       setMyAlbums(JSON.parse(savedAlbum));
     }
-
-    console.log('myFavAlbums: ', myFavAlbums)
-    console.log('myAlbums: ', myAlbums)
   }, []);
 
   useEffect(() => {
@@ -133,6 +144,13 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
     }, 300);
   }
 
+  const handleClickExterior = (event) => {
+    console.log('Click exteriors')
+    if (event.target.classList.contains('modal-screen')) {
+      setShowAlbumModal(false);
+    }
+  }
+
   return (
     <div>
       <div className={`modal-screen ${showLimit ? 'visible' : ''}`} style={{ height: '100vh', zIndex: '200', }} >
@@ -144,8 +162,8 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
           <p>Elimine un favorito para continuar</p>
         </div>
       </div>
-      <div className={`modal-screen ${showAlbumModal ? 'visible' : ''}`} >
 
+      <div className={`modal-screen ${showAlbumModal ? 'visible' : ''}`} onClick={handleClickExterior}  >
         <div className="modal">
           <div className="text-bar">
             <div className='text-bar-input'>
@@ -204,65 +222,27 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', padding: '0', paddingLeft: '16px', paddingBottom: '0px', height: 'fit-content' }}>
-            <div className={`heading-toggle ${selectedCollection === myFavAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myFavAlbums)}>
-              <h3>My favourites</h3>
-            </div>
-            <div className='heading-toggle'>
-              <h3>/</h3>
-            </div>
-            <div className={`heading-toggle ${selectedCollection === myAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myAlbums)}>
-              <h3>My collection</h3>
-            </div>
-          </div>
-
-          <div className="fav-albums masked-overflow">
-            {selectedCollection.map((album, index) => (
-              <div key={index} className='album'>
-                <div className='cover'>
-                  <img src={album.image[2]['#text']} />
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div className="text">
-                    {album.name}
-                  </div>
-                  <div className="text" style={{ color: 'gray', marginBottom: '4px' }}>
-                    {album.artist}
-                  </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                  <div className='ic-container' >
-                    <FiStar
-                      onClick={() => {
-                        if (myFavAlbums.some(favAlbum => favAlbum === album)) {
-                          handleRemoveFavourite(album);
-                        } else {
-                          handleAddFavourite(album);
-                        }
-                      }}
-                      fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
-                    />
-                  </div>
-                  <div className='ic-container' >
-                    {!myAlbums.some(favAlbum => favAlbum === album) ? (
-                      <FiPlusCircle
-                        onClick={() => handleAddAlbum(album)}
-                        stroke='gray'
-                      />
-                    ) : (
-                      <FiCheckCircle
-                        onClick={() => handleRemoveAlbum(album)}
-                        stroke='gray'
-                      />
-                    )
-                    }
-                  </div>
-                </div>
+          <div className="albums-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', padding: '32px 0 0 30px' }}>
+              <div className={`heading-toggle ${selectedCollection === myFavAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myFavAlbums)}>
+                <h3>My favourites</h3>
               </div>
-            ))}
-          </div>
+              <div className='heading-toggle'>
+                <h3>/</h3>
+              </div>
+              <div className={`heading-toggle ${selectedCollection === myAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myAlbums)}>
+                <h3>My collection</h3>
+              </div>
+            </div>
 
-          <div style={{ minHeight: '5vh' }}></div>
+            <div className="fav-albums masked-overflow" >
+              {selectedCollection.map((album, index) => (
+                <Album album={album} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myAlbums={myAlbums} myFavAlbums={myFavAlbums} handleAddAlbum={handleAddAlbum} handleRemoveAlbum={handleRemoveAlbum} />
+              ))}
+            </div>
+
+            <div style={{ minHeight: '5vh' }}></div>
+          </div>
         </div>
       </div>
     </div >

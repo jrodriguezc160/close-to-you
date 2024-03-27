@@ -7,7 +7,7 @@ import '../styles/favourites.css'
 import { Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handleRemoveFavourite, handleAddMovie, handleRemoveMovie }) => {
+const Book = ({ book, index, myBooks, myFavBooks, handleAddFavourite, handleRemoveFavourite, handleAddBook, handleRemoveBook }) => {
 
   const LightTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -22,13 +22,13 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
   }));
 
   return (
-    <div className="movie">
-      <LightTooltip title={movie.title} followCursor >
+    <div className="book">
+      <LightTooltip title={`${book.volumeInfo.title} by ${book.volumeInfo.authors}`} followCursor >
         <div key={index} className='cover'>
-          {movie.poster_path ? (
+          {book.volumeInfo.imageLinks?.thumbnail ? (
             <>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ zIndex: '2' }} />
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className='ambilight' />
+              <img src={book.volumeInfo.imageLinks.thumbnail} style={{ zIndex: '2' }} />
+              <img src={book.volumeInfo.imageLinks.thumbnail} className='ambilight' />
             </>
           ) : (
             <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -42,24 +42,24 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
           <div className='ic-container' >
             <FiStar
               onClick={() => {
-                if (!myFavMovies.some(favMovie => favMovie.id === movie.id)) {
-                  handleAddFavourite(movie);
+                if (!myFavBooks.some(favBook => favBook.id === book.id)) {
+                  handleAddFavourite(book);
                 } else {
-                  handleRemoveFavourite(movie);
+                  handleRemoveFavourite(book);
                 }
               }}
-              fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
+              fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
             />
           </div>
           <div className='ic-container' >
-            {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
+            {!myBooks.some(favBook => favBook.id === book.id) ? (
               <FiPlusCircle
-                onClick={() => handleAddMovie(movie)}
+                onClick={() => handleAddBook(book)}
                 stroke='gray'
               />
             ) : (
               <FiCheckCircle
-                onClick={() => handleRemoveMovie(movie)}
+                onClick={() => handleRemoveBook(book)}
                 stroke='gray'
               />
             )
@@ -68,8 +68,8 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
         </div>
         {/*
       <div className="text">
-          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{movie.title}</h3>
-          {movie.overview}
+          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{book.title}</h3>
+          {book.overview}
         </div>
         */}
       </LightTooltip >
@@ -77,4 +77,4 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
   )
 }
 
-export default Movie;
+export default Book;

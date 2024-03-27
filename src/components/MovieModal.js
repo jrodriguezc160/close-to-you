@@ -12,7 +12,7 @@ import Movie from './Movie';
 const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies }) => {
   const [search, setSearch] = useState("");
   const [movieData, setMovieData] = useState([]);
-  const [selectedCollection, setSelectedCollection] = useState(myFavMovies);
+  const [selectedCollection, setSelectedCollection] = useState(myFavMovies); // Start selectedCollection with myFavMovies
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
 
@@ -20,6 +20,19 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
     const savedFavMovies = localStorage.getItem('myFavMovies');
     if (savedFavMovies) {
       setMyFavMovies(JSON.parse(savedFavMovies));
+      setSelectedCollection(JSON.parse(savedFavMovies));
+
+      setTimeout(() => {
+        let delay = 100;
+        const moviesDivs = document.querySelectorAll('.movie');
+        moviesDivs.forEach(movieDiv => {
+          setTimeout(() => {
+            movieDiv.classList.add('visible');
+          }, delay);
+
+          delay += 100;
+        });
+      }, 50);
     }
 
     const savedMovies = localStorage.getItem('myMovies');
@@ -135,9 +148,15 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
     }, 300);
   }
 
+  const handleClickExterior = (event) => {
+    if (event.target.classList.contains('modal-screen')) {
+      setShowMovieModal(false);
+    }
+  }
+
   return (
     <div>
-      <div className={`modal-screen ${showLimit ? 'visible' : ''}`} style={{ height: '100vh', zIndex: '200', }} >
+      <div className={`modal-screen ${showLimit ? 'visible' : ''}`} style={{ height: '100vh', zIndex: '200', }} onClick={handleClickExterior} >
         <div className={`modal-message ${showLimit ? 'visible' : ''}`} style={{ zIndex: '201', visibility: showLimit ? 'visible' : 'hidden', opacity: showLimit ? 1 : 0 }}>
           <div className="ic-container" style={{ width: '64px', height: '64px' }} >
             <FiAlertTriangle fill='white' stroke='rgb(222, 0, 0)' />
@@ -146,8 +165,8 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
           <p>Elimine un favorito para continuar</p>
         </div>
       </div>
-      <div className={`modal-screen ${showMovieModal ? 'visible' : ''}`} >
 
+      <div className={`modal-screen ${showMovieModal ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal">
           <div className="text-bar">
             <div className='text-bar-input'>
@@ -210,7 +229,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
           </div>
 
           <div className="movies-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', padding: '32px 0 0 30px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 32px' }}>
               <div className={`heading-toggle ${selectedCollection === myFavMovies ? 'selected' : ''}`} onClick={() => handleSelectView(myFavMovies)}>
                 <h3>My favourites</h3>
               </div>
@@ -222,7 +241,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
               </div>
             </div>
 
-            <div className="fav-movies masked-overflow" style={{ paddingBottom: '12px', paddingLeft: '16px' }} >
+            <div className="fav-movies masked-overflow" >
               {selectedCollection.map((movie, index) => (
                 <Movie movie={movie} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myMovies={myMovies} myFavMovies={myFavMovies} handleAddMovie={handleAddMovie} handleRemoveMovie={handleRemoveMovie} />
               ))}
