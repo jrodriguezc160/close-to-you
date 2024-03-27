@@ -2,13 +2,25 @@ import "../styles/moviesshowcase.css";
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from './VerticalIconBar';
 
-const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavMovies }) => {
+const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies }) => {
   const [queue, setQueue] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
   const touch = document.documentElement.ontouchstart !== undefined;
   const imagesRef = useRef(null);
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
+
+  useEffect(() => {
+    const savedFavMovies = localStorage.getItem('myFavMovies');
+    if (savedFavMovies) {
+      setMyFavMovies(JSON.parse(savedFavMovies));
+    }
+
+    const savedMovie = localStorage.getItem('myMovies');
+    if (savedMovie) {
+      setMyMovies(JSON.parse(savedMovie));
+    }
+  }, []);
 
   const handleRemoveFavourite = () => {
     const updatedMovies = [...myFavMovies];
@@ -90,7 +102,7 @@ const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavM
       </div>
 
       <div style={{ width: '12vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ bottom: '-.75rem', right: '2.25rem', zIndex: '20', width: '3rem', height: '3rem', position: 'absolute' }} >
+        <div style={{ bottom: '-0.5vw', right: '3.2vw', zIndex: '20', width: '2vw', height: '2vw', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/film-frames_1f39e-fe0f.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
         <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>
@@ -105,4 +117,4 @@ const ImageSlider = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavM
   );
 };
 
-export default ImageSlider;
+export default MoviesShowcase;

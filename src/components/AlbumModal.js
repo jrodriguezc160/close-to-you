@@ -16,32 +16,24 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   const [albumData, setAlbumData] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(myFavAlbums);
   const [showLimit, setShowLimit] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const savedFavAlbums = localStorage.getItem('myFavAlbums');
-    if (savedFavAlbums) {
-      setMyFavAlbums(JSON.parse(savedFavAlbums));
-      setSelectedCollection(JSON.parse(savedFavAlbums));
+    showAlbumModal === true && setModalVisible(true);
 
-      setTimeout(() => {
-        let delay = 100;
-        const albumsDivs = document.querySelectorAll('.album');
-        albumsDivs.forEach(albumDiv => {
-          setTimeout(() => {
-            albumDiv.classList.add('visible');
-          }, delay);
+    setTimeout(() => {
+      let delay = 100;
+      const albumsDivs = document.querySelectorAll('.album');
+      albumsDivs.forEach(albumDiv => {
+        setTimeout(() => {
+          albumDiv.classList.add('visible');
+        }, delay);
 
-          delay += 100;
-        });
-      }, 50);
-    }
-
-    const savedAlbum = localStorage.getItem('myAlbums');
-    if (savedAlbum) {
-      setMyAlbums(JSON.parse(savedAlbum));
-    }
-  }, []);
+        delay += 100;
+      });
+    }, 500);
+  }, [showAlbumModal])
 
   useEffect(() => {
     if (myFavAlbums.length > 0) {
@@ -147,7 +139,10 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   const handleClickExterior = (event) => {
     console.log('Click exteriors')
     if (event.target.classList.contains('modal-screen')) {
-      setShowAlbumModal(false);
+      setModalVisible(false)
+      setTimeout(() => {
+        setShowAlbumModal(false);
+      }, 1000);
     }
   }
 
@@ -163,7 +158,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
         </div>
       </div>
 
-      <div className={`modal-screen ${showAlbumModal ? 'visible' : ''}`} onClick={handleClickExterior}  >
+      <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior}  >
         <div className="modal">
           <div className="text-bar">
             <div className='text-bar-input'>

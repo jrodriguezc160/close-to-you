@@ -29,32 +29,41 @@ function App () {
 
   return (
     <div>
-      <BookModal
-        showBookModal={showBookModal}
-        setShowBookModal={setShowBookModal}
-        myFavBooks={myFavBooks}
-        setMyFavBooks={setMyFavBooks}
-        myBooks={myBooks}
-        setMyBooks={setMyBooks}
-      />
+      {showBookModal === true
+        ? (
+          <BookModal
+            showBookModal={showBookModal}
+            setShowBookModal={setShowBookModal}
+            myFavBooks={myFavBooks}
+            setMyFavBooks={setMyFavBooks}
+            myBooks={myBooks}
+            setMyBooks={setMyBooks}
+          />
+        ) : ('')}
 
-      <MovieModal
-        showMovieModal={showMovieModal}
-        setShowMovieModal={setShowMovieModal}
-        myFavMovies={myFavMovies}
-        setMyFavMovies={setMyFavMovies}
-        myMovies={myMovies}
-        setMyMovies={setMyMovies}
-      />
+      {showMovieModal === true
+        ? (
+          <MovieModal
+            showMovieModal={showMovieModal}
+            setShowMovieModal={setShowMovieModal}
+            myFavMovies={myFavMovies}
+            setMyFavMovies={setMyFavMovies}
+            myMovies={myMovies}
+            setMyMovies={setMyMovies}
+          />
+        ) : ('')}
 
-      <AlbumModal
-        showAlbumModal={showAlbumModal}
-        setShowAlbumModal={setShowAlbumModal}
-        myFavAlbums={myFavAlbums}
-        setMyFavAlbums={setMyFavAlbums}
-        myAlbums={myAlbums}
-        setMyAlbums={setMyAlbums}
-      />
+      {showAlbumModal === true
+        ? (
+          <AlbumModal
+            showAlbumModal={showAlbumModal}
+            setShowAlbumModal={setShowAlbumModal}
+            myFavAlbums={myFavAlbums}
+            setMyFavAlbums={setMyFavAlbums}
+            myAlbums={myAlbums}
+            setMyAlbums={setMyAlbums}
+          />
+        ) : ('')}
 
       <ChangeProfilePic profilePic={profilePic} setProfilePic={setProfilePic} showProfilePicModal={showProfilePicModal} setShowProfilePicModal={setShowProfilePicModal} />
 

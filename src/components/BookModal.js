@@ -15,31 +15,23 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const [selectedCollection, setSelectedCollection] = useState(myFavBooks);
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const savedFavBooks = localStorage.getItem('myFavBooks');
-    if (savedFavBooks) {
-      setMyFavBooks(JSON.parse(savedFavBooks));
-      setSelectedCollection(JSON.parse(savedFavBooks));
+    showBookModal === true && setModalVisible(true);
 
-      setTimeout(() => {
-        let delay = 100;
-        const booksDivs = document.querySelectorAll('.book');
-        booksDivs.forEach(bookDiv => {
-          setTimeout(() => {
-            bookDiv.classList.add('visible');
-          }, delay);
+    setTimeout(() => {
+      let delay = 100;
+      const booksDivs = document.querySelectorAll('.book');
+      booksDivs.forEach(bookDiv => {
+        setTimeout(() => {
+          bookDiv.classList.add('visible');
+        }, delay);
 
-          delay += 100;
-        });
-      }, 50);
-    }
-
-    const savedBooks = localStorage.getItem('myBooks');
-    if (savedBooks) {
-      setMyBooks(JSON.parse(savedBooks));
-    }
-  }, []);
+        delay += 100;
+      });
+    }, 500);
+  }, [showBookModal])
 
   useEffect(() => {
     if (myFavBooks.length > 0) {
@@ -135,7 +127,10 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const handleClickExterior = (event) => {
     console.log('Click exteriors')
     if (event.target.classList.contains('modal-screen')) {
-      setShowBookModal(false);
+      setModalVisible(false)
+      setTimeout(() => {
+        setShowBookModal(false);
+      }, 1000);
     }
   }
 
@@ -151,7 +146,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
         </div>
       </div>
 
-      <div className={`modal-screen ${showBookModal ? 'visible' : ''}`} onClick={handleClickExterior} >
+      <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal">
           <div className="text-bar">
             <div className='text-bar-input'>

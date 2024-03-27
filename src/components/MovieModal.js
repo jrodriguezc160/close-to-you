@@ -15,8 +15,11 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
   const [selectedCollection, setSelectedCollection] = useState(myFavMovies); // Start selectedCollection with myFavMovies
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
+    showMovieModal === true && setModalVisible(true);
+
     const savedFavMovies = localStorage.getItem('myFavMovies');
     if (savedFavMovies) {
       setMyFavMovies(JSON.parse(savedFavMovies));
@@ -32,7 +35,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
 
           delay += 100;
         });
-      }, 50);
+      }, 500);
     }
 
     const savedMovies = localStorage.getItem('myMovies');
@@ -150,7 +153,10 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
 
   const handleClickExterior = (event) => {
     if (event.target.classList.contains('modal-screen')) {
-      setShowMovieModal(false);
+      setModalVisible(false)
+      setTimeout(() => {
+        setShowMovieModal(false);
+      }, 1000);
     }
   }
 
@@ -166,7 +172,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
         </div>
       </div>
 
-      <div className={`modal-screen ${showMovieModal ? 'visible' : ''}`} onClick={handleClickExterior} >
+      <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal">
           <div className="text-bar">
             <div className='text-bar-input'>

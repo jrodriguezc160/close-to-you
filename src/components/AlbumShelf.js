@@ -2,7 +2,7 @@ import "../styles/albumshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from './VerticalIconBar';
 
-const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbum, setMyAlbum, myFavAlbums, setMyFavAlbums }) => {
+const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, myFavAlbums, setMyFavAlbums }) => {
   const [queue, setQueue] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -10,6 +10,18 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbum, setMyAlbum, my
   const imagesRef = useRef(null);
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
+
+  useEffect(() => {
+    const savedFavAlbums = localStorage.getItem('myFavAlbums');
+    if (savedFavAlbums) {
+      setMyFavAlbums(JSON.parse(savedFavAlbums));
+    }
+
+    const savedAlbum = localStorage.getItem('myAlbums');
+    if (savedAlbum) {
+      setMyAlbums(JSON.parse(savedAlbum));
+    }
+  }, []);
 
   const handleRemoveFavourite = () => {
     const updatedAlbum = [...myFavAlbums];
@@ -91,7 +103,7 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbum, setMyAlbum, my
           <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
         </div>
 
-        <div style={{ bottom: '-1.5rem', right: '-1.5rem', zIndex: '20', width: '3rem', height: '3rem', position: 'absolute' }} >
+        <div style={{ bottom: '-1vw', right: '-1vw', zIndex: '20', width: '2vw', height: '2vw', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/videocassette_1f4fc.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
 

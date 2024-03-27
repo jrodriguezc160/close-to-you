@@ -13,6 +13,18 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
 
+  useEffect(() => {
+    const savedFavBooks = localStorage.getItem('myFavBooks');
+    if (savedFavBooks) {
+      setMyFavBooks(JSON.parse(savedFavBooks));
+    }
+
+    const savedBook = localStorage.getItem('myBooks');
+    if (savedBook) {
+      setMyBooks(JSON.parse(savedBook));
+    }
+  }, []);
+
   const handleRemoveFavourite = () => {
     const updatedBooks = [...myFavBooks];
     updatedBooks.shift(); // Remove the first book
@@ -90,7 +102,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
     <div style={{ width: '11vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out', marginLeft: '1rem' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
       <div style={{ width: '8vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ bottom: '-.75rem', right: '-1rem', zIndex: '20', width: '3rem', height: '3rem', position: 'absolute' }} >
+        <div style={{ bottom: '-0.5vw', right: '-.5vw', zIndex: '20', width: '2vw', height: '2vw', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/books_1f4da.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
 
