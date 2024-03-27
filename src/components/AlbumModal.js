@@ -223,7 +223,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
           </div>
 
           <div className="albums-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', padding: '32px 0 0 30px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 32px' }}>
               <div className={`heading-toggle ${selectedCollection === myFavAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myFavAlbums)}>
                 <h3>My favourites</h3>
               </div>
@@ -240,8 +240,6 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                 <Album album={album} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myAlbums={myAlbums} myFavAlbums={myFavAlbums} handleAddAlbum={handleAddAlbum} handleRemoveAlbum={handleRemoveAlbum} />
               ))}
             </div>
-
-            <div style={{ minHeight: '5vh' }}></div>
           </div>
         </div>
       </div>
