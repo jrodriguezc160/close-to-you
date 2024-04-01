@@ -167,6 +167,18 @@ body {
   }
 }
 
+.post-input {
+  display: flex;
+  flex-direction: column;
+  padding-left: 48px;
+  width: calc(100% - 48px);
+  hyphens: auto;
+
+  * {
+    margin: 0;
+  }
+}
+
 .post-icons {
   display: flex;
   flex-direction: row;

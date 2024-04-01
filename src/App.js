@@ -76,10 +76,7 @@ function App () {
           />
         ) : ('')}
 
-      {showProfilePicModal === true
-        ? (
-          <ChangeProfilePic profilePic={profilePic} setProfilePic={setProfilePic} showProfilePicModal={showProfilePicModal} setShowProfilePicModal={setShowProfilePicModal} />
-        ) : ('')}
+      <ChangeProfilePic profilePic={profilePic} setProfilePic={setProfilePic} showProfilePicModal={showProfilePicModal} setShowProfilePicModal={setShowProfilePicModal} />
 
       <Banner />
 

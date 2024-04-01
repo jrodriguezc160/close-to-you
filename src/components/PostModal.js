@@ -36,7 +36,7 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
     <div>
       <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal" style={{ top: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '400' }}>
-          <div className='post modal-glass' style={{ backgroundColor: '#80808005', alignItems: 'start' }}>
+          <div className='post modal-glass' style={{ backgroundColor: '#80808005', alignItems: 'start', width: '25vw', height: '10vw' }}>
             <div className='post-profile'>
               <div className='post-profile-pic'>
                 {profilePic ? (<img src={profilePic} />) : ('')}
@@ -46,8 +46,8 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
               </div>
             </div>
 
-            <div className='post-text'>
-              <input type="text" placeholder='Wassup' />
+            <div className='post-input'>
+              <input ref={inputRef} type="text" placeholder='wassup dogg' style={{ outline: 'none', border: 'none', background: 'none' }} />
             </div>
           </div>
         </div>

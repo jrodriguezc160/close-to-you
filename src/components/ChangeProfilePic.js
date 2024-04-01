@@ -20,7 +20,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
     setTimeout(() => {
       let delay = 100;
-      const booksDivs = document.querySelectorAll('.book');
+      const booksDivs = document.querySelectorAll('.glass-images');
       booksDivs.forEach(bookDiv => {
         setTimeout(() => {
           bookDiv.classList.add('visible');
