@@ -167,12 +167,24 @@ body {
   }
 }
 
-.post-input {
+.post-textarea {
   display: flex;
   flex-direction: column;
   padding-left: 48px;
   width: calc(100% - 48px);
-  hyphens: auto;
+  height: auto;
+
+  textarea {
+    outline: none;
+    border: none;
+    background: none;
+    width: 100%;
+    min-height: 16px;
+    resize: none;
+    font-size: inherit;
+    font-family: inherit;
+    hyphens: auto;
+  }
 
   * {
     margin: 0;
@@ -254,8 +266,9 @@ body {
   backdrop-filter: blur(10px);
   transition: all .5s ease-in-out;
   outline: none;
-  border: 1px solid #80808020;
+  border: .1px solid #80808020;
   border-radius: 20px;
+  background-color: #efefef7d;
   padding: 7px 8px;
   width: fit-content;
   height: fit-content;
@@ -280,7 +293,7 @@ body {
 .chip-button:hover {
   transition: all .5s ease-in-out;
   cursor: pointer;
-  border: 1px solid #80808020;
+  border: .1px solid #80808020;
   background-color: #efefef7d;
 
   p {

@@ -8,19 +8,15 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
 
   useEffect(() => {
     showNewPostModal === true && setModalVisible(true);
-
-    setTimeout(() => {
-      let delay = 100;
-      const booksDivs = document.querySelectorAll('.book');
-      booksDivs.forEach(bookDiv => {
-        setTimeout(() => {
-          bookDiv.classList.add('visible');
-        }, delay);
-
-        delay += 100;
-      });
-    }, 500);
   }, [showNewPostModal])
+
+  useEffect(() => {
+    if (modalVisible === true) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+  }, [modalVisible]);
 
   const handleClickExterior = (event) => {
     console.log('Click exteriors')
@@ -32,11 +28,25 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
     }
   }
 
+  const handleInput = (e) => {
+    const maxLength = 256;
+
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = `${e.target.scrollHeight - 2}px`;
+
+      if (e.target.value.length > maxLength) {
+        e.target.value = e.target.value.slice(0, maxLength);
+      }
+    }
+  };
+
+
   return (
     <div>
       <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal" style={{ top: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '400' }}>
-          <div className='post modal-glass' style={{ backgroundColor: '#80808005', alignItems: 'start', width: '25vw', height: '10vw' }}>
+          <div className='post modal-glass' style={{ backgroundColor: '#80808005', alignItems: 'start', width: '25vw', height: 'fit-content' }}>
             <div className='post-profile'>
               <div className='post-profile-pic'>
                 {profilePic ? (<img src={profilePic} />) : ('')}
@@ -46,8 +56,8 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
               </div>
             </div>
 
-            <div className='post-input'>
-              <input ref={inputRef} type="text" placeholder='wassup dogg' style={{ outline: 'none', border: 'none', background: 'none' }} />
+            <div className='post-textarea'>
+              <textarea ref={inputRef} type="text" placeholder='wassup dogg' rows={1} onInput={handleInput} />
             </div>
           </div>
         </div>

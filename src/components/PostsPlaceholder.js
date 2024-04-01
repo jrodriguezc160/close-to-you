@@ -14,7 +14,7 @@ function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal }
         <h3>POSTS</h3>
         <div className="chip-button" onClick={handleClick}>
           <FiEdit3 />
-          <p>&nbsp;&nbsp;Nuevo post</p>
+          <p>&nbsp;&nbsp;Nuevo post&nbsp;</p>
         </div>
       </div>
 
