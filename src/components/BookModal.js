@@ -34,24 +34,20 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }, [showBookModal])
 
   useEffect(() => {
-    if (myFavBooks.length > 0) {
-      localStorage.setItem('myFavBooks', JSON.stringify(myFavBooks));
-    }
+    localStorage.setItem('myFavBooks', JSON.stringify(myFavBooks));
   }, [myFavBooks]);
 
   useEffect(() => {
-    if (myBooks.length > 0) {
-      localStorage.setItem('myBooks', JSON.stringify(myBooks));
-    }
+    localStorage.setItem('myBooks', JSON.stringify(myBooks));
   }, [myBooks]);
 
   useEffect(() => {
-    if (showBookModal) {
+    if (modalVisible === true) {
       document.body.classList.add('modal-open');
     } else {
       document.body.classList.remove('modal-open');
     }
-  }, [showBookModal]);
+  }, [modalVisible]);
 
   const handleCloseModal = () => {
     setShowBookModal(!showBookModal);
@@ -206,8 +202,8 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             ))}
           </div>
 
-          <div className="books-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', paddingLeft: '48px', padding: '32px 0 0 30px' }}>
+          <div className="books-list visible" style={{ padding: '0px', margin: '0', gap: '0', minHeight: '80px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 30px' }}>
               <div className={`heading-toggle ${selectedCollection === myFavBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myFavBooks)}>
                 <h3>My favourites</h3>
               </div>

@@ -1,6 +1,7 @@
 import "../styles/albumshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from './VerticalIconBar';
+import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 
 const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, myFavAlbums, setMyFavAlbums }) => {
   const [queue, setQueue] = useState(false);
@@ -108,11 +109,18 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, 
         </div>
 
         <div ref={imagesRef} className={`favAlbums ${editing ? 'edit' : ''}`} onClick={handleImageClick} >
-          {myFavAlbums.map((album, index) => (
+          {myFavAlbums && myFavAlbums.length > 0 ? myFavAlbums.map((album, index) => (
             <div key={index} className={`favAlbum ${editing ? 'edit' : ''}`}>
               <img src={album.image[3]['#text']} />
             </div>
-          ))}
+          ))
+            : (
+              <div style={{ width: '11vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '4px' }}>
+                <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }} onClick={handleEdit}>
+                  <FiPlus style={{ width: '75%', height: '75%' }} strokeWidth={'1.5px'} />
+                </div>
+              </div>
+            )}
         </div>
       </div>
 

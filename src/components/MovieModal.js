@@ -45,24 +45,20 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
   }, []);
 
   useEffect(() => {
-    if (myFavMovies.length > 0) {
-      localStorage.setItem('myFavMovies', JSON.stringify(myFavMovies));
-    }
+    localStorage.setItem('myFavMovies', JSON.stringify(myFavMovies));
   }, [myFavMovies]);
 
   useEffect(() => {
-    if (myMovies.length > 0) {
-      localStorage.setItem('myMovies', JSON.stringify(myMovies));
-    }
+    localStorage.setItem('myMovies', JSON.stringify(myMovies));
   }, [myMovies]);
 
   useEffect(() => {
-    if (showMovieModal) {
+    if (modalVisible === true) {
       document.body.classList.add('modal-open');
     } else {
       document.body.classList.remove('modal-open');
     }
-  }, [showMovieModal]);
+  }, [modalVisible]);
 
   const handleCloseModal = () => {
     setShowMovieModal(!showMovieModal);
@@ -177,7 +173,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
           <div className="text-bar">
             <div className='text-bar-input'>
               <input ref={inputRef} type="text" name="movie-search" id="movie-search" placeholder='Search for your favourite movies...' value={search} onChange={handleInputChange} />
-              <div className='ic-container' onClick={handleClearInput}>
+              <div className='ic-container' onClick={handleClearInput} style={{ width: '16px', height: '16px' }}>
                 <FiDelete />
               </div>
             </div>
@@ -234,7 +230,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
             ))}
           </div>
 
-          <div className="movies-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
+          <div className="movies-list visible" style={{ padding: '0px', margin: '0', gap: '0', minHeight: '80px' }}>
             <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 32px' }}>
               <div className={`heading-toggle ${selectedCollection === myFavMovies ? 'selected' : ''}`} onClick={() => handleSelectView(myFavMovies)}>
                 <h3>My favourites</h3>

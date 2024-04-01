@@ -48,12 +48,12 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   }, [myAlbums]);
 
   useEffect(() => {
-    if (showAlbumModal) {
+    if (modalVisible === true) {
       document.body.classList.add('modal-open');
     } else {
       document.body.classList.remove('modal-open');
     }
-  }, [showAlbumModal]);
+  }, [modalVisible]);
 
   const handleCloseModal = () => {
     setShowAlbumModal(!showAlbumModal);
@@ -217,7 +217,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
             ))}
           </div>
 
-          <div className="albums-list visible" style={{ padding: '0px', margin: '0', gap: '0' }}>
+          <div className="albums-list visible" style={{ padding: '0px', margin: '0', gap: '0', minHeight: '80px' }}>
             <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 32px' }}>
               <div className={`heading-toggle ${selectedCollection === myFavAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myFavAlbums)}>
                 <h3>My favourites</h3>
