@@ -13,6 +13,23 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
   const [savedProfilePics, setSavedProfilePics] = useState([])
   const [iconVisible, setIconVisible] = useState(false)
   const inputRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    showProfilePicModal === true && setModalVisible(true);
+
+    setTimeout(() => {
+      let delay = 100;
+      const booksDivs = document.querySelectorAll('.book');
+      booksDivs.forEach(bookDiv => {
+        setTimeout(() => {
+          bookDiv.classList.add('visible');
+        }, delay);
+
+        delay += 100;
+      });
+    }, 500);
+  }, [showProfilePicModal])
 
   const handleNewProfilePic = () => {
     const newImage = inputRef.current.value;
@@ -35,8 +52,12 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
   }
 
   const handleClickExterior = (event) => {
+    console.log('Click exteriors')
     if (event.target.classList.contains('modal-screen')) {
-      setShowProfilePicModal(false);
+      setModalVisible(false)
+      setTimeout(() => {
+        setShowProfilePicModal(false);
+      }, 1000);
     }
   }
 
@@ -70,7 +91,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
   return (
     <div>
-      <div className={`modal-screen ${showProfilePicModal === true ? 'visible' : ''}`} onClick={handleClickExterior} >
+      <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior} >
         <div className="modal" style={{ top: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '400' }}>
           <div className='modal-glass' style={{ backgroundColor: '#80808005' }}>
             <h3 style={{ fontWeight: 'normal', margin: '0', margin: '8px 0 14px 0' }}>¡Vamos a cambiar tu foto de perfil!</h3>

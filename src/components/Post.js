@@ -6,7 +6,6 @@ import "../index.css"
 function Post ({ profilePic }) {
   return (
     <div className='post'>
-
       <div className='post-profile'>
         <div className='post-profile-pic'>
           {profilePic ? (<img src={profilePic} />) : ('')}

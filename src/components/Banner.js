@@ -59,17 +59,13 @@ function Banner () {
           </div>
         </animated.div>
 
-        <div className='chip' style={{ background: 'none' }}>
-          <div className='text-bar-input' style={{ backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: 'fit-content', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '20px' }}>
-            <div className='ic-container' onClick={() => setCambiarBanner(!cambiarBanner)}>
-              {cambiarBanner ? <FiX /> : <FiRepeat />}
-            </div>
+        <div className='chip text-bar-input' style={{ width: 'fit-content', padding: '6px 12px' }}>
+          <div className='ic-container' onClick={() => setCambiarBanner(!cambiarBanner)} style={{ width: '14px' }}>
+            {cambiarBanner ? <FiX /> : <FiRepeat />}
           </div>
 
-          <div className='text-bar-input' style={{ backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: 'fit-content', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '20px' }}>
-            <div className='ic-container' onClick={handleRemoveBanner}>
-              <FiTrash />
-            </div>
+          <div className='ic-container' onClick={handleRemoveBanner} style={{ width: '14px' }}>
+            <FiTrash />
           </div>
         </div>
       </div>
