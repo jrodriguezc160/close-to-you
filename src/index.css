@@ -181,9 +181,14 @@ body {
     width: 100%;
     min-height: 16px;
     resize: none;
+    color: #575757;
     font-size: inherit;
     font-family: inherit;
     hyphens: auto;
+  }
+
+  ::placeholder {
+    color: gray;
   }
 
   * {

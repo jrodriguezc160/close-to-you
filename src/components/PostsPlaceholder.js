@@ -1,8 +1,16 @@
 import { FiEdit3 } from "@react-icons/all-files/fi/FiEdit3";
 import Post from './Post';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
-function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal }) {
+function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, myPosts, setMyPosts }) {
+
+  useEffect(() => {
+    const savedPosts = localStorage.getItem('myPosts');
+    console.log('savedPosts', savedPosts)
+    if (savedPosts) {
+      setMyPosts(JSON.parse(savedPosts));
+    }
+  }, []);
 
   const handleClick = () => {
     setShowNewPostModal(true);
@@ -18,9 +26,9 @@ function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal }
         </div>
       </div>
 
-      <Post profilePic={profilePic} />
-      <Post profilePic={profilePic} />
-      <Post profilePic={profilePic} />
+      {myPosts.map((content, index) => (
+        <Post key={index} profilePic={profilePic} content={content} />
+      ))}
     </div>
   )
 }

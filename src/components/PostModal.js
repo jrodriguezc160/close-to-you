@@ -1,14 +1,17 @@
+import { FiSend } from '@react-icons/all-files/fi/FiSend';
 import { useState, useRef, useEffect } from 'react';
 
-const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
-  const [savedProfilePics, setSavedProfilePics] = useState([])
-  const [iconVisible, setIconVisible] = useState(false)
+const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts, setMyPosts }) => {
   const inputRef = useRef(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
+    localStorage.setItem('myPosts', JSON.stringify(myPosts));
+  }, [myPosts]);
+
+  useEffect(() => {
     showNewPostModal === true && setModalVisible(true);
-  }, [showNewPostModal])
+  }, [showNewPostModal]);
 
   useEffect(() => {
     if (modalVisible === true) {
@@ -17,6 +20,11 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
       document.body.classList.remove('modal-open');
     }
   }, [modalVisible]);
+
+  const handleSend = () => {
+    const newPost = inputRef.current.value;
+    setMyPosts(prevPosts => [...prevPosts, newPost]);
+  }
 
   const handleClickExterior = (event) => {
     console.log('Click exteriors')
@@ -41,28 +49,31 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic }) => {
     }
   };
 
-
   return (
-    <div>
-      <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior} >
-        <div className="modal" style={{ top: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '400' }}>
-          <div className='post modal-glass' style={{ backgroundColor: '#80808005', alignItems: 'start', width: '25vw', height: 'fit-content' }}>
-            <div className='post-profile'>
-              <div className='post-profile-pic'>
-                {profilePic ? (<img src={profilePic} />) : ('')}
-              </div>
-              <div style={{ padding: "8px 0" }}>
-                <b>RODLEYY</b>&nbsp; @rodleyy
-              </div>
+    <div className={`modal-screen ${modalVisible === true ? 'visible' : ''}`} onClick={handleClickExterior} >
+      <div className="modal" style={{ top: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '400', width: 'fit-content' }}>
+        <div className='post modal-glass' style={{ backgroundColor: '#80808005', alignItems: 'start', width: '30vw', height: 'fit-content', paddingRight: '4px', paddingBottom: '4px', borderRadius: '18px' }}>
+          <div className='post-profile'>
+            <div className='post-profile-pic'>
+              {profilePic ? (<img src={profilePic} />) : ('')}
             </div>
+            <div style={{ padding: "8px 0" }}>
+              <b>RODLEYY</b>&nbsp; @rodleyy
+            </div>
+          </div>
 
-            <div className='post-textarea'>
-              <textarea ref={inputRef} type="text" placeholder='wassup dogg' rows={1} onInput={handleInput} />
+          <div className='post-textarea'>
+            <textarea ref={inputRef} type="text" placeholder='wassup dogg' rows={1} onInput={handleInput} />
+
+            <div className='text-bar' style={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
+              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: '12px', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '14px' }}>
+                <div className='ic-container' onClick={handleSend}>
+                  <FiSend style={{ marginTop: '1px' }} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <div style={{ minHeight: '5vh' }}></div>
       </div>
     </div>
   )

@@ -24,6 +24,7 @@ function App () {
   const [myFavMovies, setMyFavMovies] = useState([])
   const [myAlbums, setMyAlbums] = useState([])
   const [myFavAlbums, setMyFavAlbums] = useState([])
+  const [myPosts, setMyPosts] = useState([])
 
   const [showBookModal, setShowBookModal] = useState(false)
   const [showMovieModal, setShowMovieModal] = useState(false)
@@ -67,24 +68,37 @@ function App () {
           />
         ) : ('')}
 
-      {showNewPostModal === true
-        ? (
-          <PostModal
-            showNewPostModal={showNewPostModal}
-            setShowNewPostModal={setShowNewPostModal}
-            profilePic={profilePic}
-          />
-        ) : ('')}
+      <PostModal
+        showNewPostModal={showNewPostModal}
+        setShowNewPostModal={setShowNewPostModal}
+        profilePic={profilePic}
+        myPosts={myPosts}
+        setMyPosts={setMyPosts}
+      />
 
-      <ChangeProfilePic profilePic={profilePic} setProfilePic={setProfilePic} showProfilePicModal={showProfilePicModal} setShowProfilePicModal={setShowProfilePicModal} />
+      <ChangeProfilePic
+        profilePic={profilePic}
+        setProfilePic={setProfilePic}
+        showProfilePicModal={showProfilePicModal}
+        setShowProfilePicModal={setShowProfilePicModal}
+      />
 
       <Banner />
 
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ width: "50%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
-          <ProfilePic setShowProfilePicModal={setShowProfilePicModal} profilePic={profilePic} />
+          <ProfilePic
+            setShowProfilePicModal={setShowProfilePicModal}
+            profilePic={profilePic}
+          />
           <Description />
-          <PostsPlaceholder profilePic={profilePic} showNewPostModal={showNewPostModal} setShowNewPostModal={setShowNewPostModal} />
+          <PostsPlaceholder
+            profilePic={profilePic}
+            showNewPostModal={showNewPostModal}
+            setShowNewPostModal={setShowNewPostModal}
+            myPosts={myPosts}
+            setMyPosts={setMyPosts}
+          />
         </div>
 
         <div style={{ width: "50%", padding: "0 6rem", display: "flex", flexDirection: "column" }}>
