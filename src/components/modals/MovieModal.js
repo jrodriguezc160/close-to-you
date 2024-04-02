@@ -7,7 +7,7 @@ import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
-import Movie from './Movie';
+import Movie from '../Movie';
 
 const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies }) => {
   const [search, setSearch] = useState("");

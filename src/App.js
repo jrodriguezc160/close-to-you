@@ -5,18 +5,20 @@ import ProfilePic from './components/ProfilePic';
 import Description from './components/Description';
 import PostsPlaceholder from './components/PostsPlaceholder';
 import Bookshelf from './components/Bookshelf';
-import BookModal from './components/BookModal';
+import BookModal from './components/modals/BookModal';
 import MoviesShowcase from './components/MoviesShowcase';
-import MovieModal from './components/MovieModal';
+import MovieModal from './components/modals/MovieModal';
 import AlbumShelf from './components/AlbumShelf';
-import AlbumModal from './components/AlbumModal';
-import PostModal from './components/PostModal';
-import ChangeProfilePic from './components/ChangeProfilePic';
+import AlbumModal from './components/modals/AlbumModal';
+import PostModal from './components/modals/PostModal';
+import DescModal from './components/modals/DescModal';
+import ChangeProfilePic from './components/modals/ChangeProfilePic';
 
 function App () {
   const [profilePic, setProfilePic] = useState('')
   const [showProfilePicModal, setShowProfilePicModal] = useState(false)
   const [showNewPostModal, setShowNewPostModal] = useState(false)
+  const [showDescModal, setShowDescModal] = useState(false)
 
   const [myBooks, setMyBooks] = useState([])
   const [myFavBooks, setMyFavBooks] = useState([])
@@ -24,6 +26,7 @@ function App () {
   const [myFavMovies, setMyFavMovies] = useState([])
   const [myAlbums, setMyAlbums] = useState([])
   const [myFavAlbums, setMyFavAlbums] = useState([])
+  const [desc, setDesc] = useState('')
   const [myPosts, setMyPosts] = useState(() => {
     const savedPosts = localStorage.getItem('myPosts');
     return savedPosts ? JSON.parse(savedPosts) : [];
@@ -71,13 +74,27 @@ function App () {
           />
         ) : ('')}
 
-      <PostModal
-        showNewPostModal={showNewPostModal}
-        setShowNewPostModal={setShowNewPostModal}
-        profilePic={profilePic}
-        myPosts={myPosts}
-        setMyPosts={setMyPosts}
-      />
+      {showNewPostModal === true
+        ? (
+          <PostModal
+            showNewPostModal={showNewPostModal}
+            setShowNewPostModal={setShowNewPostModal}
+            profilePic={profilePic}
+            myPosts={myPosts}
+            setMyPosts={setMyPosts}
+          />
+        ) : ('')}
+
+      {showDescModal === true
+        ? (
+          <DescModal
+            showDescModal={showDescModal}
+            setShowDescModal={setShowDescModal}
+            profilePic={profilePic}
+            desc={desc}
+            setDesc={setDesc}
+          />
+        ) : ('')}
 
       <ChangeProfilePic
         profilePic={profilePic}
@@ -94,7 +111,7 @@ function App () {
             setShowProfilePicModal={setShowProfilePicModal}
             profilePic={profilePic}
           />
-          <Description />
+          <Description desc={desc} setDesc={setDesc} setShowDescModal={setShowDescModal} />
           <PostsPlaceholder
             profilePic={profilePic}
             showNewPostModal={showNewPostModal}

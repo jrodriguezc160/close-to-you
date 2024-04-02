@@ -7,7 +7,7 @@ import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
-import Album from './Album';
+import Album from '../Album';
 
 const API_KEY = '73ca2ef62d6bab497ca88979ab55584e';
 
