@@ -66,8 +66,8 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
             <textarea ref={inputRef} type="text" placeholder='wassup dogg' rows={1} onInput={handleInput} />
 
             <div className='text-bar' style={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
-              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: '12px', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '14px' }}>
-                <div className='ic-container' onClick={handleSend}>
+              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: '12px', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '14px' }} onClick={handleSend}>
+                <div className='ic-container'>
                   <FiSend style={{ marginTop: '1px' }} />
                 </div>
               </div>
