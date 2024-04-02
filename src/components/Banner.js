@@ -59,7 +59,7 @@ function Banner () {
           </div>
         </animated.div>
 
-        <div className='chip text-bar-input' style={{ width: 'fit-content', padding: '8px 12px' }}>
+        <div className='chip text-bar-input' style={{ width: 'fit-content', padding: '0 8px', height: '24px' }}>
           <div className='ic-container' onClick={() => setCambiarBanner(!cambiarBanner)} style={{ width: '14px' }}>
             {cambiarBanner ? <FiX /> : <FiRepeat />}
           </div>

@@ -24,7 +24,10 @@ function App () {
   const [myFavMovies, setMyFavMovies] = useState([])
   const [myAlbums, setMyAlbums] = useState([])
   const [myFavAlbums, setMyFavAlbums] = useState([])
-  const [myPosts, setMyPosts] = useState([])
+  const [myPosts, setMyPosts] = useState(() => {
+    const savedPosts = localStorage.getItem('myPosts');
+    return savedPosts ? JSON.parse(savedPosts) : [];
+  });
 
   const [showBookModal, setShowBookModal] = useState(false)
   const [showMovieModal, setShowMovieModal] = useState(false)

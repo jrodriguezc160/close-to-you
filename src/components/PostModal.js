@@ -23,7 +23,7 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
 
   const handleSend = () => {
     const newPost = inputRef.current.value;
-    setMyPosts(prevPosts => [...prevPosts, newPost]);
+    setMyPosts(prevPosts => [newPost, ...prevPosts]);
   }
 
   const handleClickExterior = (event) => {
