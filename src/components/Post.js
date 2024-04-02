@@ -10,28 +10,31 @@ function Post ({ profilePic, content }) {
         <div className='post-profile-pic'>
           {profilePic ? (<img src={profilePic} />) : ('')}
         </div>
-        <div style={{ padding: "8px 0" }}>
-          <b>RODLEYY</b>&nbsp; @rodleyy
-        </div>
       </div>
 
-      <div className='post-text'>
-        <p>{content}</p>
-      </div>
-
-      <div className='post-icons'>
-        <div className="ic-container">
-          <FiHeart />
-          162
+      <div className='post-content'>
+        <div className='post-username'>
+          <b>RODLEYY</b>&nbsp;&nbsp;@rodleyy
         </div>
 
-        <div className="ic-container">
-          <FiRepeat />
-          64
+        <div>
+          <p>{content}</p>
         </div>
 
-        <div className="ic-container">
-          <FiSend />
+        <div className='post-icons' >
+          <div className="ic-container" >
+            <FiHeart style={{ height: '14px', width: '14px' }} />
+            162
+          </div>
+
+          <div className="ic-container">
+            <FiRepeat style={{ height: '14px', width: '14px' }} />
+            64
+          </div>
+
+          <div className="ic-container">
+            <FiSend style={{ height: '14px', width: '14px' }} />
+          </div>
         </div>
       </div>
     </div>

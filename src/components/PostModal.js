@@ -26,6 +26,12 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
     setMyPosts(prevPosts => [newPost, ...prevPosts]);
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  };
+
   const handleClickExterior = (event) => {
     console.log('Click exteriors')
     if (event.target.classList.contains('modal-screen')) {
@@ -66,7 +72,7 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
             <textarea ref={inputRef} type="text" placeholder='wassup dogg' rows={1} onInput={handleInput} />
 
             <div className='text-bar' style={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
-              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: '12px', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '14px' }} onClick={handleSend}>
+              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: '12px', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '14px' }} onClick={handleSend} onKeyDown={handleKeyDown}>
                 <div className='ic-container'>
                   <FiSend style={{ marginTop: '1px' }} />
                 </div>
