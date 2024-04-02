@@ -1,5 +1,5 @@
 import "./index.css"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Banner from "./components/Banner"
 import ProfilePic from './components/ProfilePic';
 import Description from './components/Description';
@@ -111,7 +111,11 @@ function App () {
             setShowProfilePicModal={setShowProfilePicModal}
             profilePic={profilePic}
           />
-          <Description desc={desc} setDesc={setDesc} setShowDescModal={setShowDescModal} />
+          <Description
+            desc={desc}
+            setDesc={setDesc}
+            setShowDescModal={setShowDescModal}
+          />
           <PostsPlaceholder
             profilePic={profilePic}
             showNewPostModal={showNewPostModal}
