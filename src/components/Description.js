@@ -1,8 +1,14 @@
 import { FiEdit2 } from "@react-icons/all-files/fi/FiEdit2";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Description = ({ desc, setDesc, setShowDescModal }) => {
   const [editVisible, setEditVisible] = useState(false);
+
+  useEffect(() => {
+    const localDesc = JSON.parse(localStorage.getItem('desc')) || '';
+    setDesc(localDesc)
+  }, [])
+
 
   const handleMouseEnter = () => {
     setEditVisible(true)
