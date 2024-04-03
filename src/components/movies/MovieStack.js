@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import '../styles/cardstack.css';
+import '../../styles/movie-stack.css';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 
-const CardStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
+const MovieStack = ({ myFavMovies, handleEdit, setChipVisible }) => {
 
   useEffect(() => {
-    const stack = document.querySelector(".stack");
+    const stack = document.querySelector(".movie-stack");
     const cards = [...stack.children].reverse();
 
     const swap = (e) => {
-      const card = document.querySelector(".card:last-child");
+      const card = document.querySelector(".movie-card:last-child");
       if (e.target !== card) return;
 
-      card.style.animation = "swap 700ms forwards";
+      card.style.animation = "movie-swap 700ms forwards";
       setChipVisible(false);
 
       setTimeout(() => {
@@ -30,11 +30,11 @@ const CardStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
 
   return (
     <>
-      <div className='stack'>
-        {myFavBooks.length > 0
+      <div className='movie-stack'>
+        {myFavMovies.length > 0
           ? (
-            myFavBooks.map((book, index) => (
-              <div key={index} className="card" style={{ backgroundImage: `url(${book.volumeInfo.imageLinks.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+            myFavMovies.map((movie, index) => (
+              <div key={index} className="movie-card" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
               </div>
             ))
           )
@@ -50,4 +50,4 @@ const CardStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
   )
 }
 
-export default CardStack;
+export default MovieStack;

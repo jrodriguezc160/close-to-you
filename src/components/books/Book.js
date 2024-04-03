@@ -3,11 +3,11 @@ import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 import { FiImage } from "@react-icons/all-files/fi/FiImage";
-import '../styles/favourites.css'
+import '../../styles/favourites.css'
 import { Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handleRemoveFavourite, handleAddAlbum, handleRemoveAlbum }) => {
+const Book = ({ book, index, myBooks, myFavBooks, handleAddFavourite, handleRemoveFavourite, handleAddBook, handleRemoveBook }) => {
 
   const LightTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -22,13 +22,13 @@ const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handle
   }));
 
   return (
-    <div className="album">
-      <LightTooltip title={`${album.name} by ${album.artist}`} followCursor >
+    <div className="book">
+      <LightTooltip title={`${book.volumeInfo.title} by ${book.volumeInfo.authors}`} followCursor >
         <div key={index} className='cover'>
-          {album.image ? (
+          {book.volumeInfo.imageLinks?.thumbnail ? (
             <>
-              <img src={album.image[2]['#text']} alt={album.title} style={{ zIndex: '2' }} />
-              <img src={album.image[2]['#text']} alt={album.title} className='ambilight' />
+              <img src={book.volumeInfo.imageLinks.thumbnail} style={{ zIndex: '2' }} />
+              <img src={book.volumeInfo.imageLinks.thumbnail} className='ambilight' />
             </>
           ) : (
             <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -42,24 +42,24 @@ const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handle
           <div className='ic-container' >
             <FiStar
               onClick={() => {
-                if (!myFavAlbums.some(favAlbum => favAlbum === album)) {
-                  handleAddFavourite(album);
+                if (!myFavBooks.some(favBook => favBook.id === book.id)) {
+                  handleAddFavourite(book);
                 } else {
-                  handleRemoveFavourite(album);
+                  handleRemoveFavourite(book);
                 }
               }}
-              fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
+              fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
             />
           </div>
           <div className='ic-container' >
-            {!myAlbums.some(favAlbum => favAlbum === album) ? (
+            {!myBooks.some(favBook => favBook.id === book.id) ? (
               <FiPlusCircle
-                onClick={() => handleAddAlbum(album)}
+                onClick={() => handleAddBook(book)}
                 stroke='gray'
               />
             ) : (
               <FiCheckCircle
-                onClick={() => handleRemoveAlbum(album)}
+                onClick={() => handleRemoveBook(book)}
                 stroke='gray'
               />
             )
@@ -68,8 +68,8 @@ const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handle
         </div>
         {/*
       <div className="text">
-          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{album.title}</h3>
-          {album.overview}
+          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{book.title}</h3>
+          {book.overview}
         </div>
         */}
       </LightTooltip >
@@ -77,4 +77,4 @@ const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handle
   )
 }
 
-export default Album;
+export default Book;

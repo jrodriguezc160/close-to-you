@@ -4,16 +4,16 @@ import Banner from "./components/Banner"
 import ProfilePic from './components/ProfilePic';
 import Description from './components/Description';
 import PostsPlaceholder from './components/PostsPlaceholder';
-import Bookshelf from './components/Bookshelf';
+import Bookshelf from './components/books/Bookshelf';
 import BookModal from './components/modals/BookModal';
-import MoviesShowcase from './components/MoviesShowcase';
+import MoviesShowcase from './components/movies/MoviesShowcase';
 import MovieModal from './components/modals/MovieModal';
-import AlbumShelf from './components/AlbumShelf';
+import AlbumShelf from './components/albums/AlbumShelf';
 import AlbumModal from './components/modals/AlbumModal';
 import PostModal from './components/modals/PostModal';
 import DescModal from './components/modals/DescModal';
 import ChangeProfilePic from './components/modals/ChangeProfilePic';
-import CardStack from './components/CardStack';
+import CardStack from './components/books/BookStack';
 
 function App () {
   const [profilePic, setProfilePic] = useState('')
@@ -128,7 +128,7 @@ function App () {
 
         <div style={{ width: "50%", padding: "0 6rem", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "4rem", marginTop: "2rem", width: '100%' }}>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "4vw", width: '34vw' }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "3vw", width: '34vw' }}>
               <Bookshelf
                 myBooks={myBooks}
                 setMyBooks={setMyBooks}

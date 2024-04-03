@@ -1,7 +1,8 @@
-import "../styles/moviesshowcase.css";
+import "../../styles/moviesshowcase.css";
 import React, { useEffect, useRef, useState } from 'react';
-import VerticalIconbar from './VerticalIconBar';
+import VerticalIconbar from '../VerticalIconBar';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
+import MovieStack from './MovieStack';
 
 const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies }) => {
   const [queue, setQueue] = useState(false);
@@ -97,16 +98,23 @@ const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyF
   }
 
   return (
-    <div style={{ width: "11vw", height: "12vw", display: "flex", gap: ".5rem", justifyContent: 'center', marginRight: '0' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ width: "12vw", height: "12vw", display: "flex", gap: ".5rem", justifyContent: 'center', marginRight: '0' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div style={{ marginTop: '.5rem', marginRight: '0' }}>
         {myFavMovies.length > 0 && <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} movie={myFavMovies && myFavMovies.length > 0 ? myFavMovies[0] : null} />}
       </div>
 
-      <div style={{ width: '12vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ bottom: '-0.5vw', right: '3.2vw', zIndex: '20', width: '2vw', height: '2vw', position: 'absolute' }} >
+      <div style={{ width: '100%', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ bottom: '-0.5vw', right: '3vw', zIndex: '20', width: '3vw', height: '3vw', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/film-frames_1f39e-fe0f.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
-        <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>
+
+        <MovieStack
+          myFavMovies={myFavMovies}
+          handleEdit={handleEdit}
+          setChipVisible={setChipVisible}
+        />
+
+        {/*         <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>
           {myFavMovies && myFavMovies.length > 0 ? myFavMovies.map((movie, index) => (
             <div key={index} className={`poster`}>
               <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
@@ -118,7 +126,7 @@ const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyF
               </div>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

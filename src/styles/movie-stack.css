@@ -1,4 +1,4 @@
-.stack {
+.movie-stack {
   display: flex;
   position: relative;
   justify-content: center;
@@ -8,7 +8,7 @@
   height: 12vw;
 }
 
-.card {
+.movie-card {
   display: grid;
   position: absolute;
   top: 50%;
@@ -18,7 +18,7 @@
   transition: all 0.3s ease-in-out;
   margin: auto;
   box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-  border-radius: 2px 8px 8px 2px;
+  border-radius: 4px;
   background-color: rgb(226, 226, 226);
   width: 7vw;
   height: 11vw;
@@ -28,56 +28,56 @@
   font-family: sans-serif;
 }
 
-.card:hover {
+.movie-card:hover {
   scale: 1.05;
   transition: all 0.3s ease-in-out;
 }
 
-.card:nth-last-child(n + 4) {
+.movie-card:nth-last-child(n + 4) {
   transform: rotate(16deg) translate(0, -50%);
 }
 
-.card:nth-last-child(3) {
+.movie-card:nth-last-child(3) {
   transform: rotate(-8deg) translate(0%, -50%);
 }
 
-.card:nth-last-child(2) {
+.movie-card:nth-last-child(2) {
   transform: rotate(8deg) translate(-0%, -50%);
 }
 
-.card:nth-last-child(1) {
+.movie-card:nth-last-child(1) {
   transform: rotate(0deg) translate(0, -50%);
 }
 
-.stack:hover {
+.movie-stack:hover {
   transition: all 0.5s ease-in-out;
 
-  .card:nth-last-child(n + 4) {
-    --x: calc(-50% + -100px);
-    transform: translate(var(--x), -50%) scale(0.9) rotate(-24deg);
+  .movie-card:nth-last-child(n + 4) {
+    --x: calc(50% + 100px);
+    transform: translate(var(--x), -50%) scale(0.9) rotate(24deg);
     box-shadow: 0 0 1px 1px #00000003;
   }
 
-  .card:nth-last-child(3) {
-    --x: calc(-50% + -50px);
-    transform: translate(var(--x), -35%) scale(0.8) rotate(-16deg);
+  .movie-card:nth-last-child(3) {
+    --x: calc(50% + 50px);
+    transform: translate(var(--x), -35%) scale(0.8) rotate(16deg);
   }
 
-  .card:nth-last-child(2) {
-    --x: calc(-50%);
-    transform: translate(var(--x), -45%) scale(0.9) rotate(-8deg);
+  .movie-card:nth-last-child(2) {
+    --x: calc(50%);
+    transform: translate(var(--x), -45%) scale(0.9) rotate(8deg);
   }
 
-  .card:nth-last-child(1) {
-    --x: calc(-50% + 50px);
-    transform: translate(var(--x), -50%) scale(1) rotate(-0deg);
+  .movie-card:nth-last-child(1) {
+    --x: calc(50% - 50px);
+    transform: translate(var(--x), -50%) scale(1) rotate(0deg);
   }
 }
 
 
-@keyframes swap {
+@keyframes movie-swap {
   50% {
-    transform: translate(calc(var(--x) + 100px), -50%) scale(0.85) rotate(-5deg);
+    transform: translate(calc(var(--x) - 7vw), -50%) scale(0.85) rotate(5deg);
     animation-timing-function: ease-in;
   }
 

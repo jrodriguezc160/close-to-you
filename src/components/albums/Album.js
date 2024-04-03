@@ -3,11 +3,11 @@ import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 import { FiImage } from "@react-icons/all-files/fi/FiImage";
-import '../styles/favourites.css'
+import '../../styles/favourites.css'
 import { Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handleRemoveFavourite, handleAddMovie, handleRemoveMovie }) => {
+const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handleRemoveFavourite, handleAddAlbum, handleRemoveAlbum }) => {
 
   const LightTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -22,13 +22,13 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
   }));
 
   return (
-    <div className="movie">
-      <LightTooltip title={movie.title} followCursor >
+    <div className="album">
+      <LightTooltip title={`${album.name} by ${album.artist}`} followCursor >
         <div key={index} className='cover'>
-          {movie.poster_path ? (
+          {album.image ? (
             <>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ zIndex: '2' }} />
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className='ambilight' />
+              <img src={album.image[2]['#text']} alt={album.title} style={{ zIndex: '2' }} />
+              <img src={album.image[2]['#text']} alt={album.title} className='ambilight' />
             </>
           ) : (
             <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -42,24 +42,24 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
           <div className='ic-container' >
             <FiStar
               onClick={() => {
-                if (!myFavMovies.some(favMovie => favMovie.id === movie.id)) {
-                  handleAddFavourite(movie);
+                if (!myFavAlbums.some(favAlbum => favAlbum === album)) {
+                  handleAddFavourite(album);
                 } else {
-                  handleRemoveFavourite(movie);
+                  handleRemoveFavourite(album);
                 }
               }}
-              fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
+              fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
             />
           </div>
           <div className='ic-container' >
-            {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
+            {!myAlbums.some(favAlbum => favAlbum === album) ? (
               <FiPlusCircle
-                onClick={() => handleAddMovie(movie)}
+                onClick={() => handleAddAlbum(album)}
                 stroke='gray'
               />
             ) : (
               <FiCheckCircle
-                onClick={() => handleRemoveMovie(movie)}
+                onClick={() => handleRemoveAlbum(album)}
                 stroke='gray'
               />
             )
@@ -68,8 +68,8 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
         </div>
         {/*
       <div className="text">
-          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{movie.title}</h3>
-          {movie.overview}
+          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{album.title}</h3>
+          {album.overview}
         </div>
         */}
       </LightTooltip >
@@ -77,4 +77,4 @@ const Movie = ({ movie, index, myMovies, myFavMovies, handleAddFavourite, handle
   )
 }
 
-export default Movie;
+export default Album;
