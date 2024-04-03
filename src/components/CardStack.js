@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import '../styles/cardstack.css';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 
-const CardStack = ({ myFavBooks, handleEdit }) => {
+const CardStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
 
   useEffect(() => {
     const stack = document.querySelector(".stack");
@@ -11,7 +11,9 @@ const CardStack = ({ myFavBooks, handleEdit }) => {
     const swap = (e) => {
       const card = document.querySelector(".card:last-child");
       if (e.target !== card) return;
+
       card.style.animation = "swap 700ms forwards";
+      setChipVisible(false);
 
       setTimeout(() => {
         card.style.animation = "";

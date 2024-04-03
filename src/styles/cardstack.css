@@ -60,17 +60,17 @@
 
   .card:nth-last-child(3) {
     --x: calc(-50% + -50px);
-    transform: translate(var(--x), -42%) scale(0.95) rotate(-16deg);
+    transform: translate(var(--x), -35%) scale(0.8) rotate(-16deg);
   }
 
   .card:nth-last-child(2) {
     --x: calc(-50%);
-    transform: translate(var(--x), -48%) scale(1) rotate(-8deg);
+    transform: translate(var(--x), -45%) scale(0.9) rotate(-8deg);
   }
 
   .card:nth-last-child(1) {
     --x: calc(-50% + 50px);
-    transform: translate(var(--x), -50%) scale(1.05) rotate(-0deg);
+    transform: translate(var(--x), -50%) scale(1) rotate(-0deg);
   }
 }
 

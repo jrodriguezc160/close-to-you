@@ -102,11 +102,15 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
     <div style={{ width: '12vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
       <div style={{ width: '100%', height: '12vw', position: 'relative', display: "flex", justifyContent: 'flex-start', alignItems: "center" }}>
-        <div style={{ bottom: '-1vw', right: '1.7vw', zIndex: '20', width: '3vw', height: '3vw', position: 'absolute' }} >
+        <div style={{ bottom: '-1vw', right: '0vw', zIndex: '20', width: '3vw', height: '3vw', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/books_1f4da.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
 
-        <CardStack myFavBooks={myFavBooks} handleEdit={handleEdit} />
+        <CardStack
+          myFavBooks={myFavBooks}
+          handleEdit={handleEdit}
+          setChipVisible={setChipVisible}
+        />
       </div>
 
       <div style={{ marginTop: '.5rem' }}>
