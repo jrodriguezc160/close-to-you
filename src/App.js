@@ -106,8 +106,8 @@ function App () {
 
       <Banner />
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ width: "50%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: 'space-around' }}>
+        <div style={{ width: "36%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
           <ProfilePic
             setShowProfilePicModal={setShowProfilePicModal}
             profilePic={profilePic}
@@ -160,8 +160,8 @@ function App () {
           <div>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 

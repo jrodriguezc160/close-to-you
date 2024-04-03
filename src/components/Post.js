@@ -17,8 +17,8 @@ function Post ({ profilePic, content }) {
           <b>RODLEYY</b>&nbsp;&nbsp;@rodleyy
         </div>
 
-        <div>
-          <p>{content}</p>
+        <div className='post-text'>
+          {content}
         </div>
 
         <div className='post-icons' >

@@ -146,8 +146,16 @@ body {
   border: .1px solid rgba(255, 255, 255, 0);
   border-radius: 8px;
   background-color: rgba(211, 211, 211, 0.0);
-  /* background-color: rgba(211, 211, 211, 0.2); */
   padding: 16px;
+  overflow: hidden;
+}
+
+.post-text {
+  word-wrap: break-word;
+  padding: 8px 0;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 
 .post:hover {
@@ -162,7 +170,7 @@ body {
 .post-textarea {
   display: flex;
   flex-direction: column;
-  padding-left: 48px;
+  padding-left: 40px;
   width: calc(100% - 48px);
   height: auto;
 
@@ -241,7 +249,7 @@ body {
 .posts-placeholder {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .text-chip-button {
