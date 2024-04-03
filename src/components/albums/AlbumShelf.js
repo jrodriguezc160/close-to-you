@@ -2,6 +2,7 @@ import "../../styles/albumshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from '../VerticalIconBar';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
+import AlbumStack from './AlbumStack';
 
 const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, myFavAlbums, setMyFavAlbums }) => {
   const [queue, setQueue] = useState(false);
@@ -100,7 +101,7 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, 
   return (
     <div style={{ width: '34vw', height: editing ? 'auto' : '200px', display: "flex", gap: "2rem", transition: 'all 1s ease-in-out', justifyContent: 'flex-start', overflow: 'visible' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div style={{ width: '100%', height: '10vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ top: '.25rem', right: '-15rem', width: '3rem', height: '3rem', position: 'absolute' }}>
+        <div style={{ top: '-0.5rem', right: '-3rem', width: '3rem', height: '3rem', position: 'absolute' }}>
           <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
         </div>
 
@@ -108,20 +109,7 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, 
           <img src='https://em-content.zobj.net/source/apple/391/videocassette_1f4fc.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
 
-        <div ref={imagesRef} className={`favAlbums ${editing ? 'edit' : ''}`} onClick={handleImageClick} >
-          {myFavAlbums && myFavAlbums.length > 0 ? myFavAlbums.map((album, index) => (
-            <div key={index} className={`favAlbum ${editing ? 'edit' : ''}`}>
-              <img src={album.image[3]['#text']} />
-            </div>
-          ))
-            : (
-              <div style={{ width: '11vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '4px' }}>
-                <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }} onClick={handleEdit}>
-                  <FiPlus style={{ width: '75%', height: '75%' }} strokeWidth={'1.5px'} />
-                </div>
-              </div>
-            )}
-        </div>
+        <AlbumStack myFavAlbums={myFavAlbums} handleEdit={handleEdit} setChipVisible={setChipVisible} />
       </div>
 
     </div>
