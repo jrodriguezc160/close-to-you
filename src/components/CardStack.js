@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import '../styles/cardstack.css';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 
-const CardStack = ({ myFavBooks }) => {
+const CardStack = ({ myFavBooks, handleEdit }) => {
 
   useEffect(() => {
     const stack = document.querySelector(".stack");
@@ -38,7 +38,7 @@ const CardStack = ({ myFavBooks }) => {
           )
           : (
             <div style={{ width: '7vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '4px 16px 16px 4px' }}>
-              <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }}/*  onClick={handleEdit} */>
+              <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }} onClick={handleEdit}>
                 <FiPlus style={{ width: '75%', height: '75%' }} strokeWidth={'1.5px'} />
               </div>
             </div>
