@@ -33,10 +33,15 @@ const AlbumStack = ({ myFavAlbums, handleEdit, setChipVisible }) => {
       <div className='album-stack'>
         {myFavAlbums.length > 0
           ? (
-            myFavAlbums.map((album, index) => (
-              <div key={index} className="album-card" style={{ backgroundImage: `url(${album.image[3]['#text']})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-              </div>
-            ))
+            <>
+              {myFavAlbums.map((album, index) => (
+                <div key={index} className="album-card" style={{ backgroundImage: `url(${album.image[3]['#text']})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                </div>
+              ))}
+              {/*              <div className="vinyl">
+                <div className="print"></div>
+              </div> */}
+            </>
           )
           : (
             <div style={{ width: '11vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '4px 16px 16px 4px' }}>

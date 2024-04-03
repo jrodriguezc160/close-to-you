@@ -99,8 +99,8 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, 
   }
 
   return (
-    <div style={{ width: '34vw', height: editing ? 'auto' : '200px', display: "flex", gap: "2rem", transition: 'all 1s ease-in-out', justifyContent: 'flex-start', overflow: 'visible' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div style={{ width: '100%', height: '10vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <div style={{ width: '36vw', height: editing ? 'auto' : '18vw', display: "flex", gap: "2rem", transition: 'all 1s ease-in-out', justifyContent: 'flex-start', overflow: 'visible', alignItems: 'center' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div style={{ width: '100%', height: '18vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "end" }}>
         <div style={{ top: '-0.5rem', right: '-3rem', width: '3rem', height: '3rem', position: 'absolute' }}>
           <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />
         </div>

@@ -2,10 +2,10 @@
   display: flex;
   position: relative;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   transition: all 0.5s ease-in-out;
   width: 36vw;
-  height: 12vw;
+  height: 18vw;
 }
 
 .album-card {
@@ -29,54 +29,146 @@
 }
 
 .album-card:hover {
-  scale: 1.05;
+  scale: 1;
   transition: all 0.3s ease-in-out;
 }
 
 .album-card:nth-last-child(5) {
   --x: calc(-100%);
-  transform: translate(var(--x), -50%);
-  box-shadow: 0 0 1px 1px #00000003;
+  transform: translate(var(--x), -65%);
 }
 
 .album-card:nth-last-child(4) {
-  --x: calc(-50%);
-  transform: translate(var(--x), -50%);
-  box-shadow: 0 0 1px 1px #00000003;
+  --x: calc(-100%);
+  transform: translate(var(--x), -60%);
 }
 
 .album-card:nth-last-child(3) {
-  --x: calc(-0%);
-  transform: translate(var(--x), -50%);
+  --x: calc(-100%);
+  transform: translate(var(--x), -55%);
 }
 
 .album-card:nth-last-child(2) {
-  --x: calc(50%);
+  --x: calc(-100%);
   transform: translate(var(--x), -50%);
 }
 
 .album-card:nth-last-child(1) {
-  --x: calc(100%);
+  --x: calc(75%);
   transform: translate(var(--x), -50%);
 }
 
 .album-stack:hover {
   transition: all 0.5s ease-in-out;
 
-  .album-card:nth-last-child(n + 4) {
-    transform: rotate(16deg) translate(0, -50%);
+  .album-card:nth-last-child(5) {
+    --x: calc(-100%);
+    transform: translate(var(--x), -80%);
+  }
+
+  .album-card:nth-last-child(5):hover {
+    --x: calc(-100%);
+    transform: translate(var(--x), -95%);
+  }
+
+  .album-card:nth-last-child(4) {
+    --x: calc(-100%);
+    transform: translate(var(--x), -60%);
+  }
+
+  .album-card:nth-last-child(4):hover {
+    --x: calc(-100%);
+    transform: translate(var(--x), -75%);
   }
 
   .album-card:nth-last-child(3) {
-    transform: rotate(-8deg) translate(0%, -50%);
+    --x: calc(-100%);
+    transform: translate(var(--x), -40%);
+  }
+
+  .album-card:nth-last-child(3):hover {
+    --x: calc(-100%);
+    transform: translate(var(--x), -55%);
   }
 
   .album-card:nth-last-child(2) {
-    transform: rotate(8deg) translate(-0%, -50%);
+    --x: calc(-100%);
+    transform: translate(var(--x), -20%);
+  }
+
+  .album-card:nth-last-child(2):hover {
+    --x: calc(-100%);
+    transform: translate(var(--x), -35%);
   }
 
   .album-card:nth-last-child(1) {
-    transform: rotate(0deg) translate(0, -50%);
+    /* transform: rotate(0deg) translate(0, -50%); */
+  }
+}
+
+.vinyl {
+  --x: calc(75%);
+  display: block;
+  position: absolute;
+  top: 2.5%;
+  left: 2.5%;
+  transform: translate(var(--x), -50%);
+  z-index: 0;
+  animation: 5s linear spinThat infinite, 1s ease-out getOut 1s forwards;
+  box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  background-image: url('https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Music-PNG/Gramophone_Vinyl_LP_Record_PNG_Transparent_Clip_Art_Image.png?m=1462983196');
+  background-position: center;
+  background-size: 106% 106%;
+  width: 95%;
+  height: 95%;
+  content: '';
+
+  &::before {
+    position: absolute;
+    top: 2.5%;
+    left: 2.5%;
+    opacity: 0.3;
+    z-index: 10;
+    mix-blend-mode: screen;
+    border-radius: 50%;
+    background-image: url('http://www.designresourcebox.com/ths/diverse/blacktextures/82267467.jpg');
+    background-size: 100% 100%;
+    width: 95%;
+    height: 95%;
+    content: '';
+  }
+
+  .print {
+    position: absolute;
+    top: 33%;
+    left: 33%;
+    box-shadow: inset 0 0 0 5px rgba(150, 150, 150, 0.5);
+    border-radius: 50%;
+    background-image: url('http://assets.teamrock.com/image/14d29742-c6f7-43f6-bbe1-6bf7b3b34c6f?w=800');
+    background-size: cover;
+    width: 34%;
+    height: 34%;
+  }
+}
+
+@keyframes getOut {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: 50%;
+  }
+}
+
+@keyframes spinThat {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 
