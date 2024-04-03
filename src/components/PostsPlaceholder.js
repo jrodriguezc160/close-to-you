@@ -18,7 +18,7 @@ function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, 
 
   return (
     <div className='posts-placeholder'>
-      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: '8px' }}>
         <h3>POSTS</h3>
         <div className="chip-button" onClick={handleClick}>
           <p>&nbsp;&nbsp;</p>

@@ -13,6 +13,7 @@ import AlbumModal from './components/modals/AlbumModal';
 import PostModal from './components/modals/PostModal';
 import DescModal from './components/modals/DescModal';
 import ChangeProfilePic from './components/modals/ChangeProfilePic';
+import CardStack from './components/CardStack';
 
 function App () {
   const [profilePic, setProfilePic] = useState('')

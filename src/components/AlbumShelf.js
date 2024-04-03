@@ -61,7 +61,7 @@ const AlbumShelf = ({ setShowAlbumModal, showAlbumModal, myAlbums, setMyAlbums, 
       return;
     }
 
-    setChipVisible(false)
+    setChipVisible(false);
     setQueue(true);
 
     const direction =

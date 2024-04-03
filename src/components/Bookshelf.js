@@ -2,6 +2,7 @@ import "../styles/bookshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from './VerticalIconBar';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
+import CardStack from './CardStack';
 
 const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myFavBooks, setMyFavBooks }) => {
   const [queue, setQueue] = useState(false);
@@ -100,31 +101,16 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
   return (
     <div style={{ width: '11vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out', marginLeft: '1rem' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
-      <div style={{ width: '8vw', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ bottom: '-0.5vw', right: '-.5vw', zIndex: '20', width: '2vw', height: '2vw', position: 'absolute' }} >
+      <div style={{ width: '100%', height: '12vw', position: 'relative', display: "flex", justifyContent: 'flex-start', alignItems: "center" }}>
+        <div style={{ bottom: '-1vw', right: '-4.5vw', zIndex: '20', width: '3vw', height: '3vw', position: 'absolute' }} >
           <img src='https://em-content.zobj.net/source/apple/391/books_1f4da.png' style={{ width: 'inherit', height: 'inherit' }} />
         </div>
 
-        <div ref={imagesRef} className={`images ${editing ? 'edit' : ''}`} onClick={handleImageClick} style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "12vw" }}>
-          {myFavBooks.length > 0 ? (
-            myFavBooks.map((book, index) => (
-              <div key={index} className={`image ${editing ? 'edit' : ''}`}>
-                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
-              </div>
-            ))
-          ) : (
-            <div style={{ width: '7vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '4px 16px 16px 4px' }}>
-              <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }} onClick={handleEdit}>
-                <FiPlus style={{ width: '75%', height: '75%' }} strokeWidth={'1.5px'} />
-              </div>
-            </div>
-          )}
-        </div>
+        <CardStack myFavBooks={myFavBooks} />
       </div>
 
       <div style={{ marginTop: '.5rem' }}>
         {myFavBooks.length > 0 && <VerticalIconbar chipVisible={chipVisible} handleEdit={handleEdit} handleRemoveFavourite={handleRemoveFavourite} />}
-
       </div>
     </div >
   );
