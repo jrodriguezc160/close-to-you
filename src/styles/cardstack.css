@@ -1,19 +1,22 @@
 .stack {
+  display: flex;
   position: relative;
+  justify-content: center;
+  align-items: center;
   transition: all 0.5s ease-in-out;
-  width: 7vw;
-  height: 15vw;
+  width: 12vw;
+  height: 12vw;
 }
 
 .card {
   display: grid;
   position: absolute;
   top: 50%;
-  left: 50%;
   justify-content: center;
   align-items: center;
   transform: translate(-50%, -50%);
   transition: all 0.3s ease-in-out;
+  margin: auto;
   box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
   border-radius: 2px 8px 8px 2px;
   background-color: rgb(226, 226, 226);
@@ -26,7 +29,7 @@
 }
 
 .card:hover {
-  scale: 1.1;
+  scale: 1.05;
   transition: all 0.3s ease-in-out;
 }
 
@@ -35,11 +38,11 @@
 }
 
 .card:nth-last-child(3) {
-  transform: rotate(-8deg) translate(0, -50%);
+  transform: rotate(-8deg) translate(0%, -50%);
 }
 
 .card:nth-last-child(2) {
-  transform: rotate(8deg) translate(0, -50%);
+  transform: rotate(8deg) translate(-0%, -50%);
 }
 
 .card:nth-last-child(1) {
@@ -51,23 +54,23 @@
 
   .card:nth-last-child(n + 4) {
     --x: calc(-50% + -100px);
-    transform: translate(var(--x), -50%) scale(0.9);
+    transform: translate(var(--x), -50%) scale(0.9) rotate(-24deg);
     box-shadow: 0 0 1px 1px #00000003;
   }
 
   .card:nth-last-child(3) {
     --x: calc(-50% + -50px);
-    transform: translate(var(--x), -50%) scale(0.95);
+    transform: translate(var(--x), -40%) scale(0.95) rotate(-16deg);
   }
 
   .card:nth-last-child(2) {
     --x: calc(-50%);
-    transform: translate(var(--x), -50%) scale(1);
+    transform: translate(var(--x), -50%) scale(1) rotate(-8deg);
   }
 
   .card:nth-last-child(1) {
     --x: calc(-50% + 50px);
-    transform: translate(var(--x), -50%) scale(1.05);
+    transform: translate(var(--x), -50%) scale(1.05) rotate(-0deg);
   }
 }
 
