@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import '../../styles/book-stack.css';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
+import { FiImage } from "@react-icons/all-files/fi/FiImage";
 
 const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
 
@@ -9,16 +10,21 @@ const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
     const cards = [...stack.children].reverse();
 
     const swap = (e) => {
-      const card = document.querySelector(".book-card:last-child");
-      if (e.target !== card) return;
+      const card = e.target.closest(".book-card");
+      if (!card || !stack.contains(card)) return;
 
       card.style.animation = "book-swap 700ms forwards";
       setChipVisible(false);
 
-      setTimeout(() => {
-        card.style.animation = "";
-        stack.prepend(card);
-      }, 700);
+      if (card) {
+        card.style.animation = "book-swap 700ms forwards";
+        setChipVisible(false);
+
+        setTimeout(() => {
+          card.style.animation = "";
+          stack.prepend(card);
+        }, 700);
+      }
     }
 
     stack.addEventListener("click", swap);
@@ -34,8 +40,16 @@ const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
         {myFavBooks.length > 0
           ? (
             myFavBooks.map((book, index) => (
-              <div key={index} className="book-card" style={{ backgroundImage: `url(${book.volumeInfo.imageLinks.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-              </div>
+              book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail ? (
+                <div key={index} className="book-card" style={{ backgroundImage: `url(${book.volumeInfo.imageLinks.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                </div>
+              ) : (
+                <div key={index} className="no-cover-book-card">
+                  <div style={{ width: '100%', height: 'fit-content', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', color: 'white', margin: '1vw', padding: '.5vw', textAlign: 'center', backgroundColor: 'cadetblue', fontFamily: 'serif', borderRadius: '4px' }}>
+                    {book.volumeInfo.title}
+                  </div>
+                </div>
+              )
             ))
           )
           : (
