@@ -6,20 +6,27 @@ const AlbumStack = ({ myFavAlbums, handleEdit, setChipVisible }) => {
 
   useEffect(() => {
     const stack = document.querySelector(".album-stack");
-    const cards = [...stack.children].reverse();
+    if (!stack) return;
 
     const swap = (e) => {
-      const card = document.querySelector(".album-card:last-child");
-      if (e.target !== card) return;
+      const card = e.target.closest(".album-card");
+      if (!card || !stack.contains(card)) return;
 
-      card.style.animation = "album-swap 700ms forwards";
-      setChipVisible(false);
+      console.log('Click en el elemento .album-card');
 
-      setTimeout(() => {
-        card.style.animation = "";
-        stack.prepend(card);
-      }, 700);
-    }
+      const vinyl = card.querySelector(".vinyl");
+      if (card) {
+        vinyl.classList.add('hide')
+        card.style.animation = "album-swap 700ms forwards";
+        setChipVisible(false);
+
+        setTimeout(() => {
+          card.style.animation = "";
+          stack.prepend(card);
+          vinyl.classList.remove('hide')
+        }, 700);
+      }
+    };
 
     stack.addEventListener("click", swap);
 
@@ -28,6 +35,7 @@ const AlbumStack = ({ myFavAlbums, handleEdit, setChipVisible }) => {
     };
   }, []);
 
+
   return (
     <>
       <div className='album-stack'>
@@ -35,12 +43,11 @@ const AlbumStack = ({ myFavAlbums, handleEdit, setChipVisible }) => {
           ? (
             <>
               {myFavAlbums.map((album, index) => (
-                <div key={index} className="album-card" style={{ backgroundImage: `url(${album.image[3]['#text']})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                <div key={index} className="album-card">
+                  <div className="album-cover" style={{ backgroundImage: `url(${album.image[3]['#text']})` }}></div>
+                  <div className="vinyl" style={{ zIndex: '-5' }}></div>
                 </div>
               ))}
-              {/*              <div className="vinyl">
-                <div className="print"></div>
-              </div> */}
             </>
           )
           : (
