@@ -24,6 +24,11 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
   const handleSend = () => {
     const newPost = inputRef.current.value;
     setMyPosts(prevPosts => [newPost, ...prevPosts]);
+
+    setModalVisible(false)
+    setTimeout(() => {
+      setShowNewPostModal(false);
+    }, 1000);
   }
 
   const handleKeyDown = (e) => {
@@ -69,10 +74,10 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
           </div>
 
           <div className='post-textarea'>
-            <textarea ref={inputRef} type="text" placeholder='wassup dogg' rows={1} onInput={handleInput} />
+            <textarea ref={inputRef} type="text" placeholder='wassup dogg' rows={1} onInput={handleInput} onKeyDown={handleKeyDown} />
 
             <div className='text-bar' style={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
-              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: '12px', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '14px' }} onClick={handleSend} onKeyDown={handleKeyDown}>
+              <div className='text-bar-input' style={{ background: 'rgb(128, 128, 128, 0.15)', backdropFilter: 'blur(10px)', aspectRatio: '1/1', width: '12px', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '14px' }} onClick={handleSend}>
                 <div className='ic-container'>
                   <FiSend style={{ marginTop: '1px' }} />
                 </div>

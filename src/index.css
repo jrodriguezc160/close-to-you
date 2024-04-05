@@ -156,9 +156,11 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  hyphens: auto;
+  text-overflow: ellipsis;
+  /* 
+  overflow-wrap: break-word; */
+  word-break: break-all;
 }
 
 .post:hover {
@@ -176,6 +178,7 @@ body {
   padding-left: 40px;
   width: calc(100% - 48px);
   height: auto;
+  max-height: 25vw;
 
   textarea {
     outline: none;
