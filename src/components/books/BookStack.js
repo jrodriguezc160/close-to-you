@@ -44,7 +44,7 @@ const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
                 <div key={index} className="book-card" style={{ backgroundImage: `url(${book.volumeInfo.imageLinks.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 </div>
               ) : (
-                <div key={index} className="no-cover-book-card">
+                <div key={index} className="book-card no-cover-book-card">
                   <div style={{ width: '100%', height: 'fit-content', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', color: 'white', margin: '1vw', padding: '.5vw', textAlign: 'center', backgroundColor: 'cadetblue', fontFamily: 'serif', borderRadius: '4px' }}>
                     {book.volumeInfo.title}
                   </div>
