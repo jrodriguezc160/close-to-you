@@ -119,7 +119,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
               {savedProfilePics.length > 2 ? savedProfilePics.map((pic, index) => (
                 pic !== "" && pic !== null
                   ? (
-                    <div style={{ width: '8vw', height: '8vw', position: 'relative' }}>
+                    <div style={{ width: '8vw', height: '8vw', position: 'relative' }} key={index}>
                       {pic === profilePic
                         ? (
                           <div className={`ic-container hidden-icon profile-pic ${iconVisible === true ? ('visible') : ('')}`} style={{ top: '-4px', right: '-4px' }}>

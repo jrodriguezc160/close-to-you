@@ -3,7 +3,7 @@ import { FiRepeat } from "@react-icons/all-files/fi/FiRepeat";
 import { FiSend } from "@react-icons/all-files/fi/FiSend";
 import "../index.css"
 
-function Post ({ profilePic, content }) {
+function Post ({ profilePic, post }) {
   return (
     <div className='post'>
       <div className='post-profile'>
@@ -18,7 +18,7 @@ function Post ({ profilePic, content }) {
         </div>
 
         <div className='post-text'>
-          {content}
+          {post.contenido}
         </div>
 
         <div className='post-icons' >
