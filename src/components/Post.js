@@ -16,7 +16,8 @@ function Post ({ post }) {
 
       <div className='post-content'>
         <div className='post-username'>
-          <b>{usuario && usuario.nombre_mostrado}</b>&nbsp;&nbsp;@{usuario && usuario.usuario}
+          <p><b>{usuario && usuario.nombre_mostrado}</b></p>
+          <p style={{ color: 'gray', fontSize: '12px' }}>@&nbsp;{usuario && usuario.usuario}</p>
         </div>
 
         <div className='post-text'>

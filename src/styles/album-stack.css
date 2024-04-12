@@ -28,7 +28,7 @@
   transition: all 0.3s ease-in-out;
   margin: auto;
   box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
-  background-color: rgb(226, 226, 226);
+  background-color: #e2e2e200;
   width: 11vw;
   height: 11vw;
   overflow: visible;
