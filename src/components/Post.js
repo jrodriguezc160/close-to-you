@@ -3,22 +3,24 @@ import { FiRepeat } from "@react-icons/all-files/fi/FiRepeat";
 import { FiSend } from "@react-icons/all-files/fi/FiSend";
 import "../index.css"
 
-function Post ({ profilePic, post }) {
+function Post ({ post }) {
+  const { usuario, contenido } = post;
+
   return (
     <div className='post'>
       <div className='post-profile'>
         <div className='post-profile-pic'>
-          {profilePic ? (<img src={profilePic} />) : ('')}
+          {usuario && usuario.foto_perfil && <img src={usuario.foto_perfil} alt="" />}
         </div>
       </div>
 
       <div className='post-content'>
         <div className='post-username'>
-          <b>RODLEYY</b>&nbsp;&nbsp;@rodleyy
+          <b>{usuario && usuario.nombre_mostrado}</b>&nbsp;&nbsp;@{usuario && usuario.usuario}
         </div>
 
         <div className='post-text'>
-          {post.contenido}
+          {contenido}
         </div>
 
         <div className='post-icons' >

@@ -1,33 +1,33 @@
 import { FiEdit3 } from "@react-icons/all-files/fi/FiEdit3";
 import Post from './Post';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchPublicaciones } from '../services/PostsServices';
+import { getUsuarios } from '../services/UsersServices';
 
 function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, myPosts, setMyPosts }) {
-
-  const baseUrl = 'https://localhost/close-to-you/';
+  const [postsWithUsers, setPostsWithUsers] = useState([]);
 
   useEffect(() => {
-    fetchPublicaciones()
-  }, [])
 
-  const fetchPublicaciones = async () => {
-    try {
-      const response = await fetch(baseUrl + 'getPublicaciones.php');
-      if (!response.ok) {
-        throw new Error('Error al obtener las publicaciones');
+    const fetchData = async () => {
+      try {
+        const publicaciones = await fetchPublicaciones();
+        const usuarios = await getUsuarios();
+
+        // Asociamos cada publicación con su usuario correspondiente
+        const posts = publicaciones.map(publicacion => {
+          const usuario = usuarios.find(usuario => usuario.id === publicacion.id_usuario);
+          return { ...publicacion, usuario };
+        });
+
+        setPostsWithUsers(posts);
+      } catch (error) {
+        console.error('Error al obtener las publicaciones o los usuarios:', error);
       }
-      const data = await response.json();
-      // Verifica si la respuesta es exitosa
-      if (data.success) {
-        // Asigna los datos a myPosts
-        setMyPosts(data.data);
-      } else {
-        throw new Error('Error en la respuesta: ' + data.error);
-      }
-    } catch (error) {
-      console.error('Error al obtener las publicaciones:', error);
     }
-  }
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const savedPosts = localStorage.getItem('myPosts');
@@ -41,11 +41,6 @@ function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, 
     setShowNewPostModal(true);
   }
 
-  useEffect(() => {
-    console.log(myPosts)
-  }, [myPosts])
-
-
   return (
     <div className='posts-placeholder'>
       <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: '8px' }}>
@@ -57,7 +52,7 @@ function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, 
         </div>
       </div>
 
-      {myPosts.map((post, index) => (
+      {postsWithUsers.map((post, index) => (
         <Post key={index} post={post} />
       ))}
     </div>
