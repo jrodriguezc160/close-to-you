@@ -10,7 +10,7 @@ const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
     const cards = [...stack.children].reverse();
 
     const swap = (e) => {
-      const card = e.target.closest(".book-card");
+      const card = e.target.closest(".book-card:last-child");
       if (!card || !stack.contains(card)) return;
 
       card.style.animation = "book-swap 700ms forwards";

@@ -9,7 +9,7 @@ const AlbumStack = ({ myFavAlbums, handleEdit, setChipVisible }) => {
     if (!stack) return;
 
     const swap = (e) => {
-      const card = e.target.closest(".album-card");
+      const card = e.target.closest(".album-card:last-child");
       if (!card || !stack.contains(card)) return;
 
       console.log('Click en el elemento .album-card');
