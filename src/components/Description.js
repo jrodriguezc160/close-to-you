@@ -1,12 +1,11 @@
 import { FiEdit2 } from "@react-icons/all-files/fi/FiEdit2";
 import { useState, useEffect } from 'react';
 
-const Description = ({ desc, setDesc, setShowDescModal }) => {
+const Description = ({ desc, setDesc, setShowDescModal, datosUsuario }) => {
   const [editVisible, setEditVisible] = useState(false);
 
   useEffect(() => {
-    const localDesc = JSON.parse(localStorage.getItem('desc')) || '';
-    setDesc(localDesc)
+    setDesc(datosUsuario.descripcion)
   }, [])
 
 

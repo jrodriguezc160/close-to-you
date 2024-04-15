@@ -3,15 +3,19 @@ import { FiRepeat } from "@react-icons/all-files/fi/FiRepeat";
 import { FiX } from "@react-icons/all-files/fi/FiX";
 import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 
-function Banner () {
+function Banner ({ datosUsuario }) {
   const [cambiarBanner, setCambiarBanner] = useState(false);
   const [noBanner, setNoBanner] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
-  const [nuevoBanner, setNuevoBanner] = useState('https://pbs.twimg.com/media/GH0WHHPW0AAXnA6?format=jpg&name=large');
+  const [nuevoBanner, setNuevoBanner] = useState();
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    setNuevoBanner(datosUsuario.banner)
+  }, [])
 
   const fade = useSpring({
     opacity: cambiarBanner ? 1 : 0,
@@ -46,7 +50,7 @@ function Banner () {
   };
 
   return (
-    <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '20vh', overflow: "hidden" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '20vh', overflow: "hidden", display: 'flex', justifyContent: 'center', alignItems: 'center' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className={`bottom-right text-bar ${chipVisible ? 'visible' : ''}`} style={{ width: 'fit-content' }}>
         <animated.div style={fade} className='text-bar-input'  >
           <input ref={inputRef} type="text" name="banner-link" id="banner-link" placeholder='Pega aquí el link del nuevo banner' style={{ width: "15rem" }} />
@@ -69,7 +73,7 @@ function Banner () {
           </div>
         </div>
       </div>
-      <img src={nuevoBanner} style={{ margin: "0", left: "0" }} />
+      <img src={nuevoBanner} style={{ margin: "0", left: "0", width: '100%', height: 'auto' }} />
     </div >
   )
 }

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSpring, animated, easings } from 'react-spring';
 import { easeInOut, easeOut } from 'framer-motion';
 
-function ProfilePic ({ setShowProfilePicModal, profilePic }) {
+function ProfilePic ({ setShowProfilePicModal, profilePic, datosUsuario }) {
   const [iconVisible, setIconVisible] = useState(false)
   const [isProfilePicLoaded, setIsProfilePicLoaded] = useState(false);
 
@@ -52,14 +52,14 @@ function ProfilePic ({ setShowProfilePicModal, profilePic }) {
           )
           : (
             <animated.div style={fade} className='profile-pic'>
-              <img onLoad={() => setIsProfilePicLoaded(true)} src={profilePic} style={{ width: 'inherit', height: 'inherit' }} />
+              <img onLoad={() => setIsProfilePicLoaded(true)} src={profilePic} style={{ width: 'auto', height: 'inherit' }} />
             </animated.div>
           )}
       </div>
 
       <div className='profile-text'>
-        <h1>RODLEYY</h1>
-        <h3 style={{ fontWeight: "normal" }}>@rodleyy</h3>
+        <h1>{datosUsuario.nombre_mostrado}</h1>
+        <h3 style={{ fontWeight: "normal" }}>@{datosUsuario.usuario}</h3>
       </div>
     </div>
   )

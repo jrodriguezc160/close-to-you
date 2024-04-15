@@ -11,6 +11,8 @@ function App () {
     const isLoggedIn = localStorage.getItem('loggedIn');
     if (isLoggedIn === 'true') {
       setLoggedIn(true);
+      const loggedUserId = localStorage.getItem('currentUser');
+      setCurrentUser(loggedUserId)
     } else {
       setLoggedIn(false);
     }

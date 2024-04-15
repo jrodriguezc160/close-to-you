@@ -9,7 +9,10 @@ export const logIn = async (usuario, passwd) => {
     const data = await response.json();
     // Verifica si la respuesta es exitosa
     if (data.success) {
-      return data.message; // Podrías retornar cualquier dato adicional que necesites del backend
+      return {
+        message: data.message, // Mensaje de éxito
+        userId: data.userId // ID del usuario
+      };
     } else {
       throw new Error('Error en la respuesta: ' + data.message);
     }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Banner from "./Banner"
 import ProfilePic from './ProfilePic';
 import Description from './Description';
@@ -12,12 +12,14 @@ import AlbumModal from './modals/AlbumModal';
 import PostModal from './modals/PostModal';
 import DescModal from './modals/DescModal';
 import ChangeProfilePic from './modals/ChangeProfilePic';
+import { getUsuarioData } from '../services/UsersServices';
 
-function ProfilePage () {
+function ProfilePage ({ currentUser }) {
   const [profilePic, setProfilePic] = useState('')
   const [showProfilePicModal, setShowProfilePicModal] = useState(false)
   const [showNewPostModal, setShowNewPostModal] = useState(false)
   const [showDescModal, setShowDescModal] = useState(false)
+  const [datosUsuario, setDatosUsuario] = useState([]);
 
   const [myBooks, setMyBooks] = useState([])
   const [myFavBooks, setMyFavBooks] = useState([])
@@ -34,6 +36,23 @@ function ProfilePage () {
   const [showBookModal, setShowBookModal] = useState(false)
   const [showMovieModal, setShowMovieModal] = useState(false)
   const [showAlbumModal, setShowAlbumModal] = useState(false)
+
+  useEffect(() => {
+    console.log('currentUser: ', currentUser)
+    const getUserData = async () => {
+      try {
+        const userData = await getUsuarioData(currentUser);
+        console.log('userData: ', userData);
+        setDatosUsuario(userData)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getUserData();
+
+    setProfilePic(datosUsuario.foto_perfil)
+  }, []);
 
   return (
     <div>
@@ -81,6 +100,7 @@ function ProfilePage () {
             profilePic={profilePic}
             myPosts={myPosts}
             setMyPosts={setMyPosts}
+            datosUsuario={datosUsuario}
           />
         ) : ('')}
 
@@ -102,18 +122,20 @@ function ProfilePage () {
         setShowProfilePicModal={setShowProfilePicModal}
       />
 
-      <Banner />
+      <Banner datosUsuario={datosUsuario} />
 
       <div style={{ display: "flex", flexDirection: "row", justifyContent: 'space-around' }}>
         <div style={{ width: "36%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
           <ProfilePic
             setShowProfilePicModal={setShowProfilePicModal}
             profilePic={profilePic}
+            datosUsuario={datosUsuario}
           />
           <Description
             desc={desc}
             setDesc={setDesc}
             setShowDescModal={setShowDescModal}
+            datosUsuario={datosUsuario}
           />
           <PostsPlaceholder
             profilePic={profilePic}

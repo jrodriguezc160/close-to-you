@@ -9,11 +9,16 @@ const Login = ({ setLoggedIn, setCurrentUser }) => {
     event.preventDefault();
     try {
       // Llama a la función logIn con el usuario y la contraseña
-      const message = await logIn(usuario, passwd);
+      const { message, userId } = await logIn(usuario, passwd);
       console.log(message); // Maneja la respuesta del servicio aquí
-      message === 'Logged in successfully' && setLoggedIn(true);
+      console.log('ID seleccinado: ', userId);
 
-      localStorage.setItem('loggedIn', true)
+      if (message === 'Logged in successfully') {
+        setLoggedIn(true);
+        setCurrentUser(userId);
+        localStorage.setItem('loggedIn', true);
+        localStorage.setItem('currentUser', userId);
+      }
     } catch (error) {
       console.error(error); // Maneja los errores aquí
     }

@@ -2,7 +2,7 @@ import { FiSend } from '@react-icons/all-files/fi/FiSend';
 import { useState, useRef, useEffect } from 'react';
 import { addPublicacion } from '../../services/PostsServices';
 
-const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts, setMyPosts }) => {
+const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts, setMyPosts, datosUsuario }) => {
   const inputRef = useRef(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -73,10 +73,10 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
         <div className='post modal-glass' style={{ backgroundColor: '#80808005', alignItems: 'start', width: '30vw', height: 'fit-content', paddingRight: '4px', paddingBottom: '4px', borderRadius: '18px' }}>
           <div className='post-profile'>
             <div className='post-profile-pic'>
-              {profilePic ? (<img src={profilePic} />) : ('')}
+              {datosUsuario.foto_perfil ? (<img src={datosUsuario.foto_perfil} />) : ('')}
             </div>
             <div style={{ padding: "8px 0" }}>
-              <b>RODLEYY</b>&nbsp; @rodleyy
+              <b>{datosUsuario.nombre_mostrado}</b>&nbsp; @{datosUsuario.usuario}
             </div>
           </div>
 

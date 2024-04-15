@@ -17,3 +17,21 @@ export const getUsuarios = async () => {
     throw new Error('Error al obtener los usuarios: ' + error.message);
   }
 };
+
+export const getUsuarioData = async (id) => {
+  try {
+    const response = await fetch(`${baseUrl}getUsuarioData.php?id=${id}`);
+    if (!response.ok) {
+      throw new Error('Error al iniciar sesión');
+    }
+    const data = await response.json();
+    // Verifica si la respuesta es exitosa
+    if (data) {
+      return data.data[0];
+    } else {
+      throw new Error('Error en la respuesta: ' + data.message);
+    }
+  } catch (error) {
+    throw new Error('Error al iniciar sesión: ' + error.message);
+  }
+};
