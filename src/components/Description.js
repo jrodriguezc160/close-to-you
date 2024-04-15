@@ -4,11 +4,6 @@ import { useState, useEffect } from 'react';
 const Description = ({ desc, setDesc, setShowDescModal, datosUsuario }) => {
   const [editVisible, setEditVisible] = useState(false);
 
-  useEffect(() => {
-    setDesc(datosUsuario.descripcion)
-  }, [])
-
-
   const handleMouseEnter = () => {
     setEditVisible(true)
   }
@@ -24,7 +19,7 @@ const Description = ({ desc, setDesc, setShowDescModal, datosUsuario }) => {
 
   return (
     <div className='profile-desc' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <p>{desc}&nbsp;
+      <p>{datosUsuario.descripcion}&nbsp;
         <FiEdit2 className={`edit-desc ${editVisible === true && ('visible waving')}`} onClick={handleClick} />
       </p>
     </div>

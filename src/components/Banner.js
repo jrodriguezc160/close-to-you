@@ -20,7 +20,7 @@ function Banner ({ datosUsuario }) {
   const fade = useSpring({
     opacity: cambiarBanner ? 1 : 0,
     transform: cambiarBanner ? "translateY(0%)" : "translateY(50%)",
-    gap: "8px"
+    gap: "8px",
   });
 
   const handleNewBanner = () => {
@@ -73,7 +73,7 @@ function Banner ({ datosUsuario }) {
           </div>
         </div>
       </div>
-      <img src={nuevoBanner} style={{ margin: "0", left: "0", width: '100%', height: 'auto' }} />
+      <img src={datosUsuario.banner} style={{ margin: "0", left: "0", width: '100%', height: 'auto' }} />
     </div >
   )
 }

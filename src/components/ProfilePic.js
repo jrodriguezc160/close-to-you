@@ -5,17 +5,17 @@ import { useEffect, useState } from 'react';
 import { useSpring, animated, easings } from 'react-spring';
 import { easeInOut, easeOut } from 'framer-motion';
 
-function ProfilePic ({ setShowProfilePicModal, profilePic, datosUsuario }) {
+function ProfilePic ({ setShowProfilePicModal, datosUsuario }) {
   const [iconVisible, setIconVisible] = useState(false)
   const [isProfilePicLoaded, setIsProfilePicLoaded] = useState(false);
 
-  useEffect(() => {
-    if (profilePic) {
-      setIsProfilePicLoaded(true);
-    } else {
-      setIsProfilePicLoaded(false);
-    }
-  }, [profilePic]);
+  /*   useEffect(() => {
+      if (profilePic) {
+        setIsProfilePicLoaded(true);
+      } else {
+        setIsProfilePicLoaded(false);
+      }
+    }, [profilePic]); */
 
   const fade = useSpring({
     opacity: isProfilePicLoaded ? 1 : 0,
@@ -39,10 +39,10 @@ function ProfilePic ({ setShowProfilePicModal, profilePic, datosUsuario }) {
   return (
     <div style={{ display: "flex", alignItems: "center", marginTop: "32px" }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '8rem', height: '8rem', marginRight: '2rem' }}>
-        <div className={`ic-container ${iconVisible === true && profilePic ? ('visible') : ('hidden-icon')}`} style={{ position: 'absolute', top: 0, right: 0 }} onClick={handleClick}>
+        <div className={`ic-container ${iconVisible === true && datosUsuario.foto_perfil ? ('visible') : ('hidden-icon')}`} style={{ position: 'absolute', top: 0, right: 0 }} onClick={handleClick}>
           <FiEdit2 />
         </div>
-        {!profilePic
+        {!datosUsuario.foto_perfil
           ? (
             <animated.div style={fade} className='profile-pic'>
               <div className='ic-container' style={{ height: "32px", width: "32px" }} onClick={handleClick}>
@@ -52,7 +52,7 @@ function ProfilePic ({ setShowProfilePicModal, profilePic, datosUsuario }) {
           )
           : (
             <animated.div style={fade} className='profile-pic'>
-              <img onLoad={() => setIsProfilePicLoaded(true)} src={profilePic} style={{ width: 'auto', height: 'inherit' }} />
+              <img onLoad={() => setIsProfilePicLoaded(true)} src={datosUsuario.foto_perfil} style={{ width: 'auto', height: 'inherit' }} />
             </animated.div>
           )}
       </div>

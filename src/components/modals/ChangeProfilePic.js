@@ -36,14 +36,12 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
 
     if (newImage) {
       setProfilePic(newImage);
-      localStorage.setItem('profilePic', JSON.stringify(profilePic));
     }
   }
 
   const handleChangeProfilePic = (pic, index) => {
     console.log('Cambiando PFP...', pic);
     setProfilePic(savedProfilePics[index]);
-    localStorage.setItem('profilePic', JSON.stringify(pic));
   };
 
 

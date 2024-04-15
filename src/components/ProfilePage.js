@@ -38,20 +38,20 @@ function ProfilePage ({ currentUser }) {
   const [showAlbumModal, setShowAlbumModal] = useState(false)
 
   useEffect(() => {
-    console.log('currentUser: ', currentUser)
     const getUserData = async () => {
       try {
         const userData = await getUsuarioData(currentUser);
         console.log('userData: ', userData);
-        setDatosUsuario(userData)
+        setDatosUsuario(userData);
+
+        // Aquí actualizamos profilePic después de recibir los datos del usuario
+        setProfilePic(userData.foto_perfil);
+        console.log('Foto de perfil: ', userData.foto_perfil);
       } catch (error) {
         console.error(error);
       }
     };
-
     getUserData();
-
-    setProfilePic(datosUsuario.foto_perfil)
   }, []);
 
   return (
@@ -128,7 +128,6 @@ function ProfilePage ({ currentUser }) {
         <div style={{ width: "36%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
           <ProfilePic
             setShowProfilePicModal={setShowProfilePicModal}
-            profilePic={profilePic}
             datosUsuario={datosUsuario}
           />
           <Description
