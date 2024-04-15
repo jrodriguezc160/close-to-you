@@ -1,5 +1,6 @@
 import { FiSend } from '@react-icons/all-files/fi/FiSend';
 import { useState, useRef, useEffect } from 'react';
+import { addPublicacion } from '../../services/PostsServices';
 
 const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts, setMyPosts }) => {
   const inputRef = useRef(null);
@@ -21,14 +22,20 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
     }
   }, [modalVisible]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const newPost = inputRef.current.value;
-    setMyPosts(prevPosts => [newPost, ...prevPosts]);
 
-    setModalVisible(false)
-    setTimeout(() => {
-      setShowNewPostModal(false);
-    }, 1000);
+    try {
+      await addPublicacion(2, newPost);
+      setMyPosts(prevPosts => [newPost, ...prevPosts]);
+      setModalVisible(false)
+
+      setTimeout(() => {
+        setShowNewPostModal(false);
+      }, 1000);
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error)
+    }
   }
 
   const handleKeyDown = (e) => {

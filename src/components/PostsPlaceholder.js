@@ -27,15 +27,7 @@ function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, 
     }
 
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    const savedPosts = localStorage.getItem('myPosts');
-    // console.log('savedPosts', savedPosts)
-    if (savedPosts) {
-      // setMyPosts(JSON.parse(savedPosts));
-    }
-  }, []);
+  }, [myPosts]);
 
   const handleClick = () => {
     setShowNewPostModal(true);

@@ -18,20 +18,29 @@ export const fetchPublicaciones = async () => {
   }
 };
 
-/* export const addPublicaciones = async () => {
+export const addPublicacion = async (idUsuario, contenido) => {
   try {
-    const response = await fetch(baseUrl + 'getPublicaciones.php');
+    const formData = new FormData();
+    formData.append('id_usuario', idUsuario);
+    formData.append('contenido', contenido);
+
+    const response = await fetch(baseUrl + 'addPublicacion.php', {
+      method: 'POST',
+      body: formData
+    });
+
     if (!response.ok) {
-      throw new Error('Error al obtener las publicaciones');
+      throw new Error('Error al agregar la publicación');
     }
+
     const data = await response.json();
-    // Verifica si la respuesta es exitosa
+
     if (data.success) {
-      return data.data;
+      return data.message;
     } else {
-      throw new Error('Error en la respuesta: ' + data.error);
+      throw new Error('Error en la respuesta: ' + data.message);
     }
   } catch (error) {
-    throw new Error('Error al obtener las publicaciones: ' + error.message);
+    throw new Error('Error al agregar la publicación: ' + error.message);
   }
-}; */
+};

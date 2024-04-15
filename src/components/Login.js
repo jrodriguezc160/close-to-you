@@ -1,28 +1,38 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { logIn } from '../services/LogInServices'; // Importa la función logIn del archivo de servicios
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ setLoggedIn, setCurrentUser }) => {
+  const [usuario, setUsuario] = useState('');
+  const [passwd, setPasswd] = useState('');
 
-  function handleSubmit (event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      // Llama a la función logIn con el usuario y la contraseña
+      const message = await logIn(usuario, passwd);
+      console.log(message); // Maneja la respuesta del servicio aquí
+      message === 'Logged in successfully' && setLoggedIn(true);
+
+      localStorage.setItem('loggedIn', true)
+    } catch (error) {
+      console.error(error); // Maneja los errores aquí
+    }
   }
 
   return (
     <div className='modal-screen visible'>
-      <form action="" className='modal' style={{ backgroundColor: 'lightgray', height: '50vh', display: 'flex', gap: '2vw', alignItems: 'center', borderRadius: '12px' }} onSubmit={handleSubmit}>
+      <form className='modal' style={{ backgroundColor: 'lightgray', height: '50vh', display: 'flex', gap: '2vw', alignItems: 'center', borderRadius: '12px' }} onSubmit={handleSubmit}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1vw' }}>
-          <label htmlFor="email">Email</label>
-          <input type="text" placeholder='Enter email' onChange={e => setEmail(e.target.value)} />
+          <label htmlFor="usuario">Usuario</label>
+          <input type="text" placeholder='Enter usuario' value={usuario} onChange={e => setUsuario(e.target.value)} className='chip text-bar-input' style={{ width: 'fit-content', padding: '0 8px', height: '24px', border: 'none ', outline: 'none' }} />
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '1vw' }}>
-          <label htmlFor="password">Password</label>
-          <input type="password" placeholder='Enter password' onChange={e => setPassword(e.target.value)} />
+          <label htmlFor="passwd">Contraseña</label>
+          <input type="password" placeholder='Enter passwd' value={passwd} onChange={e => setPasswd(e.target.value)} className='chip text-bar-input' style={{ width: 'fit-content', padding: '0 8px', height: '24px', border: 'none ', outline: 'none' }} />
         </div>
 
-        <button>Log in</button>
+        <button type="submit" className='chip-button' style={{ width: '5rem' }}>Log in</button>
       </form>
     </div>
   )
