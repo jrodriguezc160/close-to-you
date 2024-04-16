@@ -40,13 +40,13 @@ const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
         {myFavBooks.length > 0
           ? (
             myFavBooks.map((book, index) => (
-              book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail ? (
-                <div key={index} className="book-card" style={{ backgroundImage: `url(${book.volumeInfo.imageLinks.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+              book && book.imagen ? (
+                <div key={index} className="book-card" style={{ backgroundImage: `url(${book.imagen})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 </div>
               ) : (
                 <div key={index} className="book-card no-cover-book-card">
                   <div style={{ width: '100%', height: 'fit-content', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', color: 'white', margin: '1vw', padding: '.5vw', textAlign: 'center', backgroundColor: 'cadetblue', fontFamily: 'serif', borderRadius: '4px' }}>
-                    {book.volumeInfo.title}
+                    {book.titulo}
                   </div>
                 </div>
               )

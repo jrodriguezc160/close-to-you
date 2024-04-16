@@ -8,8 +8,9 @@ import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 import Book from '../books/Book';
+import { addElemento } from '../../services/CollectionsServices';
 
-const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks }) => {
+const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks, currentUser }) => {
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(myFavBooks);
@@ -54,9 +55,11 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   };
 
   const searchBook = () => {
-    axios.get('https://www.googleapis.com/books/v1/volumes?q=' + search + '&key=AIzaSyA6SaT23KNiiA6DnUfUQTvFeyAcQEkwnSU' + '&maxResults=20')
+    axios.get('https://www.googleapis.com/books/v1/volumes?q=' + search + '&key=AIzaSyA6SaT23KNiiA6DnUfUQTvFeyAcQEkwnSU' + '&maxResults=15')
       .then(res => setBookData(res.data.items))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
+
+    console.log('bookData', bookData)
   }
 
   // Llama a searchBook cada vez que cambia el valor del input
@@ -70,7 +73,15 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     setBookData([]);
   }
 
-  const handleAddFavourite = (book) => {
+  const handleAddFavourite = async (book) => {
+    /*     try {
+          await addElemento(currentUser, 2, book.title);
+        } catch (error) {
+          console.error('Error al agregar la publicación: ', error)
+        } */
+
+    console.log("LIBROOO: ", book)
+
     if (myFavBooks.length >= 3) {
       console.log('Límite excedido')
       setShowLimit(true)

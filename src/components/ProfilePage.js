@@ -65,6 +65,7 @@ function ProfilePage ({ currentUser }) {
             setMyFavBooks={setMyFavBooks}
             myBooks={myBooks}
             setMyBooks={setMyBooks}
+            currentUser={currentUser}
           />
         ) : ('')}
 
@@ -156,6 +157,7 @@ function ProfilePage ({ currentUser }) {
                 setMyFavBooks={setMyFavBooks}
                 showBookModal={showBookModal}
                 setShowBookModal={setShowBookModal}
+                currentUser={currentUser}
               />
 
               <MoviesShowcase

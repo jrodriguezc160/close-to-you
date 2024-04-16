@@ -3,8 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from '../VerticalIconBar';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 import BookStack from './BookStack';
+import { getElementosUsuario } from '../../services/CollectionsServices';
 
-const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myFavBooks, setMyFavBooks }) => {
+const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myFavBooks, setMyFavBooks, currentUser }) => {
   const [queue, setQueue] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -13,7 +14,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const savedFavBooks = localStorage.getItem('myFavBooks');
     if (savedFavBooks) {
       setMyFavBooks(JSON.parse(savedFavBooks));
@@ -23,7 +24,22 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
     if (savedBook) {
       setMyBooks(JSON.parse(savedBook));
     }
-  }, []);
+  }, []); */
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const elementos = await getElementosUsuario(currentUser, 'Libros favoritos');
+        setMyFavBooks(elementos);
+        // console.log('myFavBooks', myFavBooks)
+      } catch (error) {
+        console.error('Error al obtener los elementos o los usuarios:', error);
+      }
+    }
+
+    fetchData();
+  }, [myFavBooks]);
 
   const handleRemoveFavourite = () => {
     const updatedBooks = [...myFavBooks];
