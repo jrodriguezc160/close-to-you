@@ -18,6 +18,24 @@ export const fetchPublicaciones = async () => {
   }
 };
 
+export const getPublicacionesUsuario = async (id_usuario) => {
+  try {
+    const response = await fetch(`${baseUrl}getPublicacionesUsuario.php?id_usuario=${id_usuario}`);
+    if (!response.ok) {
+      throw new Error('Error al obtener las publicaciones');
+    }
+    const data = await response.json();
+    // Verifica si la respuesta es exitosa
+    if (data.success) {
+      return data.data;
+    } else {
+      throw new Error('Error en la respuesta: ' + data.error);
+    }
+  } catch (error) {
+    throw new Error('Error al obtener las publicaciones: ' + error.message);
+  }
+};
+
 export const addPublicacion = async (idUsuario, contenido) => {
   try {
     const formData = new FormData();

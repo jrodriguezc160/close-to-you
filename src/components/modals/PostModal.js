@@ -2,7 +2,7 @@ import { FiSend } from '@react-icons/all-files/fi/FiSend';
 import { useState, useRef, useEffect } from 'react';
 import { addPublicacion } from '../../services/PostsServices';
 
-const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts, setMyPosts, datosUsuario }) => {
+const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts, setMyPosts, datosUsuario, currentUser }) => {
   const inputRef = useRef(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -26,7 +26,7 @@ const PostModal = ({ showNewPostModal, setShowNewPostModal, profilePic, myPosts,
     const newPost = inputRef.current.value;
 
     try {
-      await addPublicacion(2, newPost);
+      await addPublicacion(currentUser, newPost);
       setMyPosts(prevPosts => [newPost, ...prevPosts]);
       setModalVisible(false)
 

@@ -1,18 +1,19 @@
 import { FiEdit3 } from "@react-icons/all-files/fi/FiEdit3";
 import Post from './Post';
 import { useEffect, useState } from 'react';
-import { fetchPublicaciones } from '../services/PostsServices';
+import { fetchPublicaciones, getPublicacionesUsuario } from '../services/PostsServices';
 import { getUsuarios } from '../services/UsersServices';
 
-function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, myPosts, setMyPosts }) {
+function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, myPosts, setMyPosts, currentUser }) {
   const [postsWithUsers, setPostsWithUsers] = useState([]);
 
   useEffect(() => {
 
     const fetchData = async () => {
       try {
-        const publicaciones = await fetchPublicaciones();
+        const publicaciones = await getPublicacionesUsuario(currentUser);
         const usuarios = await getUsuarios();
+        console.log('respuesta de getPublicaciones', publicaciones)
 
         // Asociamos cada publicación con su usuario correspondiente
         const posts = publicaciones.map(publicacion => {

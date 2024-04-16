@@ -50,7 +50,7 @@ function Banner ({ datosUsuario }) {
   };
 
   return (
-    <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '20vh', overflow: "hidden", display: 'flex', justifyContent: 'center', alignItems: 'center' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div style={{ position: "relative", width: "100vw", height: noBanner ? '10vh' : '28vh', overflow: "hidden", display: 'flex', justifyContent: 'center', alignItems: 'center' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className={`bottom-right text-bar ${chipVisible ? 'visible' : ''}`} style={{ width: 'fit-content' }}>
         <animated.div style={fade} className='text-bar-input'  >
           <input ref={inputRef} type="text" name="banner-link" id="banner-link" placeholder='Pega aquí el link del nuevo banner' style={{ width: "15rem" }} />

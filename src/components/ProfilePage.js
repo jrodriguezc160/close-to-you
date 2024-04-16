@@ -101,6 +101,7 @@ function ProfilePage ({ currentUser }) {
             myPosts={myPosts}
             setMyPosts={setMyPosts}
             datosUsuario={datosUsuario}
+            currentUser={currentUser}
           />
         ) : ('')}
 
@@ -123,7 +124,6 @@ function ProfilePage ({ currentUser }) {
       />
 
       <Banner datosUsuario={datosUsuario} />
-
       <div style={{ display: "flex", flexDirection: "row", justifyContent: 'space-around' }}>
         <div style={{ width: "36%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
           <ProfilePic
@@ -142,11 +142,12 @@ function ProfilePage ({ currentUser }) {
             setShowNewPostModal={setShowNewPostModal}
             myPosts={myPosts}
             setMyPosts={setMyPosts}
+            currentUser={currentUser}
           />
         </div>
 
         <div style={{ width: "50%", padding: "0 6rem", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "4rem", marginTop: "2rem", width: '100%' }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem", marginTop: "2rem", width: '100%' }}>
             <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: 'center', gap: "3vw", width: '34vw' }}>
               <Bookshelf
                 myBooks={myBooks}

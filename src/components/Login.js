@@ -16,8 +16,8 @@ const Login = ({ setLoggedIn, setCurrentUser }) => {
       if (message === 'Logged in successfully') {
         setLoggedIn(true);
         setCurrentUser(userId);
-        localStorage.setItem('loggedIn', true);
-        localStorage.setItem('currentUser', userId);
+        sessionStorage.setItem('loggedIn', true);
+        sessionStorage.setItem('currentUser', userId);
       }
     } catch (error) {
       console.error(error); // Maneja los errores aquí

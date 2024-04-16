@@ -73,6 +73,14 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
       .catch(error => {
         console.error('Error searching album:', error);
       });
+
+    /* axios.get(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${API_KEY}&album=Believe&artist=Cher&format=json`)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.error('Error searching album:', error);
+          }); */
   };
 
   // Llama a searchAlbum cada vez que cambia el valor del input

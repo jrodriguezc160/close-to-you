@@ -8,10 +8,10 @@ function App () {
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('loggedIn');
+    const isLoggedIn = sessionStorage.getItem('loggedIn');
     if (isLoggedIn === 'true') {
       setLoggedIn(true);
-      const loggedUserId = localStorage.getItem('currentUser');
+      const loggedUserId = sessionStorage.getItem('currentUser');
       setCurrentUser(loggedUserId)
     } else {
       setLoggedIn(false);
