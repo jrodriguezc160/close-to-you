@@ -13,7 +13,7 @@ function PostsPlaceholder ({ profilePic, showNewPostModal, setShowNewPostModal, 
       try {
         const publicaciones = await getPublicacionesUsuario(currentUser);
         const usuarios = await getUsuarios();
-        console.log('respuesta de getPublicaciones', publicaciones)
+        // console.log('respuesta de getPublicaciones', publicaciones)
 
         // Asociamos cada publicación con su usuario correspondiente
         const posts = publicaciones.map(publicacion => {

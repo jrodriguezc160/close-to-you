@@ -51,7 +51,7 @@ const AlbumStack = ({ myFavAlbums, handleEdit, setChipVisible }) => {
             </>
           )
           : (
-            <div style={{ width: '11vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '4px 16px 16px 4px' }}>
+            <div style={{ width: '11vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '8px' }}>
               <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }} onClick={handleEdit}>
                 <FiPlus style={{ width: '75%', height: '75%' }} strokeWidth={'1.5px'} />
               </div>

@@ -62,26 +62,39 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   const searchAlbum = () => {
     if (!search.trim()) return; // No need to search if the input is empty
 
-    axios.get(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${search}&api_key=${API_KEY}&format=json`)
+    axios.get(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${search}&api_key=${API_KEY}&format=json&limit=10`)
       .then(response => {
         if (response.data && response.data.results && response.data.results.albummatches && response.data.results.albummatches.album) {
-          const albums = response.data.results.albummatches.album;
-          // console.log(albums)
-          setAlbumData(albums)
+          const matchingAlbums = response.data.results.albummatches.album;
+
+          // Array para almacenar las promesas de las solicitudes de información del álbum
+          const requests = matchingAlbums.map(album => {
+            return axios.get(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${API_KEY}&album=${album.name}&artist=${album.artist}&format=json`)
+              .then(response => response.data.album)
+              .catch(error => {
+                console.error('Error searching album:', error);
+                return null; // Si hay un error, devolver null para manejarlo más tarde
+              });
+          });
+
+          // Esperar a que todas las solicitudes se completen
+          Promise.all(requests)
+            .then(albums => {
+              // Filtrar los álbumes que no son null (hubo errores en las solicitudes)
+              const validAlbums = albums.filter(album => album !== null);
+              // Actualizar albumData con los álbumes válidos
+              setAlbumData(validAlbums);
+            })
+            .catch(error => {
+              console.error('Error searching album:', error);
+            });
         }
       })
       .catch(error => {
         console.error('Error searching album:', error);
       });
-
-    /* axios.get(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${API_KEY}&album=Believe&artist=Cher&format=json`)
-          .then(response => {
-            console.log(response)
-          })
-          .catch(error => {
-            console.error('Error searching album:', error);
-          }); */
   };
+
 
   // Llama a searchAlbum cada vez que cambia el valor del input
   const handleInputChange = (e) => {
