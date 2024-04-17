@@ -41,12 +41,12 @@ function ProfilePage ({ currentUser }) {
     const getUserData = async () => {
       try {
         const userData = await getUsuarioData(currentUser);
-        console.log('userData: ', userData);
+        // console.log('userData: ', userData);
         setDatosUsuario(userData);
 
         // Aquí actualizamos profilePic después de recibir los datos del usuario
         setProfilePic(userData.foto_perfil);
-        console.log('Foto de perfil: ', userData.foto_perfil);
+        // console.log('Foto de perfil: ', userData.foto_perfil);
       } catch (error) {
         console.error(error);
       }

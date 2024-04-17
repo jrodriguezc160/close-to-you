@@ -13,7 +13,7 @@ import { addElemento } from '../../services/CollectionsServices';
 const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks, currentUser }) => {
   const [search, setSearch] = useState("");
   const [bookData, setBookData] = useState([]);
-  const [selectedCollection, setSelectedCollection] = useState(myFavBooks);
+  const [selectedCollection, setSelectedCollection] = useState([...myFavBooks]);
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,7 +32,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
         delay += 100;
       });
     }, 500);
-  }, [showBookModal])
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('myFavBooks', JSON.stringify(myFavBooks));
@@ -59,7 +59,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
       .then(res => setBookData(res.data.items))
       .catch(err => console.log(err));
 
-    console.log('bookData', bookData)
+    // console.log('bookData', bookData)
   }
 
   // Llama a searchBook cada vez que cambia el valor del input
@@ -74,14 +74,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }
 
   const handleAddFavourite = async (book) => {
-    /*     try {
-          await addElemento(currentUser, 2, book.title);
-        } catch (error) {
-          console.error('Error al agregar la publicación: ', error)
-        } */
-
-    console.log("LIBROOO: ", book)
-
     if (myFavBooks.length >= 3) {
       console.log('Límite excedido')
       setShowLimit(true)
@@ -89,6 +81,12 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
         setShowLimit(false)
       }, 2000);
     } else {
+      try {
+        // console.log(currentUser, 2, book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.imageLinks.thumbnail, book.id)
+        await addElemento(currentUser, 2, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id);
+      } catch (error) {
+        console.error('Error al agregar la publicación: ', error);
+      }
       setMyFavBooks([...myFavBooks, book])
     }
   }
@@ -115,7 +113,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     });
 
     setTimeout(() => {
-      setSelectedCollection(collection);
+      setSelectedCollection([...collection]);
 
       setTimeout(() => {
         let delay = 100;
@@ -132,7 +130,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }
 
   const handleClickExterior = (event) => {
-    console.log('Click exteriors')
+    // console.log('Click exteriors')
     if (event.target.classList.contains('modal-screen')) {
       setModalVisible(false)
       setTimeout(() => {
@@ -227,8 +225,16 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
             </div>
 
             <div className="fav-books masked-overflow" >
-              {selectedCollection.map((book, index) => (
-                <Book book={book} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myBooks={myBooks} myFavBooks={myFavBooks} handleAddBook={handleAddBook} handleRemoveBook={handleRemoveBook} />
+              {selectedCollection.map((book) => (
+                <Book
+                  book={book}
+                  key={book.id}
+                  handleAddFavourite={handleAddFavourite}
+                  handleRemoveFavourite={handleRemoveFavourite}
+                  myBooks={myBooks}
+                  myFavBooks={myFavBooks}
+                  handleAddBook={handleAddBook}
+                  handleRemoveBook={handleRemoveBook} />
               ))}
             </div>
           </div>

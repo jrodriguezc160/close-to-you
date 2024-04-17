@@ -39,7 +39,7 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
     }
 
     fetchData();
-  }, [myFavBooks]);
+  }, []);
 
   const handleRemoveFavourite = () => {
     const updatedBooks = [...myFavBooks];

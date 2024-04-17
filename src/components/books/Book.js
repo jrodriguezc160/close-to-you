@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
@@ -23,19 +22,18 @@ const Book = ({ book, index, myBooks, myFavBooks, handleAddFavourite, handleRemo
 
   return (
     <div className="book">
-      <LightTooltip title={`${book.volumeInfo.title} by ${book.volumeInfo.authors}`} followCursor >
+      <LightTooltip title={`${book.titulo} by ${book.autor}`} followCursor >
         <div key={index} className='cover'>
-          {book.volumeInfo.imageLinks?.thumbnail ? (
+          {book.imagen ? (
             <>
-              <img src={book.volumeInfo.imageLinks.thumbnail} style={{ zIndex: '2' }} />
-              <img src={book.volumeInfo.imageLinks.thumbnail} className='ambilight' />
+              <img src={book.imagen} style={{ zIndex: '2' }} />
+              <img src={book.imagen} className='ambilight' />
             </>
           ) : (
             <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <FiImage />
             </div>
           )}
-
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>
@@ -62,19 +60,13 @@ const Book = ({ book, index, myBooks, myFavBooks, handleAddFavourite, handleRemo
                 onClick={() => handleRemoveBook(book)}
                 stroke='gray'
               />
-            )
-            }
+            )}
           </div>
         </div>
-        {/*
-      <div className="text">
-          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{book.title}</h3>
-          {book.overview}
-        </div>
-        */}
-      </LightTooltip >
+      </LightTooltip>
     </div>
-  )
+  );
+
 }
 
 export default Book;
