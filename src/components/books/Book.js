@@ -11,7 +11,7 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
 
   const getLibrosFavoritos = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros favoritos', 1);
+      const elementos = await getElementosUsuario(currentUser, 'Libros', 1);
       setMyFavBooks(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -39,7 +39,7 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
   const handleRemoveBook = async (bookToRemove) => {
     try {
       await deleteElemento(bookToRemove.id);
-      getLibros()
+      getLibros();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
@@ -53,8 +53,9 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
       }, 2000);
     } else {
       try {
+        console.log('ID de el elemento a editar: ', book.id_api)
         await editElemento(book.id_api, 1);
-        getLibrosFavoritos();
+        await getLibrosFavoritos();
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }
@@ -63,8 +64,8 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
 
   const handleRemoveFavourite = async (bookToRemove) => {
     try {
-      await editElemento(bookToRemove.id, 0);
-      getLibrosFavoritos();
+      await editElemento(bookToRemove.id_api, 0);
+      await getLibrosFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
