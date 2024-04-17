@@ -5,8 +5,55 @@ import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import '../../styles/favourites.css'
 import { Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { addElemento, deleteElemento, getElementosUsuario, editElemento } from '../../services/CollectionsServices';
 
-const Book = ({ book, index, myBooks, myFavBooks, handleAddFavourite, handleRemoveFavourite, handleAddBook, handleRemoveBook }) => {
+const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUser, setShowLimit }) => {
+
+  const handleAddBook = async (book) => {
+    try {
+      await addElemento(currentUser, 1, book.titulo, book.autor, book.imagen, book.id_api, 0);
+      setMyBooks([...myBooks, book]);
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error);
+    }
+  }
+
+  const handleRemoveBook = async (bookToRemove) => {
+    try {
+      await deleteElemento(bookToRemove.id_api);
+      const updatedBooks = myBooks.filter(book => book !== bookToRemove);
+      setMyBooks(updatedBooks);
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
+  }
+
+  const handleAddFavourite = async (book) => {
+    if (myFavBooks.length >= 3) {
+      setShowLimit(true);
+      setTimeout(() => {
+        setShowLimit(false);
+      }, 2000);
+    } else {
+      try {
+        handleAddBook(book);
+        await editElemento(book.id_api, 1);
+        setMyFavBooks([...myFavBooks, book]);
+      } catch (error) {
+        console.error('Error al agregar la publicación: ', error);
+      }
+    }
+  }
+
+  const handleRemoveFavourite = async (bookToRemove) => {
+    try {
+      await editElemento(bookToRemove.id_api, 0);
+      const updatedBooks = myFavBooks.filter(book => book.id !== bookToRemove.id);
+      setMyFavBooks(updatedBooks);
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
+  }
 
   const LightTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -23,11 +70,11 @@ const Book = ({ book, index, myBooks, myFavBooks, handleAddFavourite, handleRemo
   return (
     <div className="book">
       <LightTooltip title={`${book.titulo} by ${book.autor}`} followCursor >
-        <div key={index} className='cover'>
+        <div className='cover'>
           {book.imagen ? (
             <>
-              <img src={book.imagen} style={{ zIndex: '2' }} />
-              <img src={book.imagen} className='ambilight' />
+              <img src={book.imagen} alt="book cover" />
+              <img src={book.imagen} className='ambilight' alt="book cover ambilight" />
             </>
           ) : (
             <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

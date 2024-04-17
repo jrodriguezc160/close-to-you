@@ -1,8 +1,8 @@
 const baseUrl = 'https://localhost/close-to-you/';
 
-export const getElementosUsuario = async (id_usuario, coleccion) => {
+export const getElementosUsuario = async (id_usuario, coleccion, favorito) => {
   try {
-    const response = await fetch(`${baseUrl}getElementosUsuario.php?id_usuario=${id_usuario}&coleccion=${coleccion}`);
+    const response = await fetch(`${baseUrl}getElementosUsuario.php?id_usuario=${id_usuario}&coleccion=${coleccion}&favorito=${favorito}`);
     if (!response.ok) {
       throw new Error('Error al obtener los elementos');
     }
@@ -18,7 +18,7 @@ export const getElementosUsuario = async (id_usuario, coleccion) => {
   }
 };
 
-export const addElemento = async (id_usuario, id_coleccion, titulo, autor, imagen, id_api) => {
+export const addElemento = async (id_usuario, id_coleccion, titulo, autor, imagen, id_api, favorito) => {
   try {
     const formData = new FormData();
     formData.append('id_usuario', id_usuario);
@@ -27,6 +27,7 @@ export const addElemento = async (id_usuario, id_coleccion, titulo, autor, image
     formData.append('autor', autor);
     formData.append('imagen', imagen);
     formData.append('id_api', id_api);
+    formData.append('favorito', favorito);
 
     const response = await fetch(baseUrl + 'addElemento.php', {
       method: 'POST',
@@ -34,7 +35,7 @@ export const addElemento = async (id_usuario, id_coleccion, titulo, autor, image
     });
 
     if (!response.ok) {
-      throw new Error('Error al agregar la publicación');
+      throw new Error('Error al agregar el elemento');
     }
 
     const data = await response.json();
@@ -45,14 +46,41 @@ export const addElemento = async (id_usuario, id_coleccion, titulo, autor, image
       throw new Error('Error en la respuesta: ' + data.message);
     }
   } catch (error) {
-    throw new Error('Error al agregar la publicación: ' + error.message);
+    throw new Error('Error al agregar el elemento: ' + error.message);
   }
 };
 
-export const deleteElemento = async (id) => {
+export const editElemento = async (id_api, favorito) => {
   try {
     const formData = new FormData();
-    formData.append('id', id);
+    formData.append('id_api', id_api);
+    formData.append('favorito', favorito);
+
+    const response = await fetch(baseUrl + 'editElemento.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al editar el elemento');
+    }
+
+    const data = await response.json();
+
+    if (data.success) {
+      return data.message;
+    } else {
+      throw new Error('Error en la respuesta: ' + data.message);
+    }
+  } catch (error) {
+    throw new Error('Error al editar el elemento: ' + error.message);
+  }
+};
+
+export const deleteElemento = async (id_api) => {
+  try {
+    const formData = new FormData();
+    formData.append('id_api', id_api);
 
     const response = await fetch(baseUrl + 'deleteElemento.php', {
       method: 'POST',
@@ -60,7 +88,7 @@ export const deleteElemento = async (id) => {
     });
 
     if (!response.ok) {
-      throw new Error('Error al eliminar la publicación');
+      throw new Error('Error al eliminar el elemento');
     }
 
     const data = await response.json();
@@ -71,6 +99,6 @@ export const deleteElemento = async (id) => {
       throw new Error('Error en la respuesta: ' + data.message);
     }
   } catch (error) {
-    throw new Error('Error al eliminar la publicación: ' + error.message);
+    throw new Error('Error al eliminar el elemento: ' + error.message);
   }
 };

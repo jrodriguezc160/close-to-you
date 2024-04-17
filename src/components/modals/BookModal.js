@@ -6,9 +6,8 @@ import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
-import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
-import Book from '../books/Book';
-import { addElemento, deleteElemento, getElementosUsuario } from '../../services/CollectionsServices';
+import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle"; import Book from '../books/Book';
+import { addElemento, deleteElemento, getElementosUsuario, editElemento } from '../../services/CollectionsServices';
 
 const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks, currentUser }) => {
   const [search, setSearch] = useState("");
@@ -20,7 +19,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const getLibrosFavoritos = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros favoritos');
+      const elementos = await getElementosUsuario(currentUser, 'Libros favoritos', 1);
       setMyFavBooks(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -29,7 +28,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const getLibros = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros');
+      const elementos = await getElementosUsuario(currentUser, 'Libros', 0);
       setMyBooks(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -65,12 +64,11 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   };
 
   const searchBook = () => {
-    axios.get('https://www.googleapis.com/books/v1/volumes?q=' + search + '&key=AIzaSyA6SaT23KNiiA6DnUfUQTvFeyAcQEkwnSU' + '&maxResults=15')
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyA6SaT23KNiiA6DnUfUQTvFeyAcQEkwnSU&maxResults=15`)
       .then(res => setBookData(res.data.items))
       .catch(err => console.log(err));
   }
 
-  // Llama a searchBook cada vez que cambia el valor del input
   const handleInputChange = (e) => {
     setSearch(e.target.value);
     searchBook();
@@ -81,54 +79,50 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     setBookData([]);
   }
 
-  const handleAddFavourite = async (book) => {
-    if (myFavBooks.length >= 3) {
-      console.log('Límite excedido')
-      setShowLimit(true)
-      setTimeout(() => {
-        setShowLimit(false)
-      }, 2000);
-    } else {
-      try {
-        await addElemento(currentUser, 2, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id);
-      } catch (error) {
-        console.error('Error al agregar la publicación: ', error);
-      }
-    }
-    setMyFavBooks([...myFavBooks, book])
-    getLibrosFavoritos();
-  }
-
-  const handleRemoveFavourite = async (bookToRemove) => {
-    try {
-      await deleteElemento(bookToRemove.id);
-    } catch (error) {
-      console.error('Error al agregar la publicación: ', error);
-    }
-    const updatedBooks = myFavBooks.filter(book => book.id !== bookToRemove.id);
-    setMyFavBooks(updatedBooks);
-    getLibrosFavoritos();
-  }
-
   const handleAddBook = async (book) => {
     try {
-      await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id);
+      await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id, 0);
+      setMyBooks([...myBooks, book]);
     } catch (error) {
       console.error('Error al agregar la publicación: ', error);
     }
-    setMyBooks([...myBooks, book]);
-    getLibros();
   }
 
   const handleRemoveBook = async (bookToRemove) => {
     try {
       await deleteElemento(bookToRemove.id);
+      const updatedBooks = myBooks.filter(book => book !== bookToRemove);
+      setMyBooks(updatedBooks);
     } catch (error) {
-      console.error('Error al agregar la publicación: ', error);
+      console.error('Error al eliminar la publicación: ', error);
     }
-    const updatedBooks = myBooks.filter(book => book !== bookToRemove);
-    setMyBooks(updatedBooks);
-    getLibros();
+  }
+
+  const handleAddFavourite = async (book) => {
+    if (myFavBooks.length >= 3) {
+      setShowLimit(true);
+      setTimeout(() => {
+        setShowLimit(false);
+      }, 2000);
+    } else {
+      try {
+        handleAddBook(book);
+        await editElemento(book.id_api, 1);
+        setMyFavBooks([...myFavBooks, book]);
+      } catch (error) {
+        console.error('Error al agregar la publicación: ', error);
+      }
+    }
+  }
+
+  const handleRemoveFavourite = async (bookToRemove) => {
+    try {
+      await editElemento(bookToRemove.id, 0);
+      const updatedBooks = myFavBooks.filter(book => book.id !== bookToRemove.id);
+      setMyFavBooks(updatedBooks);
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
   }
 
   const handleSelectView = (collection, e) => {
@@ -137,13 +131,11 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
       bookDiv.classList.remove('visible');
     });
 
-    // Remove the .selected class from all heading-toggle elements
     const headingToggleElements = document.querySelectorAll('.heading-toggle');
     headingToggleElements.forEach(headingToggle => {
       headingToggle.classList.remove('selected');
     });
 
-    // Add the .selected class to the clicked heading-toggle element
     setTimeout(() => {
       e.target.parentElement.classList.add('selected');
       setSelectedCollection([...collection]);
@@ -187,7 +179,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
         <div className="modal">
           <div className="text-bar">
             <div className='text-bar-input'>
-              <input ref={inputRef} type="text" name="book-search" id="book-search" placeholder='Search for your favourite books...' value={search} onChange={handleInputChange} />
+              <input ref={inputRef} type="text" name="book-search" id="book-search" placeholder='Buscar tus libros favoritos...' value={search} onChange={handleInputChange} />
               <div className='ic-container' onClick={handleClearInput}>
                 <FiDelete />
               </div>
@@ -203,7 +195,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
               <div key={index} className='book-result'>
                 <div className='book-cover'>
                   {book.volumeInfo.imageLinks?.thumbnail ? (
-                    <img src={book.volumeInfo.imageLinks.thumbnail} />
+                    <img src={book.volumeInfo.imageLinks.thumbnail} alt="book cover" />
                   ) : (
                     <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       <FiImage />
@@ -246,13 +238,13 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
           <div className="books-list visible" style={{ padding: '0px', margin: '0', gap: '0', minHeight: '80px' }}>
             <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 30px' }}>
               <div className={`heading-toggle `} onClick={(e) => handleSelectView(myFavBooks, e)}>
-                <h3>My favourites</h3>
+                <h3>Mis favoritos</h3>
               </div>
               <div className='heading-toggle'>
                 <h3>/</h3>
               </div>
               <div className={`heading-toggle`} onClick={(e) => handleSelectView(myBooks, e)}>
-                <h3>My collection</h3>
+                <h3>Mi colección</h3>
               </div>
             </div>
 
@@ -261,12 +253,13 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                 <Book
                   book={book}
                   key={book.id}
-                  handleAddFavourite={handleAddFavourite}
-                  handleRemoveFavourite={handleRemoveFavourite}
                   myBooks={myBooks}
                   myFavBooks={myFavBooks}
-                  handleAddBook={handleAddBook}
-                  handleRemoveBook={handleRemoveBook} />
+                  setMyBooks={setMyBooks}
+                  setMyFavBooks={setMyFavBooks}
+                  currentUser={currentUser}
+                  setShowLimit={setShowLimit}
+                />
               ))}
             </div>
           </div>
@@ -279,3 +272,4 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 }
 
 export default BookModal;
+
