@@ -28,7 +28,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const getLibros = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros', 0);
+      const elementos = await getElementosUsuario(currentUser, 'Libros');
       setMyBooks(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -82,7 +82,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const handleAddBook = async (book) => {
     try {
       await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id, 0);
-      setMyBooks([...myBooks, book]);
+      getLibros();
     } catch (error) {
       console.error('Error al agregar la publicación: ', error);
     }
@@ -91,8 +91,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const handleRemoveBook = async (bookToRemove) => {
     try {
       await deleteElemento(bookToRemove.id);
-      const updatedBooks = myBooks.filter(book => book !== bookToRemove);
-      setMyBooks(updatedBooks);
+      getLibros()
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
@@ -108,7 +107,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
       try {
         handleAddBook(book);
         await editElemento(book.id_api, 1);
-        setMyFavBooks([...myFavBooks, book]);
+        getLibrosFavoritos();
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }
@@ -118,8 +117,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const handleRemoveFavourite = async (bookToRemove) => {
     try {
       await editElemento(bookToRemove.id, 0);
-      const updatedBooks = myFavBooks.filter(book => book.id !== bookToRemove.id);
-      setMyFavBooks(updatedBooks);
+      getLibrosFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
@@ -225,7 +223,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                     />
                   ) : (
                     <FiCheckCircle
-                      onClick={() => handleAddBook(book)}
+                      onClick={() => handleRemoveBook(book)}
                       stroke='gray'
                     />
                   )

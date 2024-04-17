@@ -2,7 +2,12 @@ const baseUrl = 'https://localhost/close-to-you/';
 
 export const getElementosUsuario = async (id_usuario, coleccion, favorito) => {
   try {
-    const response = await fetch(`${baseUrl}getElementosUsuario.php?id_usuario=${id_usuario}&coleccion=${coleccion}&favorito=${favorito}`);
+    let url = `${baseUrl}getElementosUsuario.php?id_usuario=${id_usuario}&coleccion=${coleccion}`;
+    if (favorito !== undefined) {
+      url += `&favorito=${favorito}`;
+    }
+
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Error al obtener los elementos');
     }

@@ -9,10 +9,28 @@ import { addElemento, deleteElemento, getElementosUsuario, editElemento } from '
 
 const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUser, setShowLimit }) => {
 
+  const getLibrosFavoritos = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 'Libros favoritos', 1);
+      setMyFavBooks(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
+
+  const getLibros = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 'Libros', 0);
+      setMyBooks(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
+
   const handleAddBook = async (book) => {
     try {
-      await addElemento(currentUser, 1, book.titulo, book.autor, book.imagen, book.id_api, 0);
-      setMyBooks([...myBooks, book]);
+      await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id, 0);
+      getLibros();
     } catch (error) {
       console.error('Error al agregar la publicación: ', error);
     }
@@ -20,9 +38,8 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
 
   const handleRemoveBook = async (bookToRemove) => {
     try {
-      await deleteElemento(bookToRemove.id_api);
-      const updatedBooks = myBooks.filter(book => book !== bookToRemove);
-      setMyBooks(updatedBooks);
+      await deleteElemento(bookToRemove.id);
+      getLibros()
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
@@ -36,9 +53,8 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
       }, 2000);
     } else {
       try {
-        handleAddBook(book);
         await editElemento(book.id_api, 1);
-        setMyFavBooks([...myFavBooks, book]);
+        getLibrosFavoritos();
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }
@@ -47,9 +63,8 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
 
   const handleRemoveFavourite = async (bookToRemove) => {
     try {
-      await editElemento(bookToRemove.id_api, 0);
-      const updatedBooks = myFavBooks.filter(book => book.id !== bookToRemove.id);
-      setMyFavBooks(updatedBooks);
+      await editElemento(bookToRemove.id, 0);
+      getLibrosFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
@@ -73,7 +88,7 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
         <div className='cover'>
           {book.imagen ? (
             <>
-              <img src={book.imagen} alt="book cover" />
+              <img src={book.imagen} alt="book cover" style={{ zIndex: '99' }} />
               <img src={book.imagen} className='ambilight' alt="book cover ambilight" />
             </>
           ) : (

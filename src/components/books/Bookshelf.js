@@ -13,8 +13,10 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const elementos = await getElementosUsuario(currentUser, 'Libros', 1);
-        setMyFavBooks(elementos);
+        const librosFavoritos = await getElementosUsuario(currentUser, 'Libros', 1);
+        setMyFavBooks(librosFavoritos);
+        const libros = await getElementosUsuario(currentUser, 'Libros');
+        setMyBooks(libros);
       } catch (error) {
         console.error('Error al obtener los elementos o los usuarios:', error);
       }
