@@ -1,38 +1,20 @@
 import "../../styles/bookshelf.css"
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from '../VerticalIconBar';
-import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 import BookStack from './BookStack';
 import { getElementosUsuario } from '../../services/CollectionsServices';
 
 const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myFavBooks, setMyFavBooks, currentUser }) => {
-  const [queue, setQueue] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const touch = document.documentElement.ontouchstart !== undefined;
   const imagesRef = useRef(null);
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
 
-  /* useEffect(() => {
-    const savedFavBooks = localStorage.getItem('myFavBooks');
-    if (savedFavBooks) {
-      setMyFavBooks(JSON.parse(savedFavBooks));
-    }
-
-    const savedBook = localStorage.getItem('myBooks');
-    if (savedBook) {
-      setMyBooks(JSON.parse(savedBook));
-    }
-  }, []); */
-
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const elementos = await getElementosUsuario(currentUser, 'Libros favoritos');
         setMyFavBooks(elementos);
-        // console.log('myFavBooks', myFavBooks)
       } catch (error) {
         console.error('Error al obtener los elementos o los usuarios:', error);
       }
@@ -47,72 +29,16 @@ const ImageSlider = ({ setShowBookModal, showBookModal, myBooks, setMyBooks, myF
     setMyFavBooks(updatedBooks);
   }
 
-  const cssTransition = () => {
-    const body = document.body || document.documentElement;
-    const style = body.style;
-    const vendors = ['Moz', 'Webkit', 'O'];
-
-    if (typeof style.transition === 'string') {
-      return true;
-    }
-
-    for (let i = 0; i < vendors.length; i++) {
-      const vendor = vendors[i];
-      if (typeof style[vendor + 'Transition'] === 'string') {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  const timeout = cssTransition() ? [300, 400] : [0, 0];
-
   useEffect(() => {
     imageWidthRef.current = imagesRef?.current?.firstElementChild?.offsetWidth;
     imageOffsetRef.current = imagesRef?.current?.firstElementChild?.offsetLeft;
   }, []);
 
-  const handleImageClick = (event) => {
-    if (queue) {
-      return;
-    }
+  const handleMouseEnter = () => { setChipVisible(true) }
 
-    setChipVisible(false)
-    setQueue(true);
+  const handleMouseLeave = () => { setChipVisible(false) }
 
-    const direction =
-      (touch ? event.changedTouches[0].pageX : event.pageX) - imageOffsetRef.current > imageWidthRef.current / 2
-        ? 'slide-right'
-        : 'slide-right';
-
-    const lastClassList = imagesRef.current.lastElementChild.classList;
-    lastClassList.add(direction);
-
-    setTimeout(() => {
-      lastClassList.remove(direction);
-      lastClassList.add('back');
-
-      setTimeout(() => {
-        imagesRef.current.insertBefore(imagesRef.current.lastElementChild, imagesRef.current.firstElementChild);
-        lastClassList.remove('back');
-        setQueue(false);
-        setChipVisible(true)
-      }, timeout[0]);
-    }, timeout[1]);
-  };
-
-  const handleMouseEnter = () => {
-    setChipVisible(true)
-  }
-
-  const handleMouseLeave = () => {
-    setChipVisible(false)
-  }
-
-  const handleEdit = () => {
-    setShowBookModal(!showBookModal)
-  }
+  const handleEdit = () => { setShowBookModal(!showBookModal) }
 
   return (
     <div style={{ width: '12vw', height: '12vw', display: "flex", gap: "0", transition: 'all 1s ease-in-out' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

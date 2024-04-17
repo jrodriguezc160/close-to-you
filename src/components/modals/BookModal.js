@@ -8,7 +8,7 @@ import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 import Book from '../books/Book';
-import { addElemento } from '../../services/CollectionsServices';
+import { addElemento, deleteElemento, getElementosUsuario } from '../../services/CollectionsServices';
 
 const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks, myBooks, setMyBooks, currentUser }) => {
   const [search, setSearch] = useState("");
@@ -17,6 +17,24 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const getLibrosFavoritos = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 'Libros favoritos');
+      setMyFavBooks(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
+
+  const getLibros = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 'Libros');
+      setMyBooks(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
 
   useEffect(() => {
     showBookModal === true && setModalVisible(true);
@@ -35,14 +53,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('myFavBooks', JSON.stringify(myFavBooks));
-  }, [myFavBooks]);
-
-  useEffect(() => {
-    localStorage.setItem('myBooks', JSON.stringify(myBooks));
-  }, [myBooks]);
-
-  useEffect(() => {
     if (modalVisible === true) {
       document.body.classList.add('modal-open');
     } else {
@@ -58,8 +68,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     axios.get('https://www.googleapis.com/books/v1/volumes?q=' + search + '&key=AIzaSyA6SaT23KNiiA6DnUfUQTvFeyAcQEkwnSU' + '&maxResults=15')
       .then(res => setBookData(res.data.items))
       .catch(err => console.log(err));
-
-    // console.log('bookData', bookData)
   }
 
   // Llama a searchBook cada vez que cambia el valor del input
@@ -82,37 +90,62 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
       }, 2000);
     } else {
       try {
-        // console.log(currentUser, 2, book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.imageLinks.thumbnail, book.id)
         await addElemento(currentUser, 2, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id);
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }
-      setMyFavBooks([...myFavBooks, book])
     }
+    setMyFavBooks([...myFavBooks, book])
+    getLibrosFavoritos();
   }
 
-  const handleRemoveFavourite = (bookToRemove) => {
+  const handleRemoveFavourite = async (bookToRemove) => {
+    try {
+      await deleteElemento(bookToRemove.id);
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error);
+    }
     const updatedBooks = myFavBooks.filter(book => book.id !== bookToRemove.id);
     setMyFavBooks(updatedBooks);
+    getLibrosFavoritos();
   }
 
-  const handleAddBook = (book) => {
-    setMyBooks([...myBooks, book])
+  const handleAddBook = async (book) => {
+    try {
+      await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id);
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error);
+    }
+    setMyBooks([...myBooks, book]);
+    getLibros();
   }
 
-  const handleRemoveBook = (bookToRemove) => {
+  const handleRemoveBook = async (bookToRemove) => {
+    try {
+      await deleteElemento(bookToRemove.id);
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error);
+    }
     const updatedBooks = myBooks.filter(book => book !== bookToRemove);
     setMyBooks(updatedBooks);
+    getLibros();
   }
 
-  const handleSelectView = (collection) => {
+  const handleSelectView = (collection, e) => {
     const booksDivs = document.querySelectorAll('.book');
     booksDivs.forEach(bookDiv => {
       bookDiv.classList.remove('visible');
-      console.log('Se ha eliminado la clase .visible')
     });
 
+    // Remove the .selected class from all heading-toggle elements
+    const headingToggleElements = document.querySelectorAll('.heading-toggle');
+    headingToggleElements.forEach(headingToggle => {
+      headingToggle.classList.remove('selected');
+    });
+
+    // Add the .selected class to the clicked heading-toggle element
     setTimeout(() => {
+      e.target.parentElement.classList.add('selected');
       setSelectedCollection([...collection]);
 
       setTimeout(() => {
@@ -130,7 +163,6 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   }
 
   const handleClickExterior = (event) => {
-    // console.log('Click exteriors')
     if (event.target.classList.contains('modal-screen')) {
       setModalVisible(false)
       setTimeout(() => {
@@ -213,13 +245,13 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
           <div className="books-list visible" style={{ padding: '0px', margin: '0', gap: '0', minHeight: '80px' }}>
             <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 30px' }}>
-              <div className={`heading-toggle ${selectedCollection === myFavBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myFavBooks)}>
+              <div className={`heading-toggle `} onClick={(e) => handleSelectView(myFavBooks, e)}>
                 <h3>My favourites</h3>
               </div>
               <div className='heading-toggle'>
                 <h3>/</h3>
               </div>
-              <div className={`heading-toggle ${selectedCollection === myBooks ? 'selected' : ''}`} onClick={() => handleSelectView(myBooks)}>
+              <div className={`heading-toggle`} onClick={(e) => handleSelectView(myBooks, e)}>
                 <h3>My collection</h3>
               </div>
             </div>

@@ -48,3 +48,29 @@ export const addElemento = async (id_usuario, id_coleccion, titulo, autor, image
     throw new Error('Error al agregar la publicación: ' + error.message);
   }
 };
+
+export const deleteElemento = async (id) => {
+  try {
+    const formData = new FormData();
+    formData.append('id', id);
+
+    const response = await fetch(baseUrl + 'deleteElemento.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al eliminar la publicación');
+    }
+
+    const data = await response.json();
+
+    if (data.success) {
+      return data.message;
+    } else {
+      throw new Error('Error en la respuesta: ' + data.message);
+    }
+  } catch (error) {
+    throw new Error('Error al eliminar la publicación: ' + error.message);
+  }
+};

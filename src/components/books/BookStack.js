@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import '../../styles/book-stack.css';
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
-import { FiImage } from "@react-icons/all-files/fi/FiImage";
 
 const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
 
   useEffect(() => {
     const stack = document.querySelector(".book-stack");
-    const cards = [...stack.children].reverse();
 
     const swap = (e) => {
       const card = e.target.closest(".book-card:last-child");
