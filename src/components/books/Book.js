@@ -40,6 +40,7 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
     try {
       await deleteElemento(bookToRemove.id_api);
       await getLibros();
+      await getLibrosFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
@@ -53,7 +54,6 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
       }, 2000);
     } else {
       try {
-        console.log('ID de el elemento a editar: ', book.id_api)
         await editElemento(book.id_api, 1);
         await getLibrosFavoritos();
       } catch (error) {
