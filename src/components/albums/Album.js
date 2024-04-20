@@ -31,8 +31,8 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
   const handleAddAlbum = async (album) => {
     // console.log(album)
     try {
-      if (!myAlbums.some(favAlbums => favAlbums.titulo === album.titulo)) {
-        await addElemento(currentUser, 4, album.titulo, album.autor, album.imagen, album.titulo, 0);
+      if (!myAlbums.some(favAlbums => favAlbums.id_api === album.url)) {
+        await addElemento(currentUser, 4, album.titulo, album.autor, album.imagen, album.id_api, 0);
         await getAlbumes();
         setMyAlbums([...myAlbums, album]);
       }
@@ -43,7 +43,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
 
   const handleRemoveAlbum = async (albumToRemove) => {
     try {
-      await deleteElemento(albumToRemove.titulo);
+      await deleteElemento(albumToRemove.id_api);
       await getAlbumes();
       await getAlbumesFavoritos();
     } catch (error) {
@@ -51,7 +51,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
     }
   }
 
-  const handleAddFavourite = async (album) => {
+  const handleAddFavourite = async (albums) => {
     if (myFavAlbums.length >= 5) {
       setShowLimit(true);
       setTimeout(() => {
@@ -59,12 +59,12 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
       }, 2000);
     } else {
       try {
-        if (!myAlbums.some(favAlbums => favAlbums.titulo === album.titulo)) {
-          await handleAddAlbum(album); // Espera a que handleAddAlbum se complete
+        if (!myAlbums.some(favAlbums => favAlbums.id_api === albums.url)) {
+          await handleAddAlbum(albums); // Espera a que handleAddAlbum se complete
         }
-        await editElemento(album.id_api, 1);
+        await editElemento(albums.id_api, 1);
         await getAlbumesFavoritos();
-        setMyFavAlbums([...myFavAlbums, album]);
+        setMyFavAlbums([...myFavAlbums, albums]);
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }
@@ -73,7 +73,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
 
   const handleRemoveFavourite = async (albumToRemove) => {
     try {
-      await editElemento(albumToRemove.titulo, 0);
+      await editElemento(albumToRemove.id_api, 0);
       await getAlbumesFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
@@ -113,17 +113,17 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
           <div className='ic-container' >
             <FiStar
               onClick={() => {
-                if (!myFavAlbums.some(favAlbum => favAlbum.id === album.id)) {
+                if (!myFavAlbums.some(favAlbum => favAlbum.id_api === album.url)) {
                   handleAddFavourite(album);
                 } else {
                   handleRemoveFavourite(album);
                 }
               }}
-              fill={myFavAlbums.some(favAlbum => favAlbum.id === album.id) ? 'gray' : 'none'}
+              fill={myFavAlbums.some(favAlbum => favAlbum.id_api === album.url) ? 'gray' : 'none'}
             />
           </div>
           <div className='ic-container' >
-            {!myAlbums.some(favAlbum => favAlbum.id === album.id) ? (
+            {!myAlbums.some(favAlbum => favAlbum.id_api === album.url) ? (
               <FiPlusCircle
                 onClick={() => handleAddAlbum(album)}
                 stroke='gray'
