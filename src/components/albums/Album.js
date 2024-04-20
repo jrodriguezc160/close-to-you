@@ -6,8 +6,79 @@ import { FiImage } from "@react-icons/all-files/fi/FiImage";
 import '../../styles/favourites.css'
 import { Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { addElemento, deleteElemento, getElementosUsuario, editElemento } from '../../services/CollectionsServices';
 
-const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handleRemoveFavourite, handleAddAlbum, handleRemoveAlbum }) => {
+const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, currentUser, setShowLimit }) => {
+
+  const getAlbumesFavoritos = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 1, 1);
+      setMyFavAlbums(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
+
+  const getAlbumes = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 1);
+      setMyAlbums(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
+
+  const handleAddAlbum = async (album) => {
+    // console.log(album)
+    try {
+      if (!myAlbums.some(favAlbums => favAlbums.id_api === album.mbid)) {
+        await addElemento(currentUser, 4, album.titulo, album.autor, album.imagen, album.id_api, 0);
+        await getAlbumes();
+        setMyAlbums([...myAlbums, album]);
+      }
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error);
+    }
+  }
+
+  const handleRemoveAlbum = async (albumToRemove) => {
+    try {
+      await deleteElemento(albumToRemove.id_api);
+      await getAlbumes();
+      await getAlbumesFavoritos();
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
+  }
+
+  const handleAddFavourite = async (albums) => {
+    if (myFavAlbums.length >= 3) {
+      setShowLimit(true);
+      setTimeout(() => {
+        setShowLimit(false);
+      }, 2000);
+    } else {
+      try {
+        if (!myAlbums.some(favAlbums => favAlbums.id_api === albums.id)) {
+          await handleAddAlbum(albums); // Espera a que handleAddAlbum se complete
+        }
+        await editElemento(albums.id_api, 1);
+        await getAlbumesFavoritos();
+        setMyFavAlbums([...myFavAlbums, albums]);
+      } catch (error) {
+        console.error('Error al agregar la publicación: ', error);
+      }
+    }
+  }
+
+  const handleRemoveFavourite = async (albumToRemove) => {
+    try {
+      await editElemento(albumToRemove.id_api, 0);
+      await getAlbumesFavoritos();
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
+  }
 
   const LightTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -23,12 +94,12 @@ const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handle
 
   return (
     <div className="album">
-      <LightTooltip title={`${album.name} by ${album.artist}`} followCursor >
-        <div key={index} className='cover'>
-          {album.image ? (
+      <LightTooltip title={`${album.titulo} by ${album.autor}`} followCursor >
+        <div className='cover'>
+          {album.imagen ? (
             <>
-              <img src={album.image[2]['#text']} alt={album.title} style={{ zIndex: '2' }} />
-              <img src={album.image[2]['#text']} alt={album.title} className='ambilight' />
+              <img src={album.imagen} alt={album.titulo} style={{ zIndex: '2' }} />
+              <img src={album.imagen} alt={album.titulo} className='ambilight' />
             </>
           ) : (
             <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -42,17 +113,17 @@ const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handle
           <div className='ic-container' >
             <FiStar
               onClick={() => {
-                if (!myFavAlbums.some(favAlbum => favAlbum === album)) {
+                if (!myFavAlbums.some(favAlbum => favAlbum.id === album.id)) {
                   handleAddFavourite(album);
                 } else {
                   handleRemoveFavourite(album);
                 }
               }}
-              fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
+              fill={myFavAlbums.some(favAlbum => favAlbum.id === album.id) ? 'gray' : 'none'}
             />
           </div>
           <div className='ic-container' >
-            {!myAlbums.some(favAlbum => favAlbum === album) ? (
+            {!myAlbums.some(favAlbum => favAlbum.id === album.id) ? (
               <FiPlusCircle
                 onClick={() => handleAddAlbum(album)}
                 stroke='gray'
@@ -66,12 +137,6 @@ const Album = ({ album, index, myAlbums, myFavAlbums, handleAddFavourite, handle
             }
           </div>
         </div>
-        {/*
-      <div className="text">
-          <h3 style={{ height: 'fit-content', padding: '0', marginTop: '0' }}>{album.title}</h3>
-          {album.overview}
-        </div>
-        */}
       </LightTooltip >
     </div>
   )

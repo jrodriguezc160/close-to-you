@@ -11,7 +11,7 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
 
   const getLibrosFavoritos = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros', 1);
+      const elementos = await getElementosUsuario(currentUser, 1, 1);
       setMyFavBooks(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -20,7 +20,7 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
 
   const getLibros = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros');
+      const elementos = await getElementosUsuario(currentUser, 1);
       setMyBooks(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -64,8 +64,6 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
         await editElemento(book.id_api, 1);
         await getLibrosFavoritos();
         setMyFavBooks([...myFavBooks, book]);
-        // await getLibros();
-        // setMyBooks([...myBooks, book]);
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }

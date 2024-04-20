@@ -8,16 +8,36 @@ import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 import Album from '../albums/Album';
+import { addElemento, deleteElemento, getElementosUsuario, editElemento } from '../../services/CollectionsServices';
 
 const API_KEY = '73ca2ef62d6bab497ca88979ab55584e';
 
-const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAlbums, myAlbums, setMyAlbums }) => {
+const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAlbums, myAlbums, setMyAlbums, currentUser }) => {
   const [search, setSearch] = useState("");
   const [albumData, setAlbumData] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(myFavAlbums);
   const [showLimit, setShowLimit] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const inputRef = useRef(null);
+
+  const getAlbumesFavoritos = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 4, 1)
+      setMyFavAlbums(elementos)
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios');
+    }
+  }
+
+  const getAlbumes = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 4)
+      console.log(elementos)
+      setMyAlbums(elementos)
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios');
+    }
+  }
 
   useEffect(() => {
     showAlbumModal === true && setModalVisible(true);
@@ -33,19 +53,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
         delay += 100;
       });
     }, 500);
-  }, [showAlbumModal])
-
-  useEffect(() => {
-    if (myFavAlbums.length > 0) {
-      localStorage.setItem('myFavAlbums', JSON.stringify(myFavAlbums));
-    }
-  }, [myFavAlbums]);
-
-  useEffect(() => {
-    if (myAlbums.length > 0) {
-      localStorage.setItem('myAlbums', JSON.stringify(myAlbums));
-    }
-  }, [myAlbums]);
+  }, [showAlbumModal]);
 
   useEffect(() => {
     if (modalVisible === true) {
@@ -95,7 +103,6 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
       });
   };
 
-
   // Llama a searchAlbum cada vez que cambia el valor del input
   const handleInputChange = (e) => {
     setSearch(e.target.value);
@@ -107,41 +114,70 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
     setAlbumData([]);
   }
 
-  const handleAddFavourite = (album) => {
-    if (myFavAlbums.length >= 5) {
-      console.log('Límite excedido')
-      setShowLimit(true)
-      setTimeout(() => {
-        setShowLimit(false)
-      }, 2000);
-    } else {
-      setMyFavAlbums([...myFavAlbums, album])
+  const handleAddAlbum = async (album) => {
+    console.log(album)
+    try {
+      if (!myAlbums.some(album => album.id_api === album.mbid)) {
+        await addElemento(currentUser, 4, album.name, album.artist, album.image[5]['#text'], album.mbid, 0);
+        await getAlbumes();
+      }
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error);
     }
   }
 
-  const handleRemoveFavourite = (albumToRemove) => {
-    const updatedAlbum = myFavAlbums.filter(album => album !== albumToRemove);
-    setMyFavAlbums(updatedAlbum);
+  const handleRemoveAlbum = async (albumToRemove) => {
+    try {
+      await deleteElemento(albumToRemove.mbid);
+      await getAlbumes();
+      await getAlbumesFavoritos();
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
   }
 
-  const handleAddAlbum = (album) => {
-    setMyAlbums([...myAlbums, album])
+  const handleAddFavourite = async (album) => {
+    if (myFavAlbums.length >= 3) {
+      setShowLimit(true);
+      setTimeout(() => {
+        setShowLimit(false);
+      }, 2000);
+    } else {
+      try {
+        if (!myAlbums.some(favAlbum => favAlbum.id_api === album.mbid)) {
+          await handleAddAlbum(album); // Espera a que handleAddAlbum se complete
+        }
+        await editElemento(album.mbid, 1); // Llama a editElemento después de que handleAddAlbum se haya completado
+        await getAlbumesFavoritos();
+      } catch (error) {
+        console.error('Error al agregar la publicación: ', error);
+      }
+    }
   }
 
-  const handleRemoveAlbum = (albumToRemove) => {
-    const updatedAlbum = myAlbums.filter(album => album !== albumToRemove);
-    setMyAlbums(updatedAlbum);
+  const handleRemoveFavourite = async (albumToRemove) => {
+    try {
+      await editElemento(albumToRemove.mbid, 0);
+      getAlbumesFavoritos();
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
   }
 
-  const handleSelectView = (collection) => {
+  const handleSelectView = (collection, e) => {
     const albumsDivs = document.querySelectorAll('.album');
     albumsDivs.forEach(albumDiv => {
       albumDiv.classList.remove('visible');
-      console.log('Se ha eliminado la clase .visible')
+    });
+
+    const headingToggleElements = document.querySelectorAll('.heading-toggle');
+    headingToggleElements.forEach(headingToggle => {
+      headingToggle.classList.remove('selected');
     });
 
     setTimeout(() => {
-      setSelectedCollection(collection);
+      e.target.parentElement.classList.add('selected');
+      setSelectedCollection([...collection]);
 
       setTimeout(() => {
         let delay = 100;
@@ -211,17 +247,17 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => {
-                      if (myFavAlbums.some(favAlbum => favAlbum === album)) {
+                      if (myFavAlbums.some(favAlbum => favAlbum.id_api === album.mbid)) {
                         handleRemoveFavourite(album);
                       } else {
                         handleAddFavourite(album);
                       }
                     }}
-                    fill={myFavAlbums.some(favAlbum => favAlbum === album) ? 'gray' : 'none'}
+                    fill={myFavAlbums.some(favAlbum => favAlbum.id_api === album.mbid) ? 'gray' : 'none'}
                   />
                 </div>
                 <div className='ic-container' >
-                  {!myAlbums.some(favAlbum => favAlbum === album) ? (
+                  {!myAlbums.some(favAlbum => favAlbum.id_api === album.mbid) ? (
                     <FiPlusCircle
                       onClick={() => handleAddAlbum(album)}
                       stroke='gray'
@@ -240,20 +276,28 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
 
           <div className="albums-list visible" style={{ padding: '0px', margin: '0', gap: '0', minHeight: '80px' }}>
             <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 32px' }}>
-              <div className={`heading-toggle ${selectedCollection === myFavAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myFavAlbums)}>
+              <div className={`heading-toggle ${selectedCollection === myFavAlbums ? 'selected' : ''}`} onClick={(e) => handleSelectView(myFavAlbums, e)}>
                 <h3>My favourites</h3>
               </div>
               <div className='heading-toggle'>
                 <h3>/</h3>
               </div>
-              <div className={`heading-toggle ${selectedCollection === myAlbums ? 'selected' : ''}`} onClick={() => handleSelectView(myAlbums)}>
+              <div className={`heading-toggle ${selectedCollection === myAlbums ? 'selected' : ''}`} onClick={(e) => handleSelectView(myAlbums, e)}>
                 <h3>My collection</h3>
               </div>
             </div>
 
             <div className="fav-albums masked-overflow" >
               {selectedCollection.map((album, index) => (
-                <Album album={album} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myAlbums={myAlbums} myFavAlbums={myFavAlbums} handleAddAlbum={handleAddAlbum} handleRemoveAlbum={handleRemoveAlbum} />
+                <Album
+                  album={album}
+                  myAlbums={myAlbums}
+                  myFavAlbums={myFavAlbums}
+                  setMyAlbums={setMyAlbums}
+                  setMyFavAlbums={setMyFavAlbums}
+                  currentUser={currentUser}
+                  setShowLimit={setShowLimit}
+                />
               ))}
             </div>
           </div>

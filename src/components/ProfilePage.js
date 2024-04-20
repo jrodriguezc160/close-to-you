@@ -28,10 +28,7 @@ function ProfilePage ({ currentUser }) {
   const [myAlbums, setMyAlbums] = useState([])
   const [myFavAlbums, setMyFavAlbums] = useState([])
   const [desc, setDesc] = useState('')
-  const [myPosts, setMyPosts] = useState(() => {
-    const savedPosts = localStorage.getItem('myPosts');
-    return savedPosts ? JSON.parse(savedPosts) : [];
-  });
+  const [myPosts, setMyPosts] = useState([]);
 
   const [showBookModal, setShowBookModal] = useState(false)
   const [showMovieModal, setShowMovieModal] = useState(false)
@@ -41,12 +38,10 @@ function ProfilePage ({ currentUser }) {
     const getUserData = async () => {
       try {
         const userData = await getUsuarioData(currentUser);
-        // console.log('userData: ', userData);
         setDatosUsuario(userData);
 
         // Aquí actualizamos profilePic después de recibir los datos del usuario
         setProfilePic(userData.foto_perfil);
-        // console.log('Foto de perfil: ', userData.foto_perfil);
       } catch (error) {
         console.error(error);
       }
@@ -78,6 +73,7 @@ function ProfilePage ({ currentUser }) {
             setMyFavMovies={setMyFavMovies}
             myMovies={myMovies}
             setMyMovies={setMyMovies}
+            currentUser={currentUser}
           />
         ) : ('')}
 
@@ -90,6 +86,7 @@ function ProfilePage ({ currentUser }) {
             setMyFavAlbums={setMyFavAlbums}
             myAlbums={myAlbums}
             setMyAlbums={setMyAlbums}
+            currentUser={currentUser}
           />
         ) : ('')}
 

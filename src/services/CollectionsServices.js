@@ -1,8 +1,8 @@
 const baseUrl = 'https://localhost/close-to-you/';
 
-export const getElementosUsuario = async (id_usuario, coleccion, favorito) => {
+export const getElementosUsuario = async (id_usuario, id_coleccion, favorito) => {
   try {
-    let url = `${baseUrl}getElementosUsuario.php?id_usuario=${id_usuario}&coleccion=${coleccion}`;
+    let url = `${baseUrl}getElementosUsuario.php?id_usuario=${id_usuario}&id_coleccion=${id_coleccion}`;
     if (favorito !== undefined) {
       url += `&favorito=${favorito}`;
     }

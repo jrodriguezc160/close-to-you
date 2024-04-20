@@ -44,7 +44,7 @@ const AlbumStack = ({ myFavAlbums, handleEdit, setChipVisible }) => {
             <>
               {myFavAlbums.map((album, index) => (
                 <div key={index} className="album-card">
-                  <div className="album-cover" style={{ backgroundImage: `url(${album.image[3]['#text']})` }}></div>
+                  <div className="album-cover" style={{ backgroundImage: `url(${album.imagen})` }}></div>
                   <div className="vinyl" style={{ zIndex: '-5' }}></div>
                 </div>
               ))}

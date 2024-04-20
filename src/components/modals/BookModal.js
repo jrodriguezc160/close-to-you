@@ -19,7 +19,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const getLibrosFavoritos = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros', 1);
+      const elementos = await getElementosUsuario(currentUser, 1, 1);
       setMyFavBooks(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -28,7 +28,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const getLibros = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 'Libros');
+      const elementos = await getElementosUsuario(currentUser, 1);
       setMyBooks(elementos);
       // console.log('myBooks actualizado:', myBooks)
     } catch (error) {
