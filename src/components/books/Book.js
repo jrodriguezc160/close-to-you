@@ -28,9 +28,13 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
   }
 
   const handleAddBook = async (book) => {
+    // console.log(book)
     try {
-      await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id, 0);
-      await getLibros();
+      if (!myBooks.some(favBook => favBook.id_api === book.id)) {
+        await addElemento(currentUser, 1, book.titulo, book.autor, book.imagen, book.id_api, 0);
+        await getLibros();
+        setMyBooks([...myBooks, book]);
+      }
     } catch (error) {
       console.error('Error al agregar la publicación: ', error);
     }
@@ -54,8 +58,14 @@ const Book = ({ book, myBooks, myFavBooks, setMyBooks, setMyFavBooks, currentUse
       }, 2000);
     } else {
       try {
+        if (!myBooks.some(favBook => favBook.id_api === book.id)) {
+          await handleAddBook(book); // Espera a que handleAddBook se complete
+        }
         await editElemento(book.id_api, 1);
         await getLibrosFavoritos();
+        setMyFavBooks([...myFavBooks, book]);
+        // await getLibros();
+        // setMyBooks([...myBooks, book]);
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }

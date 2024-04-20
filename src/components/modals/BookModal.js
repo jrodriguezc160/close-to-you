@@ -30,6 +30,7 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
     try {
       const elementos = await getElementosUsuario(currentUser, 'Libros');
       setMyBooks(elementos);
+      // console.log('myBooks actualizado:', myBooks)
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
     }
@@ -81,8 +82,10 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
 
   const handleAddBook = async (book) => {
     try {
-      await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id, 0);
-      getLibros();
+      if (!myBooks.some(favBook => favBook.id_api === book.id)) {
+        await addElemento(currentUser, 1, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.id, 0);
+        await getLibros();
+      }
     } catch (error) {
       console.error('Error al agregar la publicación: ', error);
     }
@@ -91,7 +94,8 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
   const handleRemoveBook = async (bookToRemove) => {
     try {
       await deleteElemento(bookToRemove.id);
-      getLibros()
+      await getLibros();
+      await getLibrosFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
     }
@@ -105,9 +109,11 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
       }, 2000);
     } else {
       try {
-        handleAddBook(book);
-        await editElemento(book.id_api, 1);
-        getLibrosFavoritos();
+        if (!myBooks.some(favBook => favBook.id_api === book.id)) {
+          await handleAddBook(book); // Espera a que handleAddBook se complete
+        }
+        await editElemento(book.id, 1); // Llama a editElemento después de que handleAddBook se haya completado
+        await getLibrosFavoritos();
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }
@@ -205,18 +211,18 @@ const BookModal = ({ showBookModal, setShowBookModal, myFavBooks, setMyFavBooks,
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => {
-                      if (myFavBooks.some(favBook => favBook.id === book.id)) {
+                      if (myFavBooks.some(favBook => favBook.id_api === book.id)) {
                         handleRemoveFavourite(book);
                       } else {
                         handleAddFavourite(book);
                       }
                     }}
-                    fill={myFavBooks.some(favBook => favBook.id === book.id) ? 'gray' : 'none'}
+                    fill={myFavBooks.some(favBook => favBook.id_api === book.id) ? 'gray' : 'none'}
                   />
                 </div>
 
                 <div className='ic-container' >
-                  {!myBooks.some(favBook => favBook.id === book.id) ? (
+                  {!myBooks.some(favBook => favBook.id_api === book.id) ? (
                     <FiPlusCircle
                       onClick={() => handleAddBook(book)}
                       stroke='gray'
