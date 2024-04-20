@@ -31,7 +31,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
   const handleAddAlbum = async (album) => {
     // console.log(album)
     try {
-      if (!myAlbums.some(favAlbums => favAlbums.titulo === album.name)) {
+      if (!myAlbums.some(favAlbums => favAlbums.titulo === album.titulo)) {
         await addElemento(currentUser, 4, album.titulo, album.autor, album.imagen, album.titulo, 0);
         await getAlbumes();
         setMyAlbums([...myAlbums, album]);
@@ -51,7 +51,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
     }
   }
 
-  const handleAddFavourite = async (albums) => {
+  const handleAddFavourite = async (album) => {
     if (myFavAlbums.length >= 5) {
       setShowLimit(true);
       setTimeout(() => {
@@ -59,12 +59,12 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
       }, 2000);
     } else {
       try {
-        if (!myAlbums.some(favAlbums => favAlbums.titulo === albums.name)) {
-          await handleAddAlbum(albums); // Espera a que handleAddAlbum se complete
+        if (!myAlbums.some(favAlbums => favAlbums.titulo === album.titulo)) {
+          await handleAddAlbum(album); // Espera a que handleAddAlbum se complete
         }
-        await editElemento(albums.titulo, 1);
+        await editElemento(album.id_api, 1);
         await getAlbumesFavoritos();
-        setMyFavAlbums([...myFavAlbums, albums]);
+        setMyFavAlbums([...myFavAlbums, album]);
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
       }
