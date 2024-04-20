@@ -12,7 +12,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
 
   const getAlbumesFavoritos = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 1, 1);
+      const elementos = await getElementosUsuario(currentUser, 4, 1);
       setMyFavAlbums(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -21,7 +21,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
 
   const getAlbumes = async () => {
     try {
-      const elementos = await getElementosUsuario(currentUser, 1);
+      const elementos = await getElementosUsuario(currentUser, 4);
       setMyAlbums(elementos);
     } catch (error) {
       console.error('Error al obtener los elementos o los usuarios:', error);
@@ -31,8 +31,8 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
   const handleAddAlbum = async (album) => {
     // console.log(album)
     try {
-      if (!myAlbums.some(favAlbums => favAlbums.id_api === album.mbid)) {
-        await addElemento(currentUser, 4, album.titulo, album.autor, album.imagen, album.id_api, 0);
+      if (!myAlbums.some(favAlbums => favAlbums.titulo === album.name)) {
+        await addElemento(currentUser, 4, album.titulo, album.autor, album.imagen, album.titulo, 0);
         await getAlbumes();
         setMyAlbums([...myAlbums, album]);
       }
@@ -43,7 +43,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
 
   const handleRemoveAlbum = async (albumToRemove) => {
     try {
-      await deleteElemento(albumToRemove.id_api);
+      await deleteElemento(albumToRemove.titulo);
       await getAlbumes();
       await getAlbumesFavoritos();
     } catch (error) {
@@ -52,17 +52,17 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
   }
 
   const handleAddFavourite = async (albums) => {
-    if (myFavAlbums.length >= 3) {
+    if (myFavAlbums.length >= 5) {
       setShowLimit(true);
       setTimeout(() => {
         setShowLimit(false);
       }, 2000);
     } else {
       try {
-        if (!myAlbums.some(favAlbums => favAlbums.id_api === albums.id)) {
+        if (!myAlbums.some(favAlbums => favAlbums.titulo === albums.name)) {
           await handleAddAlbum(albums); // Espera a que handleAddAlbum se complete
         }
-        await editElemento(albums.id_api, 1);
+        await editElemento(albums.titulo, 1);
         await getAlbumesFavoritos();
         setMyFavAlbums([...myFavAlbums, albums]);
       } catch (error) {
@@ -73,7 +73,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
 
   const handleRemoveFavourite = async (albumToRemove) => {
     try {
-      await editElemento(albumToRemove.id_api, 0);
+      await editElemento(albumToRemove.titulo, 0);
       await getAlbumesFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);

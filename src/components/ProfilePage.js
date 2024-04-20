@@ -164,6 +164,7 @@ function ProfilePage ({ currentUser }) {
                 setMyFavMovies={setMyFavMovies}
                 showMovieModal={showMovieModal}
                 setShowMovieModal={setShowMovieModal}
+                currentUser={currentUser}
               />
             </div>
 
@@ -174,6 +175,7 @@ function ProfilePage ({ currentUser }) {
               setMyFavAlbums={setMyFavAlbums}
               showAlbumModal={showAlbumModal}
               setShowAlbumModal={setShowAlbumModal}
+              currentUser={currentUser}
             />
           </div>
           <div>

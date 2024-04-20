@@ -115,10 +115,11 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   }
 
   const handleAddAlbum = async (album) => {
-    console.log(album)
+    console.log(album);
+    console.log(myAlbums);
     try {
-      if (!myAlbums.some(album => album.id_api === album.mbid)) {
-        await addElemento(currentUser, 4, album.name, album.artist, album.image[5]['#text'], album.mbid, 0);
+      if (!myAlbums.some(album => album.titulo === album.name)) {
+        await addElemento(currentUser, 4, album.name, album.artist, album.image[5]['#text'], album.name, 0);
         await getAlbumes();
       }
     } catch (error) {
@@ -128,7 +129,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
 
   const handleRemoveAlbum = async (albumToRemove) => {
     try {
-      await deleteElemento(albumToRemove.mbid);
+      await deleteElemento(albumToRemove.name);
       await getAlbumes();
       await getAlbumesFavoritos();
     } catch (error) {
@@ -137,17 +138,17 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
   }
 
   const handleAddFavourite = async (album) => {
-    if (myFavAlbums.length >= 3) {
+    if (myFavAlbums.length >= 5) {
       setShowLimit(true);
       setTimeout(() => {
         setShowLimit(false);
       }, 2000);
     } else {
       try {
-        if (!myAlbums.some(favAlbum => favAlbum.id_api === album.mbid)) {
+        if (!myAlbums.some(favAlbum => favAlbum.titulo === album.name)) {
           await handleAddAlbum(album); // Espera a que handleAddAlbum se complete
         }
-        await editElemento(album.mbid, 1); // Llama a editElemento después de que handleAddAlbum se haya completado
+        await editElemento(album.name, 1); // Llama a editElemento después de que handleAddAlbum se haya completado
         await getAlbumesFavoritos();
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
@@ -157,7 +158,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
 
   const handleRemoveFavourite = async (albumToRemove) => {
     try {
-      await editElemento(albumToRemove.mbid, 0);
+      await editElemento(albumToRemove.name, 0);
       getAlbumesFavoritos();
     } catch (error) {
       console.error('Error al eliminar la publicación: ', error);
@@ -247,17 +248,17 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => {
-                      if (myFavAlbums.some(favAlbum => favAlbum.id_api === album.mbid)) {
+                      if (myFavAlbums.some(favAlbum => favAlbum.titulo === album.name)) {
                         handleRemoveFavourite(album);
                       } else {
                         handleAddFavourite(album);
                       }
                     }}
-                    fill={myFavAlbums.some(favAlbum => favAlbum.id_api === album.mbid) ? 'gray' : 'none'}
+                    fill={myFavAlbums.some(favAlbum => favAlbum.titulo === album.name) ? 'gray' : 'none'}
                   />
                 </div>
                 <div className='ic-container' >
-                  {!myAlbums.some(favAlbum => favAlbum.id_api === album.mbid) ? (
+                  {!myAlbums.some(favAlbum => favAlbum.titulo === album.name) ? (
                     <FiPlusCircle
                       onClick={() => handleAddAlbum(album)}
                       stroke='gray'
