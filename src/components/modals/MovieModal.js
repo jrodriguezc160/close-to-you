@@ -8,49 +8,49 @@ import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlusCircle } from "@react-icons/all-files/fi/FiPlusCircle";
 import { FiCheckCircle } from "@react-icons/all-files/fi/FiCheckCircle";
 import Movie from '../movies/Movie';
+import { addElemento, deleteElemento, getElementosUsuario, editElemento } from '../../services/CollectionsServices';
 
-const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies }) => {
+const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies, currentUser }) => {
   const [search, setSearch] = useState("");
   const [movieData, setMovieData] = useState([]);
-  const [selectedCollection, setSelectedCollection] = useState(myFavMovies); // Start selectedCollection with myFavMovies
+  const [selectedCollection, setSelectedCollection] = useState([...myFavMovies]);
   const [showLimit, setShowLimit] = useState(false);
   const inputRef = useRef(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const getMoviesFavoritos = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 5, 1);
+      setMyFavMovies(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
+
+  const getMovies = async () => {
+    try {
+      const elementos = await getElementosUsuario(currentUser, 5);
+      setMyMovies(elementos);
+    } catch (error) {
+      console.error('Error al obtener los elementos o los usuarios:', error);
+    }
+  }
+
   useEffect(() => {
     showMovieModal === true && setModalVisible(true);
 
-    const savedFavMovies = localStorage.getItem('myFavMovies');
-    if (savedFavMovies) {
-      setMyFavMovies(JSON.parse(savedFavMovies));
-      setSelectedCollection(JSON.parse(savedFavMovies));
+    setTimeout(() => {
+      let delay = 100;
+      const moviesDivs = document.querySelectorAll('.movie');
+      moviesDivs.forEach(movieDiv => {
+        setTimeout(() => {
+          movieDiv.classList.add('visible');
+        }, delay);
 
-      setTimeout(() => {
-        let delay = 100;
-        const moviesDivs = document.querySelectorAll('.movie');
-        moviesDivs.forEach(movieDiv => {
-          setTimeout(() => {
-            movieDiv.classList.add('visible');
-          }, delay);
-
-          delay += 100;
-        });
-      }, 500);
-    }
-
-    const savedMovies = localStorage.getItem('myMovies');
-    if (savedMovies) {
-      setMyMovies(JSON.parse(savedMovies));
-    }
+        delay += 100;
+      });
+    }, 500);
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('myFavMovies', JSON.stringify(myFavMovies));
-  }, [myFavMovies]);
-
-  useEffect(() => {
-    localStorage.setItem('myMovies', JSON.stringify(myMovies));
-  }, [myMovies]);
 
   useEffect(() => {
     if (modalVisible === true) {
@@ -97,41 +97,71 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
     setMovieData([]);
   };
 
-  const handleAddFavourite = (movie) => {
+  const handleAddMovie = async (movie) => {
+    try {
+      if (!myMovies.some(favMovie => favMovie.id_api === movie.id)) {
+        const moviePoster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+
+        await addElemento(currentUser, 5, movie.title, movie.original_title, moviePoster, movie.id, 0);
+        await getMovies();
+      }
+    } catch (error) {
+      console.error('Error al agregar la publicación: ', error);
+    }
+  }
+
+  const handleRemoveMovie = async (movieToRemove) => {
+    try {
+      await deleteElemento(movieToRemove.id);
+      await getMovies();
+      await getMoviesFavoritos();
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
+  }
+
+  const handleAddFavourite = async (movie) => {
     if (myFavMovies.length >= 3) {
-      console.log('Límite excedido');
       setShowLimit(true);
       setTimeout(() => {
         setShowLimit(false);
       }, 2000);
     } else {
-      setMyFavMovies([...myFavMovies, movie]);
+      try {
+        if (!myMovies.some(favMovie => favMovie.id_api === movie.id)) {
+          await handleAddMovie(movie); // Espera a que handleAddMovie se complete
+        }
+        await editElemento(movie.id, 1); // Llama a editElemento después de que handleAddMovie se haya completado
+        await getMoviesFavoritos();
+      } catch (error) {
+        console.error('Error al agregar la publicación: ', error);
+      }
     }
-  };
+  }
 
-  const handleRemoveFavourite = (movieToRemove) => {
-    const updatedMovies = myFavMovies.filter(movie => movie !== movieToRemove);
-    setMyFavMovies(updatedMovies);
-  };
+  const handleRemoveFavourite = async (movieToRemove) => {
+    try {
+      await editElemento(movieToRemove.id, 0);
+      getMoviesFavoritos();
+    } catch (error) {
+      console.error('Error al eliminar la publicación: ', error);
+    }
+  }
 
-  const handleAddMovie = (movie) => {
-    setMyMovies([...myMovies, movie]);
-  };
-
-  const handleRemoveMovie = (movieToRemove) => {
-    const updatedMovies = myMovies.filter(movie => movie !== movieToRemove);
-    setMyMovies(updatedMovies);
-  };
-
-  const handleSelectView = (collection) => {
+  const handleSelectView = (collection, e) => {
     const moviesDivs = document.querySelectorAll('.movie');
     moviesDivs.forEach(movieDiv => {
       movieDiv.classList.remove('visible');
-      console.log('Se ha eliminado la clase .visible')
+    });
+
+    const headingToggleElements = document.querySelectorAll('.heading-toggle');
+    headingToggleElements.forEach(headingToggle => {
+      headingToggle.classList.remove('selected');
     });
 
     setTimeout(() => {
-      setSelectedCollection(collection);
+      e.target.parentElement.classList.add('selected');
+      setSelectedCollection([...collection]);
 
       setTimeout(() => {
         let delay = 100;
@@ -202,25 +232,25 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => {
-                      if (myFavMovies.some(favMovie => favMovie.id === movie.id)) {
+                      if (myFavMovies.some(favMovie => favMovie.id_api === movie.id)) {
                         handleRemoveFavourite(movie);
                       } else {
                         handleAddFavourite(movie);
                       }
                     }}
-                    fill={myFavMovies.some(favMovie => favMovie.id === movie.id) ? 'gray' : 'none'}
+                    fill={myFavMovies.some(favMovie => favMovie.id_api === movie.id) ? 'gray' : 'none'}
                   />
 
                 </div>
                 <div className='ic-container' >
-                  {!myMovies.some(favMovie => favMovie.id === movie.id) ? (
+                  {!myMovies.some(favMovie => favMovie.id_api === movie.id) ? (
                     <FiPlusCircle
                       onClick={() => handleAddMovie(movie)}
                       stroke='gray'
                     />
                   ) : (
                     <FiCheckCircle
-                      onClick={() => handleAddMovie(movie)}
+                      onClick={() => handleRemoveMovie(movie)}
                       stroke='gray'
                     />
                   )
@@ -232,20 +262,28 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
 
           <div className="movies-list visible" style={{ padding: '0px', margin: '0', gap: '0', minHeight: '80px' }}>
             <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', height: 'fit-content', padding: '32px 0 0 32px' }}>
-              <div className={`heading-toggle ${selectedCollection === myFavMovies ? 'selected' : ''}`} onClick={() => handleSelectView(myFavMovies)}>
+              <div className={`heading-toggle ${selectedCollection === myFavMovies ? 'selected' : ''}`} onClick={(e) => handleSelectView(myFavMovies, e)}>
                 <h3>My favourites</h3>
               </div>
               <div className='heading-toggle'>
                 <h3>/</h3>
               </div>
-              <div className={`heading-toggle ${selectedCollection === myMovies ? 'selected' : ''}`} onClick={() => handleSelectView(myMovies)}>
+              <div className={`heading-toggle ${selectedCollection === myMovies ? 'selected' : ''}`} onClick={(e) => handleSelectView(myMovies, e)}>
                 <h3>My collection</h3>
               </div>
             </div>
 
             <div className="fav-movies masked-overflow" >
-              {selectedCollection.map((movie, index) => (
-                <Movie movie={movie} index={index} handleAddFavourite={handleAddFavourite} handleRemoveFavourite={handleRemoveFavourite} myMovies={myMovies} myFavMovies={myFavMovies} handleAddMovie={handleAddMovie} handleRemoveMovie={handleRemoveMovie} />
+              {selectedCollection.map((movie) => (
+                <Movie
+                  movie={movie}
+                  myMovies={myMovies}
+                  myFavMovies={myFavMovies}
+                  setMyMovies={setMyMovies}
+                  setMyFavMovies={setMyFavMovies}
+                  currentUser={currentUser}
+                  setShowLimit={setShowLimit}
+                />
               ))}
             </div>
           </div>

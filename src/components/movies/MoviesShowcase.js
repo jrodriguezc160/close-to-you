@@ -1,27 +1,28 @@
 import "../../styles/moviesshowcase.css";
 import React, { useEffect, useRef, useState } from 'react';
 import VerticalIconbar from '../VerticalIconBar';
-import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 import MovieStack from './MovieStack';
+import { getElementosUsuario } from '../../services/CollectionsServices';
 
-const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies }) => {
-  const [queue, setQueue] = useState(false);
+const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyFavMovies, myMovies, setMyMovies, currentUser }) => {
   const [chipVisible, setChipVisible] = useState(false);
-  const touch = document.documentElement.ontouchstart !== undefined;
   const imagesRef = useRef(null);
   const imageWidthRef = useRef(0);
   const imageOffsetRef = useRef(0);
 
   useEffect(() => {
-    const savedFavMovies = localStorage.getItem('myFavMovies');
-    if (savedFavMovies) {
-      setMyFavMovies(JSON.parse(savedFavMovies));
+    const fetchData = async () => {
+      try {
+        const librosFavoritos = await getElementosUsuario(currentUser, 5, 1);
+        setMyFavMovies(librosFavoritos);
+        const libros = await getElementosUsuario(currentUser, 5);
+        setMyMovies(libros);
+      } catch (error) {
+        console.error('Error al obtener los elementos o los usuarios:', error);
+      }
     }
 
-    const savedMovie = localStorage.getItem('myMovies');
-    if (savedMovie) {
-      setMyMovies(JSON.parse(savedMovie));
-    }
+    fetchData();
   }, []);
 
   const handleRemoveFavourite = () => {
@@ -30,60 +31,10 @@ const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyF
     setMyFavMovies(updatedMovies);
   };
 
-  const cssTransition = () => {
-    const body = document.body || document.documentElement;
-    const style = body.style;
-    const vendors = ['Moz', 'Webkit', 'O'];
-
-    if (typeof style.transition === 'string') {
-      return true;
-    }
-
-    for (let i = 0; i < vendors.length; i++) {
-      const vendor = vendors[i];
-      if (typeof style[vendor + 'Transition'] === 'string') {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  const timeout = cssTransition() ? [300, 400] : [0, 0];
-
   useEffect(() => {
     imageWidthRef.current = imagesRef?.current?.firstElementChild?.offsetWidth;
     imageOffsetRef.current = imagesRef?.current?.firstElementChild?.offsetLeft;
   }, []);
-
-  const handleImageClick = (event) => {
-    if (!myFavMovies || myFavMovies.length === 0 || queue) {
-      return;
-    }
-
-    setChipVisible(false)
-    setQueue(true);
-
-    const direction =
-      (touch ? event.changedTouches[0].pageX : event.pageX) - imageOffsetRef.current > imageWidthRef.current / 2
-        ? 'slide-left'
-        : 'slide-left';
-
-    const lastClassList = imagesRef.current.lastElementChild.classList;
-    lastClassList.add(direction);
-
-    setTimeout(() => {
-      lastClassList.remove(direction);
-      lastClassList.add('back');
-
-      setTimeout(() => {
-        imagesRef.current.insertBefore(imagesRef.current.lastElementChild, imagesRef.current.firstElementChild);
-        lastClassList.remove('back');
-        setQueue(false);
-        setChipVisible(true)
-      }, timeout[0]);
-    }, timeout[1]);
-  };
 
   const handleMouseEnter = () => {
     setChipVisible(true);
@@ -105,7 +56,7 @@ const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyF
 
       <div style={{ width: '100%', height: '12vw', position: 'relative', display: "flex", justifyContent: "center", alignItems: "center" }}>
         <div style={{ bottom: '-0.5vw', right: '3vw', zIndex: '20', width: '3vw', height: '3vw', position: 'absolute' }} >
-          <img src='https://em-content.zobj.net/source/apple/391/film-frames_1f39e-fe0f.png' style={{ width: 'inherit', height: 'inherit' }} />
+          <img src='https://em-content.zobj.net/source/apple/391/film-frames_1f39e-fe0f.png' style={{ width: 'inherit', height: 'inherit' }} alt='Películas' />
         </div>
 
         <MovieStack
@@ -113,20 +64,6 @@ const MoviesShowcase = ({ setShowMovieModal, showMovieModal, myFavMovies, setMyF
           handleEdit={handleEdit}
           setChipVisible={setChipVisible}
         />
-
-        {/*         <div ref={imagesRef} className={`posters`} onClick={handleImageClick} style={{ width: "12vw", display: "flex", justifyContent: "center", alignItems: "center", marginRight: '4vw' }}>
-          {myFavMovies && myFavMovies.length > 0 ? myFavMovies.map((movie, index) => (
-            <div key={index} className={`poster`}>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-            </div>
-          )) : (
-            <div style={{ width: '7vw', height: '11vw', border: '2px dashed lightgray', borderRadius: '8px' }}>
-              <div style={{ width: '100%', height: '100%', color: 'lightgray', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }} onClick={handleEdit}>
-                <FiPlus style={{ width: '75%', height: '75%' }} strokeWidth={'1.5px'} />
-              </div>
-            </div>
-          )}
-        </div> */}
       </div>
     </div>
   );

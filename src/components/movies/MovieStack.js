@@ -6,7 +6,6 @@ const MovieStack = ({ myFavMovies, handleEdit, setChipVisible }) => {
 
   useEffect(() => {
     const stack = document.querySelector(".movie-stack");
-    const cards = [...stack.children].reverse();
 
     const swap = (e) => {
       const card = document.querySelector(".movie-card:last-child");
@@ -34,7 +33,7 @@ const MovieStack = ({ myFavMovies, handleEdit, setChipVisible }) => {
         {myFavMovies.length > 0
           ? (
             myFavMovies.map((movie, index) => (
-              <div key={index} className="movie-card" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+              <div key={index} className="movie-card" style={{ backgroundImage: `url(${movie.imagen})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
               </div>
             ))
           )

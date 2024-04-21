@@ -37,9 +37,9 @@ const BookStack = ({ myFavBooks, handleEdit, setChipVisible }) => {
       <div className='book-stack'>
         {myFavBooks.length > 0
           ? (
-            myFavBooks.map((book, index) => (
+            myFavBooks.map((book) => (
               book && book.imagen ? (
-                <div className="book-card" style={{ backgroundImage: `url(${book.imagen})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                <div className="book-card" key={book.id} style={{ backgroundImage: `url(${book.imagen})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
                 </div>
               ) : (
                 <div className="book-card no-cover-book-card">
