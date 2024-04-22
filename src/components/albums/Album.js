@@ -31,7 +31,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
   const handleAddAlbum = async (album) => {
     // console.log(album)
     try {
-      if (!myAlbums.some(favAlbums => favAlbums.id_api === album.url)) {
+      if (!myAlbums.some(favAlbums => favAlbums.id_api === album.id_api)) {
         await addElemento(currentUser, 4, album.titulo, album.autor, album.imagen, album.id_api, 0);
         await getAlbumes();
         setMyAlbums([...myAlbums, album]);
@@ -59,7 +59,7 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
       }, 2000);
     } else {
       try {
-        if (!myAlbums.some(favAlbums => favAlbums.id_api === albums.url)) {
+        if (!myAlbums.some(favAlbums => favAlbums.id_api === albums.id_api)) {
           await handleAddAlbum(albums); // Espera a que handleAddAlbum se complete
         }
         await editElemento(albums.id_api, 1);
@@ -113,17 +113,17 @@ const Album = ({ album, myAlbums, myFavAlbums, setMyAlbums, setMyFavAlbums, curr
           <div className='ic-container' >
             <FiStar
               onClick={() => {
-                if (!myFavAlbums.some(favAlbum => favAlbum.id_api === album.url)) {
+                if (!myFavAlbums.some(favAlbum => favAlbum.id_api === album.id_api)) {
                   handleAddFavourite(album);
                 } else {
                   handleRemoveFavourite(album);
                 }
               }}
-              fill={myFavAlbums.some(favAlbum => favAlbum.id_api === album.url) ? 'gray' : 'none'}
+              fill={myFavAlbums.some(favAlbum => favAlbum.id_api === album.id_api) ? 'gray' : 'none'}
             />
           </div>
           <div className='ic-container' >
-            {!myAlbums.some(favAlbum => favAlbum.id_api === album.url) ? (
+            {!myAlbums.some(favAlbum => favAlbum.id_api === album.id_api) ? (
               <FiPlusCircle
                 onClick={() => handleAddAlbum(album)}
                 stroke='gray'

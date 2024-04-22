@@ -148,7 +148,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
         if (!myAlbums.some(favAlbum => favAlbum.id_api === album.url)) {
           await handleAddAlbum(album); // Espera a que handleAddAlbum se complete
         }
-        await editElemento(album.id, 1); // Llama a editElemento después de que handleAddAlbum se haya completado
+        await editElemento(album.url, 1); // Llama a editElemento después de que handleAddAlbum se haya completado
         await getAlbumesFavoritos();
       } catch (error) {
         console.error('Error al agregar la publicación: ', error);
