@@ -119,6 +119,7 @@ function ProfilePage ({ currentUser }) {
         setProfilePic={setProfilePic}
         showProfilePicModal={showProfilePicModal}
         setShowProfilePicModal={setShowProfilePicModal}
+        currentUser={currentUser}
       />
 
       <Banner datosUsuario={datosUsuario} />

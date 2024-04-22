@@ -1,21 +1,13 @@
 import { FiFilePlus } from "@react-icons/all-files/fi/FiFilePlus";
 import { FiEdit2 } from "@react-icons/all-files/fi/FiEdit2";
 import "../index.css"
-import { useEffect, useState } from 'react';
-import { useSpring, animated, easings } from 'react-spring';
-import { easeInOut, easeOut } from 'framer-motion';
+import { useState } from 'react';
+import { useSpring, animated } from 'react-spring';
+import { easeOut } from 'framer-motion';
 
 function ProfilePic ({ setShowProfilePicModal, datosUsuario }) {
   const [iconVisible, setIconVisible] = useState(false)
   const [isProfilePicLoaded, setIsProfilePicLoaded] = useState(false);
-
-  /*   useEffect(() => {
-      if (profilePic) {
-        setIsProfilePicLoaded(true);
-      } else {
-        setIsProfilePicLoaded(false);
-      }
-    }, [profilePic]); */
 
   const fade = useSpring({
     opacity: isProfilePicLoaded ? 1 : 0,
@@ -52,7 +44,7 @@ function ProfilePic ({ setShowProfilePicModal, datosUsuario }) {
           )
           : (
             <animated.div style={fade} className='profile-pic'>
-              <img onLoad={() => setIsProfilePicLoaded(true)} src={datosUsuario.foto_perfil} style={{ width: 'auto', height: 'inherit' }} />
+              <img onLoad={() => setIsProfilePicLoaded(true)} src={datosUsuario.foto_perfil} style={{ width: '100%', height: 'auto' }} />
             </animated.div>
           )}
       </div>

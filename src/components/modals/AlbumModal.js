@@ -129,7 +129,7 @@ const AlbumModal = ({ showAlbumModal, setShowAlbumModal, myFavAlbums, setMyFavAl
 
   const handleRemoveAlbum = async (albumToRemove) => {
     try {
-      await deleteElemento(albumToRemove.id);
+      await deleteElemento(albumToRemove.url);
       await getAlbumes();
       await getAlbumesFavoritos();
     } catch (error) {

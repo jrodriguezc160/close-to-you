@@ -1,15 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
-import { FiX } from "@react-icons/all-files/fi/FiX";
-import { FiAlertTriangle } from "@react-icons/all-files/fi/FiAlertTriangle";
-import { FiImage } from "@react-icons/all-files/fi/FiImage";
-import { FiStar } from "@react-icons/all-files/fi/FiStar";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { FiPlus } from "@react-icons/all-files/fi/FiPlus";
 import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import { FiFilePlus } from "@react-icons/all-files/fi/FiFilePlus";
+import { editProfilePic } from '../../services/UsersServices';
 
-const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setShowProfilePicModal }) => {
+const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setShowProfilePicModal, currentUser }) => {
   const [savedProfilePics, setSavedProfilePics] = useState([])
   const [iconVisible, setIconVisible] = useState(false)
   const inputRef = useRef(null);
@@ -31,17 +27,38 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
     }, 500);
   }, [showProfilePicModal])
 
-  const handleNewProfilePic = () => {
+  const handleNewProfilePic = async () => {
     const newImage = inputRef.current.value;
 
-    if (newImage) {
-      setProfilePic(newImage);
+    try {
+      await editProfilePic(currentUser, newImage);
+
+      setTimeout(() => {
+        setModalVisible(false)
+      }, 500);
+    } catch (error) {
+      if (newImage) {
+        setProfilePic(newImage);
+      }
+      console.error('Error al agregar la publicación: ', error)
     }
   }
 
-  const handleChangeProfilePic = (pic, index) => {
+  const handleChangeProfilePic = async (pic, index) => {
     console.log('Cambiando PFP...', pic);
-    setProfilePic(savedProfilePics[index]);
+
+    try {
+      await editProfilePic(currentUser, pic);
+
+      setTimeout(() => {
+        setModalVisible(false)
+      }, 500);
+    } catch (error) {
+      if (pic) {
+        setProfilePic(savedProfilePics[index]);
+      }
+      console.error('Error al agregar la publicación: ', error)
+    }
   };
 
 

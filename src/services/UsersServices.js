@@ -35,3 +35,29 @@ export const getUsuarioData = async (id) => {
     throw new Error('Error al iniciar sesión: ' + error.message);
   }
 };
+
+export const editProfilePic = async (id, foto_perfil) => {
+  try {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('foto_perfil', foto_perfil);
+
+    const response = await fetch(baseUrl + 'editProfilePic.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al iniciar sesión');
+    }
+    const data = await response.json();
+    // Verifica si la respuesta es exitosa
+    if (data) {
+      return data.data[0];
+    } else {
+      throw new Error('Error en la respuesta: ' + data.message);
+    }
+  } catch (error) {
+    throw new Error('Error al iniciar sesión: ' + error.message);
+  }
+};
