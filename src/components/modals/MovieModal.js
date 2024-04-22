@@ -99,7 +99,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
 
   const handleAddMovie = async (movie) => {
     try {
-      if (!myMovies.some(favMovie => favMovie.id_api === movie.id)) {
+      if (!myMovies.some(favMovie => favMovie.id_api === movie.id.toString())) {
         const moviePoster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
 
         await addElemento(currentUser, 5, movie.title, movie.original_title, moviePoster, movie.id, 0);
@@ -112,7 +112,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
 
   const handleRemoveMovie = async (movieToRemove) => {
     try {
-      await deleteElemento(movieToRemove.id);
+      await deleteElemento(movieToRemove.id.toString());
       await getMovies();
       await getMoviesFavoritos();
     } catch (error) {
@@ -128,7 +128,7 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
       }, 2000);
     } else {
       try {
-        if (!myMovies.some(favMovie => favMovie.id_api === movie.id)) {
+        if (!myMovies.some(favMovie => favMovie.id_api === movie.id.toString())) {
           await handleAddMovie(movie); // Espera a que handleAddMovie se complete
         }
         await editElemento(movie.id, 1); // Llama a editElemento después de que handleAddMovie se haya completado
@@ -232,18 +232,18 @@ const MovieModal = ({ showMovieModal, setShowMovieModal, myFavMovies, setMyFavMo
                 <div className='ic-container' >
                   <FiStar
                     onClick={() => {
-                      if (myFavMovies.some(favMovie => favMovie.id_api === movie.id)) {
+                      if (myFavMovies.some(favMovie => favMovie.id_api === movie.id.toString())) {
                         handleRemoveFavourite(movie);
                       } else {
                         handleAddFavourite(movie);
                       }
                     }}
-                    fill={myFavMovies.some(favMovie => favMovie.id_api === movie.id) ? 'gray' : 'none'}
+                    fill={myFavMovies.some(favMovie => favMovie.id_api === movie.id.toString()) ? 'gray' : 'none'}
                   />
 
                 </div>
                 <div className='ic-container' >
-                  {!myMovies.some(favMovie => favMovie.id_api === movie.id) ? (
+                  {!myMovies.some(favMovie => favMovie.id_api === movie.id.toString()) ? (
                     <FiPlusCircle
                       onClick={() => handleAddMovie(movie)}
                       stroke='gray'
