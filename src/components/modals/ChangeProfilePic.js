@@ -40,7 +40,7 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
       if (newImage) {
         setProfilePic(newImage);
       }
-      console.error('Error al agregar la publicación: ', error)
+      console.error('Error al cambiar la foto de perfil: ', error)
     }
   }
 
@@ -57,10 +57,9 @@ const ChangeProfilePic = ({ profilePic, setProfilePic, showProfilePicModal, setS
       if (pic) {
         setProfilePic(savedProfilePics[index]);
       }
-      console.error('Error al agregar la publicación: ', error)
+      console.error('Error al agregar al cambiar la foto de perfil: ', error)
     }
   };
-
 
   const handleClearInput = () => {
     inputRef.current.value = '';

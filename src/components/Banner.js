@@ -5,8 +5,9 @@ import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import { FiDelete } from "@react-icons/all-files/fi/FiDelete";
 import { useState, useRef, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
+import { editBanner } from '../services/UsersServices';
 
-function Banner ({ datosUsuario }) {
+function Banner ({ datosUsuario, currentUser }) {
   const [cambiarBanner, setCambiarBanner] = useState(false);
   const [noBanner, setNoBanner] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
@@ -23,13 +24,17 @@ function Banner ({ datosUsuario }) {
     gap: "8px",
   });
 
-  const handleNewBanner = () => {
+  const handleNewBanner = async () => {
     const newImage = inputRef.current.value;
     setCambiarBanner(false);
     if (newImage !== '') {
       setNoBanner(false)
       setNuevoBanner(newImage);
     }
+
+    try {
+      await editBanner(currentUser, newImage);
+    } catch (error) { console.log(error) }
   }
 
   const handleClearInput = () => {
@@ -73,7 +78,7 @@ function Banner ({ datosUsuario }) {
           </div>
         </div>
       </div>
-      <img src={datosUsuario.banner} style={{ margin: "0", left: "0", width: '100%', height: 'auto' }} />
+      <img src={datosUsuario.banner} style={{ margin: "0", left: "0", width: '100%', height: 'auto' }} alt='banner' />
     </div >
   )
 }

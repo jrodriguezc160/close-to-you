@@ -122,7 +122,7 @@ function ProfilePage ({ currentUser }) {
         currentUser={currentUser}
       />
 
-      <Banner datosUsuario={datosUsuario} />
+      <Banner datosUsuario={datosUsuario} currentUser={currentUser} />
       <div style={{ display: "flex", flexDirection: "row", justifyContent: 'space-around' }}>
         <div style={{ width: "36%", padding: "0 6rem", gap: "32px", display: "flex", flexDirection: "column" }}>
           <ProfilePic
